@@ -14,6 +14,7 @@ const Section = ({ title, wsid }) => {
 
     const boardCollectionRef = collection(db, "board")
     const qBoardWorkspace = query(boardCollectionRef, where("workspaceID", "==", wsid))
+    const target = "modal-cb" + wsid
 
     useEffect(() => {
         const unsub = onSnapshot(qBoardWorkspace, (data) => {
@@ -27,12 +28,12 @@ const Section = ({ title, wsid }) => {
         <div className="flex flex-col">
             <Header title = {title} />
             <div className="my-2"></div>
-            <div className="flex flex-wrap space-x-4">
+            <div className="flex flex-wrap justify-start content-start">
                 {board.map((b) => {
                     return <Board title={b.name} key={b.id}/>
                 })}
-                <Modal body={<CreateBoardCard />} target="modal-cb" />
-                <ModalContent target="modal-cb" content={<CreateBoardForm wsid={wsid}/>}/>
+                <Modal body={<CreateBoardCard />} target={target} />
+                <ModalContent target={target} content={<CreateBoardForm wsid={wsid}/>}/>
             </div>
         </div>
     );

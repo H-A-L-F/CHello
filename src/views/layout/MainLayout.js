@@ -7,7 +7,6 @@ import BoardPage from '../pages/BoardPage';
 function MainLayout() {
   return (
     <div className="flex flex-row">
-      <SideBar />
       <div className="ml-16 my-8 w-[100%] justify-center">
         <Routes>
           <Route path="home" element={<Home />}/>
@@ -15,6 +14,7 @@ function MainLayout() {
           <Route path="workspace/:id" element={<BoardPage />}/>
         </Routes>
       </div>
+      <SideBar />
     </div>
   );
 }

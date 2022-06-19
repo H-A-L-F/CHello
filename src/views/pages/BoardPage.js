@@ -38,7 +38,7 @@ const BoardPage = ({}) => {
         <div className="w-[90%] mx-auto">
             <Header title={workspace.name} />
             <div className="my-2"></div>
-            <div className="flex flex-wrap space-x-4">
+            <div className="flex flex-wrap">
                 {board.map((b) => {
                     const link = "/main/board/" + b.id
 

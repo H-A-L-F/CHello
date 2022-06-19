@@ -3,18 +3,22 @@ import { useRef } from "react";
 import { db } from "../../firebase";
 import { useParams } from 'react-router-dom';
 
-const CreateBoardForm = ({ }) => {
+const CreateBoardForm = ({ wsid }) => {
     const titleRef = useRef()
     let visibility = "public"
 
     const boardCollectionRef = collection(db, "board")
     const {id} = useParams()
 
+    let currId = id ? id : wsid
+
+    // console.log(currId)
+
     const handleCreateBoard = () => {
         addDoc(boardCollectionRef, {
             name: titleRef.current.value,
             visibility: visibility,
-            workspaceID: id
+            workspaceID: currId
         })
     }
 

@@ -1,4 +1,5 @@
 import { HiCalendar, HiHome, HiOutlinePlusSm } from "react-icons/hi";
+import CreateWorkspace from "./CreateWorkspace";
 
 const SideBar = () => {
     return (
@@ -8,7 +9,7 @@ const SideBar = () => {
             <SideBarIcon icon={<HiOutlinePlusSm size = "32"/>} text="Create Workspace" />
 
             <Modal sidebar={<SideBarIcon icon={<HiOutlinePlusSm size = "32"/>} text="Create Workspace" />} target="modal-cws"/>
-            <ModalContent target="modal-cws"/>
+            <ModalContent target="modal-cws" content={<CreateWorkspace />}/>
 
             <SideBarIcon icon={<HiCalendar size = "20"/>} text="Workspace"/>
 
@@ -33,14 +34,13 @@ const Modal = ({ sidebar, target }) => {
     );
 }
 
-const ModalContent = ({ target }) => {
+const ModalContent = ({ target, content }) => {
     return (
         <div>
             <input type="checkbox" id={target} class="modal-toggle" />
             <label for={target} class="modal cursor-pointer">
             <label class="modal-box relative" for="">
-                <h3 class="text-lg font-bold">Congratulations random Interner user!</h3>
-                <p class="py-4">You've been selected for a chance to get one year of subscription to use Wikipedia for free!</p>
+                {content}
             </label>
             </label>
         </div>

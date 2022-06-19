@@ -12,6 +12,8 @@ const Home = () => {
         const unsub = onSnapshot(workspaceCollectionRef, (data) => {
             setWorkspace(data.docs.map((doc) => ({...doc.data(), id: doc.id})))
         })
+
+        return unsub
     }, [])
 
     const {user} = useUserAuth();
@@ -20,7 +22,7 @@ const Home = () => {
     return (
         <div className="flex flex-col w-[90%] mx-auto space-y-8">
             {workspace.map((ws) => {
-                return <Section title = {ws.name} key = {ws.id}/>
+                return <Section title = {ws.name} key = {ws.id} wsid={ws.id}/>
             })}
         </div>
     );

@@ -1,11 +1,11 @@
 import './index.css';
-import SideBar from './views/components/sidebar/SideBar';
+import MainLayout from './views/layout/MainLayout';
+import Register from './views/pages/Register';
 
 function App() {
   return (
-    <div className="flex">
-      <SideBar />
-    </div>
+    // <MainLayout />
+    <Register />
   );
 }
 

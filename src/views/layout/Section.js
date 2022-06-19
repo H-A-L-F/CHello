@@ -2,10 +2,10 @@ import Board from "../components/Board";
 import CreateBoard from "../components/CreateBoard";
 import Header from "../components/Header";
 
-const Section = () => {
+const Section = ({ title }) => {
     return (
         <div className="flex flex-col">
-            <Header title = "Header" />
+            <Header title = {title} />
             <div className="my-2"></div>
             <div className="flex flex-wrap space-x-4">
                 <Board />

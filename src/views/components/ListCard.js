@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { db } from "../../firebase";
 import Card from "./Card";
+import CardDetail from "./CardDetail";
 import CreateCard from "./CreateCard";
 import CreateCardForm from "./CreateCardForm";
 import Modal from "./Modal";
@@ -33,7 +34,7 @@ const ListCard = ({ title, lid }) => {
 
     const enterPress = (e) => {
         if (e.keyCode === 13) {
-            updateList(lid)
+            updateList()
             titleRef.current.blur()
         }
     }
@@ -44,11 +45,22 @@ const ListCard = ({ title, lid }) => {
             <input type="text" ref={titleRef} onKeyDown={enterPress} className="text-primary text-2xl font-bold input input-ghost w-full max-w-xs truncate" defaultValue={title} />
             <div className="my-2"></div>
             {card.map((c) => {
-                return <Card title={c.name} status={c.status} key={c.id}/>
+                return <CardModal c={c}/>
             })}
             
             <Modal body={<CreateCardModal />} target={target}/>
             <ModalContent target={target} content={<CreateCardForm lid={lid} />}/>
+        </div>
+    );
+}
+
+const CardModal = ({ c }) => {
+    const target = "modal-ce-" + c.id
+
+    return (
+        <div>
+            <Modal body={<Card title={c.name} status={c.status} key={c.id}/>} target={target}/>
+            <ModalContent content={<CardDetail cid={c.id}/>} target={target}/>
         </div>
     );
 }

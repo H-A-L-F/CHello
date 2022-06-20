@@ -1,10 +1,19 @@
+import { addDoc, collection } from "firebase/firestore";
 import { useRef } from "react";
+import { db } from "../../firebase";
+import { useParams } from 'react-router-dom';
 
 const CreateList = () => {
     const titleRef = useRef()
+    const {id} = useParams()
+
+    const listCollectionRef = collection(db, "list")
 
     const handleCreateList = () => {
-
+        addDoc(listCollectionRef, {
+            name: titleRef.current.value,
+            boardID: id
+        })
     }
 
     return (

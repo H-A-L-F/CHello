@@ -8,6 +8,7 @@ import CreateBoardForm from "../components/CreateBoardForm";
 import Header from "../components/Header";
 import Modal from "../components/Modal";
 import ModalContent from "../components/ModalContent";
+import { Link } from 'react-router-dom';
 
 const Section = ({ title, wsid }) => {
     const [board, setBoard] = useState([])
@@ -30,7 +31,14 @@ const Section = ({ title, wsid }) => {
             <div className="my-2"></div>
             <div className="flex flex-wrap justify-start content-start">
                 {board.map((b) => {
-                    return <Board title={b.name} key={b.id}/>
+                    const link = "/main/board/" + b.id
+
+                    // return <Board title={b.name} key={b.id}/>
+                    return (
+                        <Link to={link} key={b.id}>
+                            <Board title={b.name}/>
+                        </Link>
+                    );
                 })}
                 <Modal body={<CreateBoardCard />} target={target} />
                 <ModalContent target={target} content={<CreateBoardForm wsid={wsid}/>}/>

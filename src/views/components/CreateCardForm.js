@@ -30,7 +30,7 @@ const CreateCardForm = ({ lid }) => {
             </div>
             <div className="form-control">
                 <label className="label">
-                    <span className="label-text">Visibility</span>
+                    <span className="label-text">Status</span>
                 </label>
                 <select onChange={handleChange} className="select select-primary w-full max-w-xs">
                     <option defaultChecked>default</option>

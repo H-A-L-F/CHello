@@ -1,7 +1,29 @@
-const Card = ({ title }) => {
+import { HiPencilAlt } from "react-icons/hi";
+
+const Card = ({ title, status }) => {
+    let color = () => {
+        switch (status) {
+            case "default":
+                return "bg-info text-info-content"
+            case "done":
+                return "bg-success text-success-content"
+            case "ongoing":
+                return "bg-warning text-warning-content"
+            case "no-progress":
+                return "bg-error text-error-content"
+            default:
+                break;
+        }
+    }
+
+    console.log(color())
+
     return (
-        <div className="flex-auto h-12 bg-info rounded-md">
-            <h2 className="text-xl font-bold text-info-content">asasdasd</h2>
+        <div className={"flex-auto h-12 rounded-md flex items-center px-4 flex-row justify-between group " + color()}>
+            <h2 className="text-xl font-bold"> {title} </h2>
+            <div className="text-info-content transition-all duration-100 ease-linear scale-0 group-hover:scale-100">
+                {<HiPencilAlt size = "24"/>} 
+            </div>
         </div>
     );
 }

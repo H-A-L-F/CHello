@@ -39,10 +39,10 @@ const CreateBoardForm = ({ wsid }) => {
                     <span className="label-text">Visibility</span>
                 </label>
                 <select onChange={handleChange} className="select select-primary w-full max-w-xs">
-                <option defaultChecked>public</option>
-                <option>workspace-visible</option>
-                <option>board-visible</option>
-            </select>
+                    <option defaultChecked>public</option>
+                    <option>workspace-visible</option>
+                    <option>board-visible</option>
+                </select>
             </div>
             <div className="form-control mt-6">
                 <button className="btn btn-primary" onClick={handleCreateBoard}>Create</button>

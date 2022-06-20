@@ -18,7 +18,6 @@ const ListPage = () => {
 
     useEffect(() => {
         const unsub = onSnapshot(qListBoard, (data) => {
-            console.log(data.docs.map((doc) => ({...doc.data(), id: doc.id})))
             setList(data.docs.map((doc) => ({...doc.data(), id: doc.id})))
         })
 
@@ -28,7 +27,7 @@ const ListPage = () => {
     return (
         <div className="flex flex-row w-[90%] mx-auto space-x-8">
             {list.map((l) => {
-                return <ListCard title={l.name} key={l.id}/>
+                return <ListCard title={l.name} lid={l.id} key={l.id}/>
             })}
             <Modal body={<CreateListCard />} target="modal-cl"/>
             <ModalContent target="modal-cl" content={<CreateList />}/>

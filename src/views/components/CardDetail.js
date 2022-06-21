@@ -2,7 +2,7 @@ import { doc, updateDoc } from "firebase/firestore";
 import { useRef } from "react";
 import { db } from "../../firebase";
 
-const CardDetail = ({ cid }) => {
+const CardDetail = ({ c }) => {
     const titleRef = useRef()
     let status = "default"
 
@@ -11,7 +11,7 @@ const CardDetail = ({ cid }) => {
     }
 
     const updateCard = async() => {
-        const cardDocRef = doc(db, "card", cid)
+        const cardDocRef = doc(db, "card", c.id)
         const newField = { name: titleRef.current.value, status: status }
         await updateDoc(cardDocRef, newField)
     }
@@ -24,7 +24,7 @@ const CardDetail = ({ cid }) => {
         <div>
             <div className="form-control">
                 <label className="label">
-                    <span className="label-text">Title</span>
+                    <span className="label-text" defaultValue={c.name}>Title</span>
                 </label>
                 <input ref={titleRef} type="text" placeholder="title" className="input input-bordered" />
             </div>

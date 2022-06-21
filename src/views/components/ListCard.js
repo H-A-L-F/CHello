@@ -45,7 +45,7 @@ const ListCard = ({ title, lid }) => {
             <input type="text" ref={titleRef} onKeyDown={enterPress} className="text-primary text-2xl font-bold input input-ghost w-full max-w-xs truncate" defaultValue={title} />
             <div className="my-2"></div>
             {card.map((c) => {
-                return <CardModal c={c}/>
+                return <CardModal c={c} key={c.id}/>
             })}
             
             <Modal body={<CreateCardModal />} target={target}/>
@@ -59,8 +59,8 @@ const CardModal = ({ c }) => {
 
     return (
         <div>
-            <Modal body={<Card title={c.name} status={c.status} key={c.id}/>} target={target}/>
-            <ModalContent content={<CardDetail cid={c.id}/>} target={target}/>
+            <Modal body={<Card c={c}/>} target={target}/>
+            <ModalContent content={<CardDetail c={c}/>} target={target}/>
         </div>
     );
 }

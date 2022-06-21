@@ -1,8 +1,8 @@
 import { HiPencilAlt } from "react-icons/hi";
 
-const Card = ({ title, status }) => {
+const Card = ({ c }) => {
     let color = () => {
-        switch (status) {
+        switch (c.status) {
             case "default":
                 return "bg-info text-info-content"
             case "done":
@@ -20,7 +20,7 @@ const Card = ({ title, status }) => {
 
     return (
         <div className={"flex-auto h-12 rounded-md flex items-center px-4 flex-row justify-between group " + color()}>
-            <h2 className="text-xl font-bold"> {title} </h2>
+            <h2 className="text-xl font-bold"> {c.name} </h2>
             <div className="transition-all duration-100 ease-linear scale-0 group-hover:scale-100">
                 {<HiPencilAlt size = "24"/>} 
             </div>

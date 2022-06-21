@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import Section from '../layout/Section';
 import {db} from '../../firebase';
 import { collection, onSnapshot } from 'firebase/firestore';
-import { useUserAuth } from '../../AuthContext';
 
 const Home = () => {
     const [workspace, setWorkspace] = useState([])
@@ -16,13 +15,10 @@ const Home = () => {
         return unsub
     }, [])
 
-    const {user} = useUserAuth();
-    console.log(user.displayName);
-
     return (
         <div className="flex flex-col w-[90%] mx-auto space-y-8">
             {workspace.map((ws) => {
-                return <Section title = {ws.name} key = {ws.id} wsid={ws.id}/>
+                return <Section ws={ws} key = {ws.id}/>
             })}
         </div>
     );

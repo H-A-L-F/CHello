@@ -10,12 +10,14 @@ import Modal from "../components/Modal";
 import ModalContent from "../components/ModalContent";
 import { Link } from 'react-router-dom';
 
-const Section = ({ title, wsid }) => {
+const Section = ({ ws }) => {
     const [board, setBoard] = useState([])
 
     const boardCollectionRef = collection(db, "board")
-    const qBoardWorkspace = query(boardCollectionRef, where("workspaceID", "==", wsid))
-    const target = "modal-cb" + wsid
+    const qBoardWorkspace = query(boardCollectionRef, where("workspaceID", "==", ws.id))
+    const target = "modal-cb" + ws.id
+
+    console.log(ws)
 
     useEffect(() => {
         const unsub = onSnapshot(qBoardWorkspace, (data) => {
@@ -27,7 +29,7 @@ const Section = ({ title, wsid }) => {
 
     return (
         <div className="flex flex-col">
-            <Header title = {title} />
+            <Header ws={ws} />
             <div className="my-2"></div>
             <div className="flex flex-wrap justify-start content-start">
                 {board.map((b) => {
@@ -41,7 +43,7 @@ const Section = ({ title, wsid }) => {
                     );
                 })}
                 <Modal body={<CreateBoardCard />} target={target} />
-                <ModalContent target={target} content={<CreateBoardForm wsid={wsid}/>}/>
+                <ModalContent target={target} content={<CreateBoardForm ws={ws}/>}/>
             </div>
         </div>
     );

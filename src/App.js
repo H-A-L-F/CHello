@@ -1,4 +1,3 @@
-import { getAuth } from "firebase/auth";
 import { BrowserRouter, Route, Routes, Navigate, useLocation } from "react-router-dom";
 import { UserAuthContextProvider, useUserAuth } from "./AuthContext";
 import "./index.css";
@@ -28,10 +27,10 @@ function RequireAuth({ children }) {
   let { user } = useUserAuth();
   let location = useLocation();
 
-  console.log("gege")
-  console.log(user)
-  console.log(JSON.parse(window.localStorage.getItem('user')))
-  console.log("gege")
+  // console.log("gege")
+  // console.log(user)
+  // console.log(JSON.parse(window.localStorage.getItem('user')))
+  // console.log("gege")
 
   if (!user && !JSON.parse(window.localStorage.getItem('user'))) {
     // Redirect them to the /login page, but save the current location they were

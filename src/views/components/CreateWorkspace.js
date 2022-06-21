@@ -17,7 +17,7 @@ const CreateWorkspace = () => {
 
         addDoc(workspaceCollectionRef, {
             name: titleRef.current.value,
-            admin: {id},
+            admin: [id],
             public: bool
         })
             .then({

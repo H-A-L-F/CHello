@@ -13,14 +13,15 @@ import { Link } from 'react-router-dom';
 const Section = ({ ws }) => {
     const [board, setBoard] = useState([])
 
-    const boardCollectionRef = collection(db, "board")
-    const qBoardWorkspace = query(boardCollectionRef, where("workspaceID", "==", ws.id))
+    const boardCollectionRef = collection(db, "workspace/" + ws.id + "/board")
+    // const qBoardWorkspace = query(boardCollectionRef, where("workspaceID", "==", ws.id))
     const target = "modal-cb" + ws.id
 
-    console.log(ws)
+    console.log(boardCollectionRef)
 
     useEffect(() => {
-        const unsub = onSnapshot(qBoardWorkspace, (data) => {
+        const unsub = onSnapshot(boardCollectionRef, (data) => {
+            console.log(data)
             setBoard(data.docs.map((doc) => ({...doc.data(), id: doc.id})))
         })
 

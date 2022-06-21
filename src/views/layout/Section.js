@@ -18,11 +18,8 @@ const Section = ({ ws }) => {
     // const qBoardWorkspace = query(boardCollectionRef, where("workspaceID", "==", ws.id))
     const target = "modal-cb" + ws.id
 
-    console.log(boardCollectionRef)
-
     useEffect(() => {
         const unsub = onSnapshot(boardCollectionRef, (data) => {
-            console.log(data)
             setBoard(data.docs.map((doc) => ({...doc.data(), id: doc.id})))
         })
 

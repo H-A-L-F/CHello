@@ -1,7 +1,8 @@
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import { useRef } from "react";
 import { useUserAuth } from "../../AuthContext";
 import { db } from "../../firebase";
+import { makeid } from "../../GenerateId";
 
 const CreateWorkspace = () => {
     const titleRef = useRef()
@@ -10,22 +11,18 @@ const CreateWorkspace = () => {
     const { user } = useUserAuth()
     const id = user.uid
 
-    const workspaceCollectionRef = collection(db, "workspace")
+    // const workspaceCollectionRef = collection(db, "workspace")
+    let workspaceCollectionRef = 'workspace/'  + makeid(20)
 
     const handleCreateWorkspace = () => {
         const bool = publicRef.current.value === "on" ? true : false
 
-        addDoc(workspaceCollectionRef, {
+        setDoc(doc(db, workspaceCollectionRef), {
             name: titleRef.current.value,
             admin: [id],
-            public: bool
+            public: bool,
+            path: workspaceCollectionRef
         })
-            .then({
-
-            })
-            .catch({
-
-            });
     }
 
     return (

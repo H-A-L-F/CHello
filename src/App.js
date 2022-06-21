@@ -26,8 +26,6 @@ function App() {
 
 function RequireAuth({ children }) {
   let { user } = useUserAuth();
-  // const auth = getAuth();
-  // const user = auth.currentUser;
   let location = useLocation();
 
   console.log("gege")

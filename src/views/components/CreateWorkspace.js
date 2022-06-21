@@ -1,10 +1,14 @@
 import { addDoc, collection } from "firebase/firestore";
 import { useRef } from "react";
+import { useUserAuth } from "../../AuthContext";
 import { db } from "../../firebase";
 
 const CreateWorkspace = () => {
     const titleRef = useRef()
     const publicRef = useRef()
+
+    const { user } = useUserAuth()
+    const id = user.uid
 
     const workspaceCollectionRef = collection(db, "workspace")
 
@@ -13,6 +17,7 @@ const CreateWorkspace = () => {
 
         addDoc(workspaceCollectionRef, {
             name: titleRef.current.value,
+            admin: {id},
             public: bool
         })
             .then({

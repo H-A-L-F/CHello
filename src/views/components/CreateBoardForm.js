@@ -28,11 +28,12 @@ const CreateBoardForm = ({ ws }) => {
         //     workspaceID: currId
         // })
 
-        let path = 'workspace/' + currId + '/board'
+        let path = 'workspace/' + currId + '/board/' + makeid(20)
         
-        setDoc(doc(db, path, makeid(20)), {
+        setDoc(doc(db, path), {
             name: titleRef.current.value,
             visibility: visibility,
+            path: path
         })
 
         // db.collection('workspace').add({

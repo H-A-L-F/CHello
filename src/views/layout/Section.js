@@ -14,6 +14,7 @@ const Section = ({ ws }) => {
     const [board, setBoard] = useState([])
 
     const boardCollectionRef = collection(db, "workspace/" + ws.id + "/board")
+    // const boardCollectionRef = collection(db, "board")
     // const qBoardWorkspace = query(boardCollectionRef, where("workspaceID", "==", ws.id))
     const target = "modal-cb" + ws.id
 

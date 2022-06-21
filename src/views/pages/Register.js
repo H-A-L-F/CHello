@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserAuth } from "../../AuthContext";
+import { auth } from "../../firebase";
 
 const Register = () => {
     const unameRef = useRef();
@@ -8,19 +9,20 @@ const Register = () => {
     const passRef = useRef();
     const cpassRef = useRef();
 
-    const {signUp, setName} = useUserAuth();
+    const {signUp, setName, saveUser} = useUserAuth();
 
     const navigate = useNavigate();
 
     const onSubmit = (e) => {
-        // console.log(unameRef.current.value, emailRef.current.value, passRef.current.value, cpassRef.current.value);
         e.preventDefault();
+
         signUp(emailRef.current.value, passRef.current.value)
-            .then(() => {
+            .then((user) => {
+                saveUser(auth.currentUser.uid, emailRef.current.value, passRef.current.value, unameRef.current.value)
                 setName(unameRef.current.value)
                     .then(() => {
-                        navigate('/main/home');
-                    })
+                        // navigate('/main/home')
+                      })
                     .catch((err) => {
                         console.log(err);
                     });

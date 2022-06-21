@@ -6,8 +6,9 @@ import {
   onAuthStateChanged,
   updateProfile,
 } from "firebase/auth";
-import { auth } from "./firebase";
+import { auth, db } from "./firebase";
 import { useLocation } from "react-router-dom";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 
 const userAuthContext = createContext();
 
@@ -18,6 +19,18 @@ export function UserAuthContextProvider({ children }) {
 
   function signUp(email, password) {
     return createUserWithEmailAndPassword(auth, email, password);
+  }
+
+  function saveUser(id, email, password, username) {
+    const userRef = collection(db, "user")
+    const path = 'user/' + id
+
+    return setDoc(doc(db, path), {
+      username: username,
+      email: email,
+      password: password,
+      path: path
+    })
   }
 
   function setName(uname) {
@@ -42,7 +55,7 @@ export function UserAuthContextProvider({ children }) {
   }, [location]);
 
   return (
-    <userAuthContext.Provider value={{ user, signUp, login, logout, setName }}>
+    <userAuthContext.Provider value={{ user, signUp, login, logout, setName, saveUser }}>
       {children}
     </userAuthContext.Provider>
   );

@@ -1,9 +1,11 @@
 import Tag from "./Tag";
 import { HiOutlineUsers } from "react-icons/hi";
+import Modal from "./Modal";
+import ModalContent from "./ModalContent";
 
 const Header = ({ ws }) => {
     return (
-        <div className="flex flex-row">
+        <div className="flex flex-row justify-between w-[50%]">
             <h1 className="text-3xl font-bold text-primary">{ ws.name }</h1>
             <MemberTag ws={ws}/>
         </div>
@@ -15,7 +17,10 @@ const MemberTag = ({ ws }) => {
     const text = "Members(" + memberCount +")"
 
     return (
-        <Tag icon={<HiOutlineUsers size={24}/>} text={text}/>
+        <div>
+            <Modal body={<Tag icon={<HiOutlineUsers size={24}/>} text={text}/>} target="modal-mem"/>
+            <ModalContent />
+        </div>
     );
 }
 

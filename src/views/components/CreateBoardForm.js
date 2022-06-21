@@ -2,6 +2,7 @@ import { addDoc, collection } from "firebase/firestore";
 import { useRef } from "react";
 import { db } from "../../firebase";
 import { useParams } from 'react-router-dom';
+import { useUserAuth } from "../../AuthContext";
 
 const CreateBoardForm = ({ ws }) => {
     const titleRef = useRef()
@@ -9,15 +10,20 @@ const CreateBoardForm = ({ ws }) => {
 
     const boardCollectionRef = collection(db, "board")
     const {id} = useParams()
+    const {user} = useUserAuth()
 
-    let currId = id ? id : ws
+    let currId = id ? id : ws.id
 
     // console.log(currId)
 
     const handleCreateBoard = () => {
+        // console.log(user.uid)
+
         addDoc(boardCollectionRef, {
             name: titleRef.current.value,
             visibility: visibility,
+            admin: [user.uid],
+            member: [],
             workspaceID: currId
         })
     }

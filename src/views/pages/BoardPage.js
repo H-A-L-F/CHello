@@ -1,7 +1,6 @@
 import { collection, doc, onSnapshot, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../../firebase";
-import Header from "../components/Header";
 import { Link, useParams } from 'react-router-dom';
 import Board from "../components/Board";
 import Modal from "../components/Modal";
@@ -12,14 +11,18 @@ import CreateBoardForm from "../components/CreateBoardForm";
 const BoardPage = ({}) => {
     const [board, setBoard] = useState([])
     const [workspace, setWorkspace] = useState([])
-    const {id} = useParams();
+    const {path} = useParams();
 
-    const boardCollectionRef = collection(db, "board")
+    const boardPath = window.atob(path)
+    const id = boardPath.split('/')[1]
+    const boardCollectionRef = collection(db, boardPath + "/board")
+
+    // const boardCollectionRef = collection(db, "board")
     const workspaceDocumentRef = doc(db, "workspace", id)
-    const qBoardWorkspace = query(boardCollectionRef, where("workspaceID", "==", id))
-
+    // const qBoardWorkspace = query(boardCollectionRef, where("workspaceID", "==", id))
+    
     useEffect(() => {
-        const unsub = onSnapshot(qBoardWorkspace, (data) => {
+        const unsub = onSnapshot(boardCollectionRef, (data) => {
             setBoard(data.docs.map((doc) => ({...doc.data(), id: doc.id})))
         })
 
@@ -50,8 +53,16 @@ const BoardPage = ({}) => {
                 })}
 
                 <Modal body={<CreateBoardCard />} target="modal-cb" />
-                <ModalContent target="modal-cb" content={<CreateBoardForm />}/>
+                <ModalContent target="modal-cb" content={<CreateBoardForm ws={workspace}/>}/>
             </div>
+        </div>
+    );
+}
+
+const Header = ({ title }) => {
+    return (
+        <div className="flex flex-row justify-between w-[50%]">
+            <h1 className="text-3xl font-bold text-primary">{ title }</h1>
         </div>
     );
 }

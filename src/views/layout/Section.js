@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
 const Section = ({ ws }) => {
     const [board, setBoard] = useState([])
 
-    const boardCollectionRef = collection(db, "workspace/" + ws.id + "/board")
+    const boardCollectionRef = collection(db, ws.path + "/board")
     // const boardCollectionRef = collection(db, "board")
     // const qBoardWorkspace = query(boardCollectionRef, where("workspaceID", "==", ws.id))
     const target = "modal-cb" + ws.id
@@ -32,7 +32,8 @@ const Section = ({ ws }) => {
             <div className="my-2"></div>
             <div className="flex flex-wrap justify-start content-start">
                 {board.map((b) => {
-                    const link = "/main/board/" + b.id
+                    const boardPath = window.btoa(b.path)
+                    const link = "/main/board/" + boardPath
 
                     // return <Board title={b.name} key={b.id}/>
                     return (

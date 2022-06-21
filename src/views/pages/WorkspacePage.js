@@ -2,7 +2,6 @@ import { collection, onSnapshot } from "firebase/firestore";
 import { useEffect } from "react";
 import { useState } from "react";
 import { db } from "../../firebase";
-import Header from "../components/Header";
 import WorkspaceCard from "../components/WorkspaceCard";
 import { Link } from 'react-router-dom';
 
@@ -25,7 +24,8 @@ const WorkspacePage = () => {
             <div className="my-2"></div>
             <div className="flex flex-wrap space-x-4">
                 {workspace.map((ws) => {
-                    const link = "/main/workspace/" + ws.id
+                    const workspacePath = window.btoa(ws.path)
+                    const link = "/main/workspace/" + workspacePath
 
                     return (
                         <Link to={link}>
@@ -34,6 +34,14 @@ const WorkspacePage = () => {
                     );
                 })}
             </div>
+        </div>
+    );
+}
+
+const Header = ({ title }) => {
+    return (
+        <div className="flex flex-row justify-between w-[50%]">
+            <h1 className="text-3xl font-bold text-primary">{ title }</h1>
         </div>
     );
 }

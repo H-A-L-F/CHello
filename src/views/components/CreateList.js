@@ -1,18 +1,20 @@
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import { useRef } from "react";
 import { db } from "../../firebase";
 import { useParams } from 'react-router-dom';
+import { makeid } from "../../GenerateId";
 
 const CreateList = () => {
     const titleRef = useRef()
-    const {id} = useParams()
+    const {path} = useParams()
 
-    const listCollectionRef = collection(db, "list")
+    // const listCollectionRef = collection(db, "list")
+    const currPath = path + "/list/" + makeid(20)
 
     const handleCreateList = () => {
-        addDoc(listCollectionRef, {
+        setDoc(doc(db, currPath), {
             name: titleRef.current.value,
-            boardID: id
+            boardID: currPath
         })
     }
 

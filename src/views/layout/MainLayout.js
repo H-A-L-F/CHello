@@ -12,8 +12,8 @@ function MainLayout() {
         <Routes>
           <Route path="home" element={<Home />}/>
           <Route path="workspace" element={<WorkspacePage />}/>
-          <Route path="workspace/:id" element={<BoardPage />}/>
-          <Route path="board/:id" element={<ListPage />} />
+          <Route path="workspace/:path" element={<BoardPage />}/>
+          <Route path="board/:path" element={<ListPage />} />
         </Routes>
       </div>
       <SideBar />

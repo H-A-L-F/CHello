@@ -11,13 +11,15 @@ import CreateList from "../components/CreateList";
 
 const ListPage = () => {
     const [list, setList] = useState([])
-    const {id} = useParams()
+    const {path} = useParams()
 
-    const listCollectionRef = collection(db, "list")
-    const qListBoard = query(listCollectionRef, where("boardID", "==", id))
+    // const listCollectionRef = collection(db, "list")
+    // const qListBoard = query(listCollectionRef, where("boardID", "==", id))
+    const boardPath = window.atob(path)
+    const listCollectionRef = collection(db, boardPath + "/list")
 
     useEffect(() => {
-        const unsub = onSnapshot(qListBoard, (data) => {
+        const unsub = onSnapshot(listCollectionRef, (data) => {
             setList(data.docs.map((doc) => ({...doc.data(), id: doc.id})))
         })
 

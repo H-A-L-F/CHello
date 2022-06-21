@@ -8,13 +8,13 @@ const CreateList = () => {
     const titleRef = useRef()
     const {path} = useParams()
 
-    // const listCollectionRef = collection(db, "list")
-    const currPath = path + "/list/" + makeid(20)
+    const boardPath = window.atob(path)
+    const currPath = boardPath + "/list/" + makeid(20)
 
     const handleCreateList = () => {
         setDoc(doc(db, currPath), {
             name: titleRef.current.value,
-            boardID: currPath
+            path: currPath
         })
     }
 

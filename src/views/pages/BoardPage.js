@@ -17,9 +17,7 @@ const BoardPage = ({}) => {
     const id = boardPath.split('/')[1]
     const boardCollectionRef = collection(db, boardPath + "/board")
 
-    // const boardCollectionRef = collection(db, "board")
     const workspaceDocumentRef = doc(db, "workspace", id)
-    // const qBoardWorkspace = query(boardCollectionRef, where("workspaceID", "==", id))
     
     useEffect(() => {
         const unsub = onSnapshot(boardCollectionRef, (data) => {

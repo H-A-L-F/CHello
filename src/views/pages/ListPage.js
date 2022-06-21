@@ -13,8 +13,6 @@ const ListPage = () => {
     const [list, setList] = useState([])
     const {path} = useParams()
 
-    // const listCollectionRef = collection(db, "list")
-    // const qListBoard = query(listCollectionRef, where("boardID", "==", id))
     const boardPath = window.atob(path)
     const listCollectionRef = collection(db, boardPath + "/list")
 
@@ -29,7 +27,7 @@ const ListPage = () => {
     return (
         <div className="flex flex-row w-[90%] mx-auto space-x-8">
             {list.map((l) => {
-                return <ListCard title={l.name} lid={l.id} key={l.id}/>
+                return <ListCard l={l} key={l.id}/>
             })}
             <Modal body={<CreateListCard />} target="modal-cl"/>
             <ModalContent target="modal-cl" content={<CreateList />}/>

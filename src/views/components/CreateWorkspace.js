@@ -20,6 +20,7 @@ const CreateWorkspace = () => {
         setDoc(doc(db, workspaceCollectionRef), {
             name: titleRef.current.value,
             admin: [id],
+            member: [],
             public: bool,
             path: workspaceCollectionRef
         })

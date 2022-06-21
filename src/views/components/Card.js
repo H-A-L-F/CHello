@@ -16,7 +16,7 @@ const Card = ({ c }) => {
         }
     }
 
-    console.log(color())
+    // console.log(color())
 
     return (
         <div className={"flex-auto h-12 rounded-md flex items-center px-4 flex-row justify-between group " + color()}>

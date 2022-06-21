@@ -1,4 +1,25 @@
+import { useRef } from "react";
+import { useUserAuth } from "../../AuthContext";
+import { useNavigate } from "react-router-dom";
+
 const Login = () => {
+    const emailRef = useRef()
+    const passRef = useRef()
+
+    const { login } = useUserAuth()
+    const navigate = useNavigate();
+
+    const handleLogin = (e) => {
+        e.preventDefault();
+        login(emailRef.current.value, passRef.current.value)
+            .then(() => {
+                navigate("/main/home")
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+    }
+
     return (
         <div className="hero min-h-screen bg-base-200">
             <div className="hero-content flex-col lg:flex-row-reverse">
@@ -8,27 +29,18 @@ const Login = () => {
                 </div>
                 <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                     <div className="card-body">
-                        <form action="login" method="post">
+                        <form onSubmit={handleLogin}>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Email</span>
                                 </label>
-                                <input type="text" name="email" id="email" placeholder="email" className="input input-bordered"/>
+                                <input type="text" ref={emailRef} name="email" id="email" placeholder="email" className="input input-bordered"/>
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Password</span>
                                 </label>
-                                <input type="password" name="password" id="password" placeholder="password" className="input input-bordered" />
-                                <label className="label">
-                                    <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
-                                </label>
-                            </div>
-                            <div className="form-control">
-                                <label className="label cursor-pointer">
-                                    <span className="label-text">Remember me</span>
-                                    <input type="checkbox" name="remember" id="remember" className="toggle toggle-secondary" checked />
-                                </label>
+                                <input type="password" ref={passRef} name="password" id="password" placeholder="password" className="input input-bordered" />
                             </div>
                             <div className="form-control mt-6">
                                 <button type="submit" className="btn btn-primary">Login</button>

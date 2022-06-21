@@ -25,6 +25,7 @@ export function UserAuthContextProvider({ children }) {
   }
 
   function logout() {
+    localStorage.removeItem("user")
     return signOut(auth);
   }
 
@@ -35,6 +36,7 @@ export function UserAuthContextProvider({ children }) {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      window.localStorage.setItem('user', JSON.stringify(currentUser));
     });
     return unsubscribe;
   }, [location]);

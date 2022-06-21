@@ -1,3 +1,4 @@
+import { getAuth } from "firebase/auth";
 import { BrowserRouter, Route, Routes, Navigate, useLocation } from "react-router-dom";
 import { UserAuthContextProvider, useUserAuth } from "./AuthContext";
 import "./index.css";
@@ -5,21 +6,7 @@ import MainLayout from "./views/layout/MainLayout";
 import Login from "./views/pages/Login";
 import Register from "./views/pages/Register";
 
-function requireUser(nextState, replace, next) {
-  if (() => {
-    const {user} = useUserAuth()
-    return user
-  }) {
-    replace({
-      pathname: "/register",
-      state: { nextPathname: nextState.location.pathname },
-    });
-  }
-  next();
-}
-
 function App() {
-
   return (
     <BrowserRouter>
       <UserAuthContextProvider>
@@ -38,10 +25,17 @@ function App() {
 }
 
 function RequireAuth({ children }) {
-  let auth = useUserAuth();
+  let { user } = useUserAuth();
+  // const auth = getAuth();
+  // const user = auth.currentUser;
   let location = useLocation();
 
-  if (!auth.user) {
+  console.log("gege")
+  console.log(user)
+  console.log(JSON.parse(window.localStorage.getItem('user')))
+  console.log("gege")
+
+  if (!user && !JSON.parse(window.localStorage.getItem('user'))) {
     // Redirect them to the /login page, but save the current location they were
     // trying to go to when they were redirected. This allows us to send them
     // along to that page after they login, which is a nicer user experience

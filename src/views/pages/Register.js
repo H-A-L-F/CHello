@@ -19,7 +19,7 @@ const Register = () => {
             .then(() => {
                 setName(unameRef.current.value)
                     .then(() => {
-                        navigate('/home');
+                        navigate('/main/home');
                     })
                     .catch((err) => {
                         console.log(err);

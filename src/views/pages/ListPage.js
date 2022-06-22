@@ -25,7 +25,7 @@ const ListPage = () => {
     }, [])
 
     return (
-        <div className="flex flex-row w-[90%] mx-auto space-x-8">
+        <div className="flex flex-row w-full bg-red-300 mx-auto space-x-8 max-w-none overflow-scroll">
             {list.map((l) => {
                 return <ListCard l={l} key={l.id}/>
             })}

@@ -92,7 +92,7 @@ const KanbanPage = () => {
       }
 
     return (
-        <div className="flex flex-row w-[90%] mx-auto space-x-8">
+        <div className="flex flex-row w-[90%] mx-auto space-x-8 overflow-hidden">
             <DragDropContext onDragEnd={(result) => {onDragEnd(result, list, setList)}}>
                 {list.map((l, id) => {
                     return (
@@ -141,7 +141,7 @@ const ListCard = ({ l, provided, snapshot }) => {
     }
 
     return (
-        <div {...provided.droppableProps} ref={provided.innerRef} className="w-72 h-fit flex flex-col border-4 border-primary rounded-md px-4 pt-2 relative pb-16 space-y-4">
+        <div {...provided.droppableProps} ref={provided.innerRef} className="min-w-[18rem] h-fit flex flex-col border-4 border-primary rounded-md px-4 pt-2 relative pb-16 space-y-4">
             <input type="text" ref={titleRef} onKeyDown={enterPress} className="text-primary text-2xl font-bold input input-ghost w-full max-w-xs truncate" defaultValue={l.name} />
             <div className="my-2"></div>
             {card.map((c, index) => {

@@ -41,7 +41,7 @@ const ListCard = ({ l }) => {
     }
 
     return (
-        <div className="w-72 h-fit flex flex-col border-4 border-primary rounded-md px-4 pt-2 relative pb-16 space-y-4">
+        <div className="min-w-[18rem] h-fit flex flex-col border-4 border-primary rounded-md px-4 pt-2 relative pb-16 space-y-4">
             <input type="text" ref={titleRef} onKeyDown={enterPress} className="text-primary text-2xl font-bold input input-ghost w-full max-w-xs truncate" defaultValue={l.name} />
             <div className="my-2"></div>
             {card.map((c) => {

@@ -2,6 +2,7 @@ import Tag from "./Tag";
 import { HiOutlineUsers } from "react-icons/hi";
 import Modal from "./Modal";
 import ModalContent from "./ModalContent";
+import MemberForm from "./MemberForm";
 
 const Header = ({ ws }) => {
     return (
@@ -19,7 +20,7 @@ const MemberTag = ({ ws }) => {
     return (
         <div>
             <Modal body={<Tag icon={<HiOutlineUsers size={24}/>} text={text}/>} target="modal-mem"/>
-            <ModalContent />
+            <ModalContent content={<MemberForm />} target="modal-mem"/>
         </div>
     );
 }

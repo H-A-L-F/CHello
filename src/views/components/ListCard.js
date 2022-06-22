@@ -15,8 +15,6 @@ const ListCard = ({ l }) => {
     const titleRef = useRef()
     const target = "modal-cc-" + l.id
 
-    // const cardCollectionRef = collection(db, "card")
-    // const qCardList = query(cardCollectionRef, where("listID", "==", l.id))
     const cardCollectionRef = collection(db, l.path + "/card")
 
     useEffect(() => {

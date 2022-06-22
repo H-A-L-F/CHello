@@ -8,19 +8,20 @@ const Header = ({ ws }) => {
     return (
         <div className="flex flex-row justify-between w-[50%]">
             <h1 className="text-3xl font-bold text-primary">{ ws.name }</h1>
-            <MemberTag ws={ws}/>
+            <AdminTag ws={ws}/>
         </div>
     );
 }
 
-const MemberTag = ({ ws }) => {
-    const memberCount = ws.admin.length
-    const text = "Members(" + memberCount +")"
+const AdminTag = ({ ws }) => {
+    const adminCount = ws.admin.length
+    const text = "Admins(" + adminCount +")"
+    const target = "modal-adm-" + ws.id
 
     return (
         <div>
-            <Modal body={<Tag icon={<HiOutlineUsers size={24}/>} text={text}/>} target="modal-mem"/>
-            <ModalContent content={<MemberForm />} target="modal-mem"/>
+            <Modal body={<Tag icon={<HiOutlineUsers size={24}/>} text={text}/>} target={target}/>
+            <ModalContent content={<AdminForm ws={ws}/>} target={target}/>
         </div>
     );
 }

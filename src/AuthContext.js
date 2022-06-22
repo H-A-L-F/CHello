@@ -29,6 +29,8 @@ export function UserAuthContextProvider({ children }) {
       username: username,
       email: email,
       password: password,
+      admin: [],
+      member: [],
       path: path
     })
   }

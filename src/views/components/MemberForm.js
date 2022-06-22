@@ -9,13 +9,13 @@ const MemberForm = ({ ws }) => {
 
     return (
         <div className="min-h-[18rem]">
-            <Select
+            {/* <Select
                 value={selecteds}
                 defaultValue={defValue}
                 onChange={handleChange}
                 options={optUsers}
                 isMulti={true}
-            />
+            /> */}
         </div>
     )
 }

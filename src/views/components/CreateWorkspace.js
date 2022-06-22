@@ -1,4 +1,4 @@
-import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import { addDoc, collection, doc, FieldValue, setDoc, updateDoc } from "firebase/firestore";
 import { useRef } from "react";
 import { useUserAuth } from "../../AuthContext";
 import { db } from "../../firebase";
@@ -9,21 +9,29 @@ const CreateWorkspace = () => {
     const publicRef = useRef()
 
     const { user } = useUserAuth()
-    const id = user.uid
 
     // const workspaceCollectionRef = collection(db, "workspace")
     let workspaceCollectionRef = 'workspace/'  + makeid(20)
 
+    function addWorkspaceRefToMember() {
+        const id = user.uid
+        const userDocRef = doc(db, "user", id)
+        const newField = {
+            admin: FieldValue.arrayUnion(id)
+        }
+        updateDoc(userDocRef, newField)
+    }
+
     const handleCreateWorkspace = () => {
         const bool = publicRef.current.value === "on" ? true : false
-
         setDoc(doc(db, workspaceCollectionRef), {
             name: titleRef.current.value,
-            admin: [id],
-            member: [],
             public: bool,
             path: workspaceCollectionRef
         })
+            .then(() => {
+                addWorkspaceRefToMember()
+            })
     }
 
     return (

@@ -4,6 +4,7 @@ import Home from '../pages/Home'
 import WorkspacePage from '../pages/WorkspacePage';
 import BoardPage from '../pages/BoardPage';
 import ListPage from '../pages/ListPage';
+import KanbanPage from '../components/KanbanPage';
 
 function MainLayout() {
   return (
@@ -13,7 +14,7 @@ function MainLayout() {
           <Route path="home" element={<Home />}/>
           <Route path="workspace" element={<WorkspacePage />}/>
           <Route path="workspace/:path" element={<BoardPage />}/>
-          <Route path="board/:path" element={<ListPage />} />
+          <Route path="board/:path" element={<KanbanPage />} />
         </Routes>
       </div>
       <SideBar />

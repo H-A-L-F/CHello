@@ -11,7 +11,7 @@ const CardDetail = ({ c }) => {
     }
 
     const updateCard = async() => {
-        const cardDocRef = doc(db, "card", c.id)
+        const cardDocRef = doc(db, c.path)
         const newField = { name: titleRef.current.value, status: status }
         await updateDoc(cardDocRef, newField)
     }

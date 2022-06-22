@@ -37,11 +37,11 @@ const MemberForm = () => {
     return (
         <div className="min-h-[18rem]">
             <Select
-            value={selecteds}
-            onChange={handleChange}
-            options={optUsers}>
-                
-            </Select>
+                value={selecteds}
+                onChange={handleChange}
+                options={optUsers}
+                isMulti={true}
+            />
         </div>
     )
 }

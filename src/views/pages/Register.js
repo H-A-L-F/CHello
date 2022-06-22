@@ -21,7 +21,7 @@ const Register = () => {
                 saveUser(auth.currentUser.uid, emailRef.current.value, passRef.current.value, unameRef.current.value)
                 setName(unameRef.current.value)
                     .then(() => {
-                        // navigate('/main/home')
+                        navigate('/main/home')
                       })
                     .catch((err) => {
                         console.log(err);

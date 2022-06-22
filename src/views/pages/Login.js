@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { useUserAuth } from "../../AuthContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
     const emailRef = useRef()
@@ -41,6 +41,11 @@ const Login = () => {
                                     <span className="label-text">Password</span>
                                 </label>
                                 <input type="password" ref={passRef} name="password" id="password" placeholder="password" className="input input-bordered" />
+                                <Link to={"/register"}>
+                                    <label class="label label-text-alt link link-hover">
+                                        Already have an account? Register!
+                                    </label>
+                                </Link>
                             </div>
                             <div className="form-control mt-6">
                                 <button type="submit" className="btn btn-primary">Login</button>

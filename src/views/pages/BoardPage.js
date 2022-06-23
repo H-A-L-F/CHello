@@ -7,9 +7,10 @@ import Modal from "../components/Modal";
 import ModalContent from "../components/ModalContent";
 import CreateBoardCard from "../components/CreateBoard";
 import CreateBoardForm from "../components/CreateBoardForm";
-import BoardAdmin from "../components/BoardAdmin";
+import WorkspaceAdmin from "../components/WorkspaceAdmin";
 import WorkspaceAdminTag from "../components/WorkspaceAdminTag";
 import WorkspaceMemberTag from "../components/WorkspaceMemberTag";
+import WorkspaceMember from "../components/WorkspaceMember";
 
 const BoardPage = ({}) => {
     const [board, setBoard] = useState([])
@@ -69,8 +70,10 @@ const BoardPage = ({}) => {
                 <Modal body={<CreateBoardCard />} target="modal-cb" />
                 <ModalContent target="modal-cb" content={<CreateBoardForm ws={workspace}/>}/>
             </div>
+            <div className="my-4"></div>
+            {!isPendingUser && <WorkspaceAdmin users={users} wsid={id}/>}
             <div className="my-2"></div>
-            {!isPendingUser && <BoardAdmin users={users} wsid={id}/>}
+            {!isPendingUser && <WorkspaceMember users={users} wsid={id}/>}
         </div>
     );
 }

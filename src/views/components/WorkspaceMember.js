@@ -4,29 +4,26 @@ import { useState } from "react"
 import { db } from "../../firebase"
 import SectionPeople from "./SectionPeople"
 
-const BoardAdmin = ({users, wsid}) => {
+const WorkspaceMember = ({users, wsid}) => {
     const [isPending, setPending] = useState(true)
-    const [admins, setAdmin] = useState()
+    const [members, setMembers] = useState()
 
-    function isAdmin(u) {
-        // console.log('u: ', u.admin)
-        // console.log(wsid)
-        return u.admin.includes(wsid)
+    function isMember(u) {
+        return u.member.includes(wsid)
     }
 
     useEffect(() => {
         if(users) {
-            // console.log(users)
-            setAdmin(users.filter(isAdmin))
+            setMembers(users.filter(isMember))
             setPending(false)
         }
     }, [users])
 
     return (
         <div>
-            {!isPending && <SectionPeople title={"Admins"} users={admins}/>}
+            {!isPending && <SectionPeople title={"Members"} users={members}/>}
         </div>
     )
 }
 
-export default BoardAdmin
+export default WorkspaceMember

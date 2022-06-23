@@ -5,14 +5,28 @@ import { db } from "../../firebase";
 import WorkspaceCard from "../components/WorkspaceCard";
 import { Link } from 'react-router-dom';
 import { useUserAuth } from "../../AuthContext";
+import SectionWorkspace from "../components/SectionWorkspace";
 
 const WorkspacePage = () => {
-    
+    const [isPending, setIsPending] = useState(true)
+    const [workspaces, setWorkspace] = useState()
+    const [publicWorkspaces, setPublicWorkspace] = useState()
+
+    const workspaceCollectionRef = collection(db, "workspace")
+
+    useEffect(() => {
+        const unsub = onSnapshot(workspaceCollectionRef, (data) => {
+            setWorkspace(data.docs.map((doc) => ({...doc.data(), id: doc.id})))
+            setIsPending(false)
+        })
+
+        return unsub
+    }, [])
 
     return (
         <div className="w-[90%] mx-auto">
-            <Workspaces />
-            <OwnedWorkspace />
+            {isPending && <div>Loading...</div> }
+            {workspaces && <SectionWorkspace title={"Workspaces"} workspace={workspaces} />}
         </div>
     );
 }

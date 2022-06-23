@@ -1,4 +1,4 @@
-import { addDoc, arrayUnion, collection, doc, FieldValue, setDoc, updateDoc } from "firebase/firestore";
+import { arrayUnion, doc, setDoc, updateDoc } from "firebase/firestore";
 import { useRef } from "react";
 import { useUserAuth } from "../../AuthContext";
 import { db } from "../../firebase";
@@ -10,7 +10,6 @@ const CreateWorkspace = () => {
 
     const { user } = useUserAuth()
 
-    // const workspaceCollectionRef = collection(db, "workspace")
     let workspaceCollectionRef = 'workspace/'  + makeid(20)
 
     function addWorkspaceRefToMember(wsid) {
@@ -31,7 +30,6 @@ const CreateWorkspace = () => {
         })
             .then(() => {
                 const wsid = workspaceCollectionRef.split('/')[1]
-                console.log(wsid)
                 addWorkspaceRefToMember(wsid)
             })
     }

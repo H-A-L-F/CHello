@@ -1,0 +1,53 @@
+1. Invite User To Workspace 
+- admin choose either invite via email or generate link 
+- validate if the user has not been invited
+- validate if the user has not joined the workspace
+- invite via email
+  - if user reject the invitation
+    - the admin who sent the invitation will be given a notification
+- invite via link
+  - admin need to set link expired time
+  - validate if the link is still not expired
+  - validate if user have chello account 
+- if a user joins then send notifications to all workspace members 
+
+2. Delete Workspace
+- validation the total number of admins on the workspace
+  - if there is only one admin 
+    - auto delete workspace
+  - if there is more than one admin
+    - send delete workspace notification to another admin 
+    - if one of the workspace admin reject to delete the workspace
+      - the admin who sent the delete workspace confirmation will be given a notification
+
+- Move all board in the workspace to the closed board page
+
+3. Leave Board
+- validation total number of member on the board
+  - if only one member
+    - user need to choose , close the board or delete permantly
+    - if user choose close the board ,  move board automatically to closed board page
+  - if there is more than one member
+    - if the role member is admin 
+      - admin will assign the admin role to one user in the member board 
+      - send notification to all board users that the admin role has moved to another user 
+
+4. View Board 
+   - if the one who sees the detail board is not a user from the workspace
+     - validate visibility of workspace must be public
+     - validate visibility of board must be public 
+     - validate is user have chello account
+     - validate user cannot open card detail 
+     - validate user cannot add or edit board content
+   - if the one who sees the detail board is a user from the workspace but he is not a member of the board
+     - validate visibility of board must be public
+     - validate user cannot add or edit board content
+
+5. Comment Card 
+   - validate the user who comments must be board member 
+   - if the visibility board is public or workspace member only
+     -  board member can mention workspace member or another board member 
+     -  workspace member can comment the card
+   - if the visibility board is private then 
+     - user only can mention board member
+   - send notification to the watcher every time board member post a comment 

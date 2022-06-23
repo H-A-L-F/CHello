@@ -1,0 +1,144 @@
+Basic Concept Of The Application
+Workspace -> every users can have alot of projects on a workspace and different members to work on them.
+
+Board -> track and organize everything they need like : ongoing, pending, and completed tasks, team information, plans, resources, 
+      -> board can represented by card , and card organize by list
+
+List -> keep card ogranized in their various stage of process 
+     -> keep track the card (moved card) from start to finish
+     -> it can be freely moved on the board
+
+card -> card can be customized to hold a wide variety of useful information: titled , labeled , checked listed, commented, and many more
+     -> a list can have as many card as possible without any limitation
+     -> card can be freely moved from the list to another
+
+Application Requirments 
+
+Users -> have an account
+      -> must register (free to implement kind of information as long as they are reasonable)
+      -> every input must be validate
+      -> sucess login -> redirect to home
+      -> user can change account information (display picture , biodata , password)
+      -> need extra layer security when user wants to change confidential information
+      -> user can turn of notification
+      -> user can set notification frequncy -> notification will be sent instantly , periodically or never
+
+Home  -> users can see all their joined workspaces, boards, and cards that they are involved in
+      -> user can mark favorit boards
+      -> search bar on home page
+      -> can easily create a workspace and board
+      -> Every workspace and board must have sufficient information to differentiate itself with one another, such as with name and description
+      -> when creating a workspace, users can choose to invite others users by inputting theirs email or just skip the invitation process.
+      -> users cannot create a board if he didnt have a workspace
+
+workspace -> when user create work space , they automatically become the admin of workspace
+          -> admin workspace can remove or add users via email or generate link
+          -> To invite other users via email invitation, the process is no different from inviting users during workspace creation
+          -> user those who has been invited or join the workspace can't receive the invitation email
+          -> invited users can reject the invitation
+          -> all workspace members will be notified when new user join the workspace
+          -> admin can generate link , anyone who click on the link can then join the workspace as long as they have a chello account
+          -> link can be expired
+          -> Once users join a workspace, they will be able to view other members, view and edit workspace’s content.
+          -> public workspace can be viewed by everyoen including those who are not the workspace’s member, but only those who are joined can add or edit workspace
+          -> private workspace can be viewed by their member
+          -> workspace admin can also grant/revoke the admin role to workspace member
+          -> You are free to implement CHello’s access control management, but make sure to be rational and reasonable to protect the well-being of the workspace.
+          -> every user free to exit the workspace
+          -> if user = 1 -> leave -> delete workspace
+          -> if admin only one admin in the workspace, the workspace will be automatically deleted when the admin initiates it.Otherwise, the admin must ask for other admins’ permission.
+          -> Workspace’s admins will be notified and after they approve the deletion , workspace will be deleted
+          -> When workspaces are deleted, all the boards on the workspace will be closed
+          -> However, all the closed board can still be reopened by board’s admin. To do so, board must be moved to another workspace
+          -> If board’s admins don’t wish to reopen the board, they might also permanently close the board
+
+boards -> user can be board admin if he make the board
+       -> public board can view by everyone 
+       -> a workspace visible can view by workspace'member
+       -> a board visible can view by board's member
+       -> only boards member are allowed to do editing
+       -> board admin have previlage to manage member of the board such as inviting , removing , grant / revoke boards admin role to board member
+       -> user can join by generate link or invitation email from admin
+       -> Make sure that board invitation process in CHello doesn’t violate its workspace’s visibility configuration
+       -> non workspace member only can join a public board
+       -> boards member can leave de board
+       -> if user is the only member of the board , he can choose to close the board or permanently deleted
+       -> after join board user can view the boards detail
+       -> all board's member can make create list and cart 
+       -> user also can search and show filter list and cards 
+       -> implement infite scrooling
+       -> change board in the real time 
+       -> board can be closed or permanently closed 
+       -> permanently closed cannot be undone
+       -> we can see the card by calender view
+       -> cards with the due date will be shown on the calender view corresponding to the date
+
+Card & List -> user can create edit and delete card 
+            -> every card must be contain a list , implement drag and drop to move card from a list to another
+            -> give title to the card for distinguish one from the other
+            -> list can be drag and drop to rearrange them on the board 
+            -> card component : 
+               1. card desc 
+                  -> can edit , add , remove 
+                  -> enalble text formatting such as bold , italic , and underline 
+                  -> allow keyboards shorcut    
+               2. card label 
+                  -> user can categorize a card based on their type 
+                  -> label can be use for filtering 
+                  -> every label can have name and color 
+                  -> can edit , add , remove 
+                  -> label can be attach and deattach
+               3. card checklist 
+                  -> to tract things that need to be done 
+                  -> every item can be checcked and unchecked
+                  -> display a progress bar with correct calculations based on the checked item
+                  -> user can make more than 1 checklist in the card 
+               4. card attachment 
+                  -> user can attach link and files on card. 
+                  -> file suck as images, textfile , or other types of files
+                  -> User can select a file to be uploaded or drag and drop the file to attach it
+                  -> The file attached must be downloadable by those who can view the card
+                  -> user can deattach the file
+               5. card due date 
+                  -> user can set spesific due date and time for card
+                  -> user can also set reminder before due date 
+                  -> create date picked for pick a date 
+                  -> create a option of reminder (1 day before , 1 week before) etc.
+                  -> user can mark cards as completed
+                  -> Cards with due date that are not marked as completed after the due date has passed will be categorized as overdue
+                  -> can filter by due date category
+               6. card watcher 
+                  -> board’s member can be assigned as watcher for card by board's admin 
+                  -> card creator will be automatically be a watcher 
+                  -> Watchers will get notified when cards meet their due date or reminder date
+                  -> Remember not to violate their privacy settings while doing so (if the user turn of notification) -> user will not recive notification
+               7. card location 
+                  -> add location 
+                  -> show location with the right coordinate of the map
+               8. card link 
+                  -> card can be accessed by generate link 
+                  -> for board-visible type visibility, those who aren’t board’s member are prohibited to view the card, even if they have the card’s link.
+               9. card comment 
+                  -> user can give comment or relpy to comments on cards 
+                  -> card watcher will be notfiied when there is a new comment 
+                  -> user can also mention another user 
+                  -> if a workspace visible board, the users that can be mentioned are those who are workspace’s member. If board is a board’s visible board, users that can be mentioned are only board’s members.
+
+Desktop Application Features
+1. Windows taskbar is a component that will always be shown to the users, and users will interact with it the most
+2. Use an icon to make the app interesting, create a jump list to list file, folder, or function that the user can access when right clicking on the application icon on the taskbar
+3. Through the jump list, user can navigate to their favorite boards
+4. Users must also be able to use the app in full screen
+5. You might also implement other keyboard shortcuts than text formatting.
+
+Important Notes 
+•	You must create the analysis diagrams as stated below:
+o	Use Case Diagram
+o	Full Use Case Description
+o	Activity Diagram
+o	Class Diagram (Updated Class Diagram with relationship)
+o	Multi-layer Sequence Diagram
+
+•	For Full Use Case Description, Activity Diagram, and Multi-layer Sequence Diagram, create 5 diagrams of each type from 5 chosen use case. 
+•	All diagrams must be based on Satzinger’s Design concepts
+•	Your application must have at least three design patterns.

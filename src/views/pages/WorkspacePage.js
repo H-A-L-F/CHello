@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { useUserAuth } from "../../AuthContext";
 import SectionWorkspace from "../components/SectionWorkspace";
 import PublicWorkspace from "../components/PublicWorkspace";
+import AdminWorkspace from "../components/AdminWorkspace";
 
 const WorkspacePage = () => {
     const [isPending, setIsPending] = useState(true)
@@ -27,7 +28,8 @@ const WorkspacePage = () => {
         <div className="w-[90%] mx-auto flex flex-col space-y-8">
             {isPending && <div>Loading...</div> }
             {workspaces && <SectionWorkspace title={"Workspaces"} workspace={workspaces} />}
-            {workspaces && <PublicWorkspace workspaces={workspaces}/>}   
+            {workspaces && <PublicWorkspace workspaces={workspaces}/>}
+            {workspaces && <AdminWorkspace workspaces={workspaces}/>}  
         </div>
     );
 }

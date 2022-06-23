@@ -1,5 +1,5 @@
 const PeopleCard = ({isAdmin, content}) => {
-    const type = isAdmin ? "badge-info" : "badge-sudccess"
+    const type = isAdmin ? "badge-info" : "badge-success"
     const auth = isAdmin ? "Admin" : "Member"
 
     return (

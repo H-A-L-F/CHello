@@ -2,7 +2,6 @@ import Tag from "./Tag";
 import { HiOutlineUsers } from "react-icons/hi";
 import Modal from "./Modal";
 import ModalContent from "./ModalContent";
-import MemberForm from "./MemberForm";
 import AdminForm from "./AdminForm";
 
 const Header = ({ ws }) => {
@@ -15,8 +14,6 @@ const Header = ({ ws }) => {
 }
 
 const AdminTag = ({ ws }) => {
-    // const adminCount = ws.admin.length
-    // const text = "Admins(" + adminCount +")"
     const target = "modal-adm-" + ws.id
 
     return (

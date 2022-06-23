@@ -6,8 +6,6 @@ const SectionPeople = ({title, users}) => {
         return users.length > 1
     }
 
-    // console.log(users[0].username)
-
     return (
         <div>
             <div className="text-3xl font-bold text-primary">{title}</div>

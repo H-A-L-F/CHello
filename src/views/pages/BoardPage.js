@@ -11,6 +11,7 @@ import WorkspaceAdmin from "../components/WorkspaceAdmin";
 import WorkspaceAdminTag from "../components/WorkspaceAdminTag";
 import WorkspaceMemberTag from "../components/WorkspaceMemberTag";
 import WorkspaceMember from "../components/WorkspaceMember";
+import WorkspaceAddMemberTag from "../components/WorkspaceAddMemberTag";
 
 const BoardPage = ({}) => {
     const [board, setBoard] = useState([])
@@ -74,6 +75,7 @@ const BoardPage = ({}) => {
             {!isPendingUser && <WorkspaceAdmin users={users} wsid={id}/>}
             <div className="my-2"></div>
             {!isPendingUser && <WorkspaceMember users={users} wsid={id}/>}
+            
         </div>
     );
 }
@@ -85,6 +87,7 @@ const Header = ({ title, users, wsid }) => {
             <div className="flex flex-row space-x-2">
                 <WorkspaceAdminTag users={users} wsid={wsid}/>
                 <WorkspaceMemberTag users={users} wsid={wsid}/>
+                <WorkspaceAddMemberTag users={users} wsid={wsid}/>
             </div>
         </div>
     );

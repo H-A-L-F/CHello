@@ -17,9 +17,9 @@ const BoardPage = ({}) => {
     const {path} = useParams();
 
     const userCollectionRef = collection(db, "user")
-    const boardPath = window.atob(path)
-    const id = boardPath.split('/')[1]
-    const boardCollectionRef = collection(db, boardPath + "/board")
+    const wsPath = window.atob(path)
+    const id = wsPath.split('/')[1]
+    const boardCollectionRef = collection(db, wsPath + "/board/")
 
     const workspaceDocumentRef = doc(db, "workspace", id)
     
@@ -54,7 +54,8 @@ const BoardPage = ({}) => {
             <div className="my-2"></div>
             <div className="flex flex-wrap">
                 {board.map((b) => {
-                    const link = "/main/board/" + b.id
+                    const boardPath = wsPath + "/board/" + b.id
+                    const link = "/main/board/" + window.btoa(boardPath)
 
                     return (
                         <Link to={link} key={b.id}>

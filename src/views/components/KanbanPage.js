@@ -21,6 +21,7 @@ const KanbanPage = () => {
     const {path} = useParams()
 
     const boardPath = window.atob(path)
+    console.log(boardPath)
     const listPath = boardPath + "/list/"
     const listCollectionRef = collection(db, listPath)
 
@@ -141,7 +142,7 @@ const ListCard = ({ l, provided, snapshot }) => {
     }
 
     return (
-        <div {...provided.droppableProps} ref={provided.innerRef} className="min-w-[18rem] h-fit flex flex-col border-4 border-primary rounded-md px-4 pt-2 relative pb-16 space-y-4">
+        <div {...provided.droppableProps} ref={provided.innerRef} className="min-w-[18rem] w-[18rem] h-fit flex flex-col border-4 border-primary rounded-md px-4 pt-2 relative pb-16 space-y-4">
             <input type="text" ref={titleRef} onKeyDown={enterPress} className="text-primary text-2xl font-bold input input-ghost w-full max-w-xs truncate" defaultValue={l.name} />
             <div className="my-2"></div>
             {card.map((c, index) => {

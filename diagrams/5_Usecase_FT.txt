@@ -1,5 +1,6 @@
-1. Invite User To Workspace 
-- admin choose either invite via email or generate link 
+1. Invite User To Workspace
+- Admin press member tab
+- Admin choose either invite via email or generate link 
 - validate if the user has not been invited
 - validate if the user has not joined the workspace
 - invite via email
@@ -51,3 +52,19 @@
    - if the visibility board is private then 
      - user only can mention board member
    - send notification to the watcher every time board member post a comment 
+
+3. Leave Workspace
+- If member
+    - If admin of board(s) in said workspace
+        - If the only admin in said board
+            - SOFT DELETE the board
+        - Else
+            - Leave the board
+    - leave the workspace
+- If admin
+    - If the only admin
+        - Leave workspace
+        - Delete Workspace (no.2)
+    - Else
+        - leave the workspace
+- Send notification that user (admin/member) has left to every user in workspace

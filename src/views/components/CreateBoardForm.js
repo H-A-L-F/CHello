@@ -1,4 +1,4 @@
-import { doc, setDoc } from "firebase/firestore";
+import { arrayUnion, doc, setDoc, updateDoc } from "firebase/firestore";
 import { useRef } from "react";
 import { db } from "../../firebase";
 import { useUserAuth } from "../../AuthContext";
@@ -9,17 +9,27 @@ const CreateBoardForm = ({ ws }) => {
     let visibility = "public"
 
     const {user} = useUserAuth()
+    const pathId = makeid(20)
+    const path = ws.path + '/board/' + pathId
 
     const handleCreateBoard = () => {
-        let path = ws.path + '/board/' + makeid(20)
-        
         setDoc(doc(db, path), {
             name: titleRef.current.value,
             visibility: visibility,
-            admin: [user.uid],
-            member: [],
             path: path
         })
+            .then(() => {
+                addBoardToMember(pathId)
+            })
+    }
+
+    function addBoardToMember(bid) {
+        const id = user.uid
+        const userDocRef = doc(db, "user", id)
+        const newField = {
+            adminBoard: arrayUnion(bid)
+        }
+        updateDoc(userDocRef, newField)
     }
 
     const handleChange = (v) => {

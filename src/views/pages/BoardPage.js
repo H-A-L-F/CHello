@@ -1,4 +1,4 @@
-import { collection, doc, onSnapshot, query, where } from "firebase/firestore";
+import { collection, doc, onSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../../firebase";
 import { Link, useParams } from 'react-router-dom';
@@ -7,12 +7,16 @@ import Modal from "../components/Modal";
 import ModalContent from "../components/ModalContent";
 import CreateBoardCard from "../components/CreateBoard";
 import CreateBoardForm from "../components/CreateBoardForm";
+import BoardAdmin from "../components/BoardAdmin";
 
 const BoardPage = ({}) => {
     const [board, setBoard] = useState([])
     const [workspace, setWorkspace] = useState([])
+    const [isPendingUser, setPendingUser] = useState(true)
+    const [users, setUser] = useState()
     const {path} = useParams();
 
+    const userCollectionRef = collection(db, "user")
     const boardPath = window.atob(path)
     const id = boardPath.split('/')[1]
     const boardCollectionRef = collection(db, boardPath + "/board")
@@ -30,6 +34,15 @@ const BoardPage = ({}) => {
     useEffect(() => {
         const unsub = onSnapshot(workspaceDocumentRef, (data) => {
             setWorkspace(data.data())
+        })
+
+        return unsub
+    }, [])
+
+    useEffect(() => {
+        const unsub = onSnapshot(userCollectionRef, (data) => {
+            setUser(data.docs.map((doc) => ({...doc.data(), id: doc.id})))
+            setPendingUser(false)
         })
 
         return unsub
@@ -53,6 +66,8 @@ const BoardPage = ({}) => {
                 <Modal body={<CreateBoardCard />} target="modal-cb" />
                 <ModalContent target="modal-cb" content={<CreateBoardForm ws={workspace}/>}/>
             </div>
+            <div className="my-2"></div>
+            {!isPendingUser && <BoardAdmin users={users} wsid={id}/>}
         </div>
     );
 }

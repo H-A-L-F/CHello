@@ -42,7 +42,7 @@ const Login = () => {
                                 </label>
                                 <input type="password" ref={passRef} name="password" id="password" placeholder="password" className="input input-bordered" />
                                 <Link to={"/register"}>
-                                    <label class="label label-text-alt link link-hover">
+                                    <label className="label label-text-alt link link-hover">
                                         Don't have an account? Register!
                                     </label>
                                 </Link>

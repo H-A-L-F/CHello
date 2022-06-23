@@ -31,6 +31,7 @@ export function UserAuthContextProvider({ children }) {
       password: password,
       admin: [],
       member: [],
+      adminBoard: [],
       path: path
     })
   }

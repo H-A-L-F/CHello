@@ -6,11 +6,11 @@ import WorkspaceCard from "../components/WorkspaceCard";
 import { Link } from 'react-router-dom';
 import { useUserAuth } from "../../AuthContext";
 import SectionWorkspace from "../components/SectionWorkspace";
+import PublicWorkspace from "../components/PublicWorkspace";
 
 const WorkspacePage = () => {
     const [isPending, setIsPending] = useState(true)
     const [workspaces, setWorkspace] = useState()
-    const [publicWorkspaces, setPublicWorkspace] = useState()
 
     const workspaceCollectionRef = collection(db, "workspace")
 
@@ -24,9 +24,10 @@ const WorkspacePage = () => {
     }, [])
 
     return (
-        <div className="w-[90%] mx-auto">
+        <div className="w-[90%] mx-auto flex flex-col space-y-8">
             {isPending && <div>Loading...</div> }
             {workspaces && <SectionWorkspace title={"Workspaces"} workspace={workspaces} />}
+            {workspaces && <PublicWorkspace workspaces={workspaces}/>}   
         </div>
     );
 }

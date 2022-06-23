@@ -53,6 +53,29 @@
      - user only can mention board member
    - send notification to the watcher every time board member post a comment 
 
+1. Invite User To Workspace
+- Admin press member tab
+- Admin choose either invite via email or generate link 
+- invite via email
+    - filter user to show only uninvited user
+    - choose the user to invite
+    - the invited user will get a notification to accept / reject
+- invite via link
+    - admin need to set link expired time
+    - validate if the link is still not expired
+    - validate if user have chello account 
+- if a user joins then send notifications to all workspace members and admins
+
+2. Delete Workspace
+- validation the total number of admins on the workspace
+  - if there is only one admin 
+    - SOFT DELETE Workspace
+  - if there is more than one admin
+    - send delete workspace notification to every admin 
+    - if one of the workspace admin reject to delete the workspace
+      - the admin who sent the delete workspace confirmation will be given a notification
+    - if everyone accept SOFT DELETE workspace
+
 3. Leave Workspace
 - If member
     - If admin of board(s) in said workspace

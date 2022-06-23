@@ -1,25 +1,42 @@
-1. Invite User To Workspace
-- Admin press member tab
-- Admin choose either invite via email or generate link 
-- invite via email
-    - filter user to show only uninvited user
-    - choose the user to invite
-    - the invited user will get a notification to accept / reject
-- invite via link
-    - admin need to set link expired time
-    - validate if the link is still not expired
-    - validate if user have chello account 
-- if a user joins then send notifications to all workspace members and admins
+1. Join workspace
+- If user is logged in
+    - If user is not member/admin of workspace
+        - Promote user to member of workspace
+    - Else 
+        - redirect to workspace user want to Join
+- Else
+    - redirect to login page
 
-2. Delete Workspace
-- validation the total number of admins on the workspace
-  - if there is only one admin 
-    - SOFT DELETE Workspace
-  - if there is more than one admin
-    - send delete workspace notification to every admin 
-    - if one of the workspace admin reject to delete the workspace
-      - the admin who sent the delete workspace confirmation will be given a notification
-    - if everyone accept SOFT DELETE workspace
+2. Move Card
+-If workspace is private
+    - If user is admin/member of workspace
+        - If board is private
+            - If user is admin/member of board
+                - If list is valid
+                    - Copy the card to target list
+                    - Remove card from the old list
+                - Else
+                    - Cant move card
+            - Else
+                Cant open card
+        - Else
+            - Copy the card to target list
+            - Remove card from the old list
+    - Else
+        - Cant open Board
+- Else
+     If board is private
+        - If user is admin/member of board
+            - If list is valid
+                - Copy the card to target list
+                - Remove card from the old list
+            - Else
+                - Cant move card
+        - Else
+            Cant open card
+    - Else
+        - Copy the card to target list
+        - Remove card from the old list
 
 3. Leave Board
 - If admin of board

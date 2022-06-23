@@ -4,18 +4,18 @@ import Modal from "./Modal"
 import ModalContent from "./ModalContent";
 import Tag from "./Tag"
 
-const BoardAdminTag = ({users, wsid}) => {
+const WorkspaceMemberTag = ({users, wsid}) => {
     const [isPending, setPending] = useState(true)
-    const [admins, setAdmin] = useState()
+    const [members, setMembers] = useState()
     const target = "modal-bad-" + wsid
 
-    function isAdmin(u) {
-        return u.admin.includes(wsid)
+    function isMember(u) {
+        return u.member.includes(wsid)
     }
 
     useEffect(() => {
         if(users) {
-            setAdmin(users.filter(isAdmin))
+            setMembers(users.filter(isMember))
             setPending(false)
         }
     }, [users])
@@ -25,7 +25,7 @@ const BoardAdminTag = ({users, wsid}) => {
             {isPending && <div>Loading...</div>}
             {!isPending && 
                 <div>
-                    <Modal body={<Tag icon={<HiOutlineUser size={24}/>} text={"Admins(" + admins.length + ")"}/>} target={target}/>
+                    <Modal body={<Tag icon={<HiOutlineUser size={24}/>} text={"Members(" + members.length + ")"}/>} target={target}/>
                     <ModalContent content={<div></div>} target={target}/>
                 </div>
             }
@@ -33,4 +33,4 @@ const BoardAdminTag = ({users, wsid}) => {
     )
 }
 
-export default BoardAdminTag
+export default WorkspaceMemberTag

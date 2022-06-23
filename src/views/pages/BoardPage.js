@@ -8,7 +8,8 @@ import ModalContent from "../components/ModalContent";
 import CreateBoardCard from "../components/CreateBoard";
 import CreateBoardForm from "../components/CreateBoardForm";
 import BoardAdmin from "../components/BoardAdmin";
-import BoardAdminTag from "../components/BoardAdminTag";
+import WorkspaceAdminTag from "../components/WorkspaceAdminTag";
+import WorkspaceMemberTag from "../components/WorkspaceMemberTag";
 
 const BoardPage = ({}) => {
     const [board, setBoard] = useState([])
@@ -78,7 +79,10 @@ const Header = ({ title, users, wsid }) => {
     return (
         <div className="flex flex-row justify-between w-[50%]">
             <h1 className="text-3xl font-bold text-primary">{ title }</h1>
-            <BoardAdminTag users={users} wsid={wsid}/>
+            <div className="flex flex-row space-x-2">
+                <WorkspaceAdminTag users={users} wsid={wsid}/>
+                <WorkspaceMemberTag users={users} wsid={wsid}/>
+            </div>
         </div>
     );
 }

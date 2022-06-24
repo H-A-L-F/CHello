@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes, Navigate, useLocation } from "react-route
 import { UserAuthContextProvider, useUserAuth } from "./AuthContext";
 import "./index.css";
 import MainLayout from "./views/layout/MainLayout";
+import AcceptInvitePage from "./views/pages/AcceptInvitePage";
 import CopyLinkPage from "./views/pages/CopyLinkPage";
 import Login from "./views/pages/Login";
 import Register from "./views/pages/Register";
@@ -19,7 +20,14 @@ function App() {
               <MainLayout />
             </RequireAuth>
           }/>
-          <Route path='/main/invpage' element={<CopyLinkPage />} />
+          <Route path="/invite/*" element={
+            <RequireAuth>
+              <Routes>
+                <Route path='page/:path' element={<CopyLinkPage />} />
+                <Route path='join/:path' element={<AcceptInvitePage />} />
+              </Routes>
+            </RequireAuth>
+          }/>
         </Routes>
       </UserAuthContextProvider>
     </BrowserRouter>

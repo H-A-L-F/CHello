@@ -12,6 +12,7 @@ import WorkspaceAdminTag from "../components/WorkspaceAdminTag";
 import WorkspaceMemberTag from "../components/WorkspaceMemberTag";
 import WorkspaceMember from "../components/WorkspaceMember";
 import WorkspaceAddMemberTag from "../components/WorkspaceAddMemberTag";
+import { useUserAuth } from "../../AuthContext";
 
 const BoardPage = ({}) => {
     const [board, setBoard] = useState([])
@@ -19,13 +20,16 @@ const BoardPage = ({}) => {
     const [isPendingUser, setPendingUser] = useState(true)
     const [users, setUser] = useState()
     const {path} = useParams();
+    const {user} = useUserAuth()
 
     const userCollectionRef = collection(db, "user")
     const wsPath = window.atob(path)
     const id = wsPath.split('/')[1]
     const boardCollectionRef = collection(db, wsPath + "/board/")
-
     const workspaceDocumentRef = doc(db, "workspace", id)
+
+    const userUid = user.uid
+    const userWsLink = wsPath + "/" + userUid
     
     useEffect(() => {
         const unsub = onSnapshot(boardCollectionRef, (data) => {
@@ -54,7 +58,7 @@ const BoardPage = ({}) => {
 
     return (
         <div className="w-[90%] mx-auto">
-            <Header title={workspace.name} users={users} wsid={id} pending={isPendingUser}/>
+            <Header title={workspace.name} users={users} wsid={id} pending={isPendingUser} wspath={userWsLink}/>
             <div className="my-2"></div>
             <div className="flex flex-wrap">
                 {board.map((b) => {
@@ -79,14 +83,14 @@ const BoardPage = ({}) => {
     );
 }
 
-const Header = ({ title, users, wsid, pending }) => {
+const Header = ({ title, users, wsid, pending, wspath }) => {
     return (
         <div className="flex flex-row justify-between w-[50%]">
             <h1 className="text-3xl font-bold text-primary">{ title }</h1>
             <div className="flex flex-row space-x-2">
                 <WorkspaceAdminTag users={users} wsid={wsid}/>
                 <WorkspaceMemberTag users={users} wsid={wsid}/>
-                {!pending && <WorkspaceAddMemberTag users={users} wsid={wsid}/>}
+                {!pending && <WorkspaceAddMemberTag users={users} wsid={wsid} wspath={wspath}/>}
             </div>
         </div>
     );

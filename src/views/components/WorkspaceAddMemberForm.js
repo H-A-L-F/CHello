@@ -7,13 +7,15 @@ import InviteLinkModal from './InviteLinkModal';
 import Modal from './Modal';
 import ModalContent from './ModalContent';
 
-const WorkspaceAddMemberForm = ({users, all}) => {
+const WorkspaceAddMemberForm = ({users, all, wspath}) => {
     const [isPendingOpt, setPendingOpt] = useState(true)
     const [isPendingDefs, setPendingDef] = useState(true)
     const [selecteds, setSelected] = useState()
     const [opts, setOpt] = useState([])
     const [defs, setDef] = useState([])
     const alls = []
+
+    const link = "/invite/page/" + window.btoa(wspath)
 
     function handleChange(s) {
         console.log(s)
@@ -50,7 +52,7 @@ const WorkspaceAddMemberForm = ({users, all}) => {
 
     return (
         <div>
-            <Link to={"/main/invpage/"}>
+            <Link to={link}>
                 <InviteLinkButton />
             </Link>
             {/* {(!isPendingDefs && !isPendingOpt) && 

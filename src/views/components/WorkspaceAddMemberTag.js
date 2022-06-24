@@ -5,7 +5,7 @@ import ModalContent from "./ModalContent";
 import Tag from "./Tag"
 import WorkspaceAddMemberForm from "./WorkspaceAddMemberForm";
 
-const WorkspaceAddMemberTag = ({users, wsid}) => {
+const WorkspaceAddMemberTag = ({users, wsid, wspath}) => {
     const [isPendingReg, setPendingReg] = useState(true)
     const [isPendingDef, setPendingDef] = useState(true)
     const [registers, setRegister] = useState()
@@ -39,7 +39,7 @@ const WorkspaceAddMemberTag = ({users, wsid}) => {
             {(!isPendingReg && !isPendingDef) &&
                 <div>
                     <Modal body={<Tag icon={<HiOutlineUserAdd size={24}/>} text={"Add Member"}/>} target={"modal-addM"}/>
-                    <ModalContent content={<WorkspaceAddMemberForm users={registers} all={defs}/>} target={"modal-addM"}/>
+                    <ModalContent content={<WorkspaceAddMemberForm users={registers} all={defs} wspath={wspath}/>} target={"modal-addM"}/>
                 </div>
             }
         </div>

@@ -32,7 +32,6 @@ const PublicWorkspace = ({ workspaces }) => {
     useEffect(() => {
         currUser.then((res) => {
             const currUser = {...res.data(), id: res.id}
-            console.log(currUser)
             getPublicWorkspace(workspaces, currUser)
         })
     }, [])

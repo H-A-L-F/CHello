@@ -8,6 +8,7 @@ import { useUserAuth } from "../../AuthContext";
 import SectionWorkspace from "../components/SectionWorkspace";
 import PublicWorkspace from "../components/PublicWorkspace";
 import AdminWorkspace from "../components/AdminWorkspace";
+import MemberWorkspace from "../components/MemberWorkspace";
 
 const WorkspacePage = () => {
     const [isPending, setIsPending] = useState(true)
@@ -29,7 +30,8 @@ const WorkspacePage = () => {
             {isPending && <div>Loading...</div> }
             {workspaces && <SectionWorkspace title={"Workspaces"} workspace={workspaces} />}
             {workspaces && <PublicWorkspace workspaces={workspaces}/>}
-            {workspaces && <AdminWorkspace workspaces={workspaces}/>}  
+            {workspaces && <AdminWorkspace workspaces={workspaces}/>}
+            {workspaces && <MemberWorkspace workspaces={workspaces}/>}
         </div>
     );
 }

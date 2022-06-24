@@ -1,3 +1,4 @@
+import Empty from "./Empty"
 import PeopleCard from "./PeopleCard"
 
 const SectionPeople = ({title, users}) => {
@@ -25,14 +26,6 @@ const Content = ({c, isAdmin}) => {
             {c.map((c) => {
                 return <PeopleCard isAdmin={isAdmin} content={c}/>
             })}
-        </div>
-    )
-}
-
-const Empty = () => {
-    return (
-        <div className="flex flex-col items-center justify-center align-middle content-center rounded-md bg-primary text-primary-content px-6 py-2">
-            <h2 className="text-xl font-bold">Empty</h2>
         </div>
     )
 }

@@ -88,8 +88,8 @@ const Header = ({ title, users, wsid, pending, wspath }) => {
         <div className="flex flex-row justify-between w-[50%]">
             <h1 className="text-3xl font-bold text-primary">{ title }</h1>
             <div className="flex flex-row space-x-2">
-                <WorkspaceAdminTag users={users} wsid={wsid}/>
-                <WorkspaceMemberTag users={users} wsid={wsid}/>
+                {!pending && <WorkspaceAdminTag users={users} wsid={wsid}/>}
+                {!pending && <WorkspaceMemberTag users={users} wsid={wsid}/>}
                 {!pending && <WorkspaceAddMemberTag users={users} wsid={wsid} wspath={wspath}/>}
             </div>
         </div>

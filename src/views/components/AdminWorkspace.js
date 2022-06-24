@@ -28,8 +28,8 @@ const AdminWorkspace = ({ workspaces }) => {
         const admin = wsad.ad
         wsad.ws.forEach(e => {
             if(admin.includes(e.id)) setAdminWorkspaces(e)
-            setIsPending(false)
         });
+        setIsPending(false)
     }
 
     useEffect(() => {

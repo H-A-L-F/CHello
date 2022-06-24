@@ -1,22 +1,40 @@
+import { doc, getDoc } from "firebase/firestore"
 import { useEffect } from "react"
 import { useState } from "react"
+import { useUserAuth } from "../../AuthContext"
+import { db } from "../../firebase"
 import SectionWorkspace from "./SectionWorkspace"
 
 const PublicWorkspace = ({ workspaces }) => {
     const [isPending, setIsPending] = useState(true)
     const [publicWorkspaces, setPublicWorkspace] = useState()
-
-    function isPublic(o) {
-        return o.public === true
+    
+    const { user } = useUserAuth()
+    const userDocRef = doc(db, "user", user.uid)
+    const currUser = getUserDoc(userDocRef)
+    
+    async function getUserDoc(doc) {
+        const temp = await getDoc(doc)
+        return temp
     }
 
-    function getPublicWorkspace(workspaces) {
-        setPublicWorkspace(workspaces.filter(isPublic))
+    function isPublic(ws, currUser) {
+        return ws.public === true && !currUser.admin.includes(ws.id) && !currUser.member.includes(ws.id)
+    }
+
+    function getPublicWorkspace(workspaces, currUser) {
+        workspaces.forEach(e => {
+            if(isPublic(e, currUser)) setPublicWorkspace(e)
+        });
         setIsPending(false)
     }
 
     useEffect(() => {
-        getPublicWorkspace(workspaces)
+        currUser.then((res) => {
+            const currUser = {...res.data(), id: res.id}
+            console.log(currUser)
+            getPublicWorkspace(workspaces, currUser)
+        })
     }, [])
 
     return (

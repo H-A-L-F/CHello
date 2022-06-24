@@ -7,6 +7,8 @@ const SectionWorkspace = ({ workspace, title }) => {
         return workspace.length == null
     }
 
+    // console.log(workspace)
+
     return (
         <div>
             <Header title={title} />

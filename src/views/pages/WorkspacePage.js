@@ -29,9 +29,9 @@ const WorkspacePage = () => {
         <div className="w-[90%] mx-auto flex flex-col space-y-8">
             {isPending && <div>Loading...</div> }
             {workspaces && <SectionWorkspace title={"Workspaces"} workspace={workspaces} />}
-            {workspaces && <PublicWorkspace workspaces={workspaces}/>}
             {workspaces && <AdminWorkspace workspaces={workspaces}/>}
             {workspaces && <MemberWorkspace workspaces={workspaces}/>}
+            {workspaces && <PublicWorkspace workspaces={workspaces}/>}
         </div>
     );
 }

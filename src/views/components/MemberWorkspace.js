@@ -7,7 +7,7 @@ import SectionWorkspace from "./SectionWorkspace"
 
 const MemberWorkspace = ({workspaces}) => {
     const [isPending, setIsPending] = useState(true)
-    const [memberWorkspaces, setMemberWorkspaces] = useState()
+    const [memberWorkspaces, setMemberWorkspaces] = useState([])
 
     const { user } = useUserAuth()
     const userDocRef = doc(db, "user", user.uid)
@@ -27,7 +27,8 @@ const MemberWorkspace = ({workspaces}) => {
 
     function getMemberWorkspaces(currUser, workspaces) {
         workspaces.forEach(e => {
-            if(currUser.member.includes(e.id) && e.public !== true) setMemberWorkspaces(e)
+            console.log(currUser.member.includes(e.id))
+            if(currUser.member.includes(e.id)) setMemberWorkspaces((prevstate) => [...prevstate, e])
         });
         setIsPending(false)
     }
@@ -38,7 +39,7 @@ const MemberWorkspace = ({workspaces}) => {
 
     return (
         <div>
-            {isPending && <div>Loading...</div> && 
+            {isPending ? <div>Loading...</div> :
                 memberWorkspaces ? <SectionWorkspace title={"Member Workspaces"} workspace={memberWorkspaces} /> : <EmptySection title={"Member Workspaces"}/>
             }
         </div>

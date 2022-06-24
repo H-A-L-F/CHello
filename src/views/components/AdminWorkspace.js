@@ -6,7 +6,7 @@ import SectionWorkspace from "./SectionWorkspace"
 
 const AdminWorkspace = ({ workspaces }) => {
     const [isPending, setIsPending] = useState(true)
-    const [adminWorkspaces, setAdminWorkspaces] = useState()
+    const [adminWorkspaces, setAdminWorkspaces] = useState([])
 
     const { user } = useUserAuth()
     const userDocRef = doc(db, "user", user.uid)
@@ -27,7 +27,7 @@ const AdminWorkspace = ({ workspaces }) => {
     function getAdminWorkspaces(wsad) {
         const admin = wsad.ad
         wsad.ws.forEach(e => {
-            if(admin.includes(e.id)) setAdminWorkspaces(e)
+            if(admin.includes(e.id)) setAdminWorkspaces((prevstate) => [...prevstate, e])
         });
         setIsPending(false)
     }

@@ -23,7 +23,8 @@ function App() {
           <Route path="/invite/*" element={
             <RequireAuth>
               <Routes>
-                <Route path='page/:path' element={<CopyLinkPage />} />
+                <Route path='page/workspace/:path' element={<CopyLinkPage type={"workspace"}/>} />
+                <Route path='page/board/:path' element={<CopyLinkPage type={"board"}/>} />
                 <Route path='join/:path' element={<AcceptInvitePage />} />
               </Routes>
             </RequireAuth>

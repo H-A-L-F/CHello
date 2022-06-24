@@ -15,7 +15,7 @@ const WorkspaceAddMemberForm = ({users, all, wspath}) => {
     const [defs, setDef] = useState([])
     const alls = []
 
-    const link = "/invite/page/" + window.btoa(wspath)
+    const link = "/invite/page/workspace/" + window.btoa(wspath)
 
     function handleChange(s) {
         console.log(s)

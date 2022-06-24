@@ -9,7 +9,7 @@ const SectionPeople = ({title, users}) => {
     return (
         <div>
             <div className="text-3xl font-bold text-primary">{title}</div>
-            <div className="flex flex-row flex-wrap">
+            <div>
                 {users.length > 0 ?
                     !isMappable() ? <PeopleCard isAdmin={title === "Admins"} content={users[0]}/> : <Content c={users} isAdmin={title === "Admins"}/>
                     : <Empty />
@@ -21,7 +21,7 @@ const SectionPeople = ({title, users}) => {
 
 const Content = ({c, isAdmin}) => {
     return (
-        <div>
+        <div className="flex flex-wrap">
             {c.map((c) => {
                 return <PeopleCard isAdmin={isAdmin} content={c}/>
             })}

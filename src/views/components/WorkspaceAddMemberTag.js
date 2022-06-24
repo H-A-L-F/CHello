@@ -3,13 +3,20 @@ import { HiOutlineUserAdd } from "react-icons/hi";
 import Modal from "./Modal"
 import ModalContent from "./ModalContent";
 import Tag from "./Tag"
+import WorkspaceAddMemberForm from "./WorkspaceAddMemberForm";
 
 const WorkspaceAddMemberTag = ({users, wsid}) => {
-    const [isPendingReg, setPendingReg] = useState()
+    const [isPendingReg, setPendingReg] = useState(true)
+    const [isPendingDef, setPendingDef] = useState(true)
     const [registers, setRegister] = useState()
+    const [defs, setDef] = useState()
 
     function isRegister(u) {
-        return (u.admin.includes(wsid) || u.member.includes(wsid))
+        return u.admin.includes(wsid) || u.member.includes(wsid)
+    }
+
+    function notRegister(u) {
+        return !u.admin.includes(wsid) && !u.member.includes(wsid)
     }
 
     useEffect(() => {
@@ -19,13 +26,20 @@ const WorkspaceAddMemberTag = ({users, wsid}) => {
         }
     }, [users])
 
+    useEffect(() => {
+        if(users) {
+            setDef(users.filter(notRegister))
+            setPendingDef(false)
+        }
+    }, [users])
+
     return (
         <div>
-            {isPendingReg && <div>Loading...</div>}
-            {!isPendingReg && 
+            {(isPendingReg && isPendingDef) && <div>Loading...</div>}
+            {(!isPendingReg && !isPendingDef) &&
                 <div>
                     <Modal body={<Tag icon={<HiOutlineUserAdd size={24}/>} text={"Add Member"}/>} target={"modal-addM"}/>
-                    <ModalContent content={<div></div>} target={"modal-addM"}/>
+                    <ModalContent content={<WorkspaceAddMemberForm users={registers} all={defs}/>} target={"modal-addM"}/>
                 </div>
             }
         </div>

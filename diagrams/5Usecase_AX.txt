@@ -66,15 +66,15 @@
 - Else
     - Redirect to Login Page
 
-5. Change State of Card
-- If Board is public
-    - If user is member/admin of workspace
-        - Change state of card
-    - Else
-        - Cant change state of card
-- If Board is private
-    - If user is member/admin of workspace
-        - If user is member/admin of board
-            - Change state of card
-    - Else
-        - Cant change state of card
+5. Invite User To Workspace
+- Admin press member tab
+- Admin choose either invite via email or generate link 
+- invite via email
+    - filter user to show only uninvited user
+    - choose the user to invite
+    - the invited user will get a notification to accept / reject
+- invite via link
+    - admin need to set link expired time
+    - validate if the link is still not expired
+    - validate if user have chello account 
+- if a user joins then send notifications to all workspace members and admins

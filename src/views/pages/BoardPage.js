@@ -54,7 +54,7 @@ const BoardPage = ({}) => {
 
     return (
         <div className="w-[90%] mx-auto">
-            <Header title={workspace.name} users={users} wsid={id}/>
+            <Header title={workspace.name} users={users} wsid={id} pending={isPendingUser}/>
             <div className="my-2"></div>
             <div className="flex flex-wrap">
                 {board.map((b) => {
@@ -75,19 +75,18 @@ const BoardPage = ({}) => {
             {!isPendingUser && <WorkspaceAdmin users={users} wsid={id}/>}
             <div className="my-2"></div>
             {!isPendingUser && <WorkspaceMember users={users} wsid={id}/>}
-            
         </div>
     );
 }
 
-const Header = ({ title, users, wsid }) => {
+const Header = ({ title, users, wsid, pending }) => {
     return (
         <div className="flex flex-row justify-between w-[50%]">
             <h1 className="text-3xl font-bold text-primary">{ title }</h1>
             <div className="flex flex-row space-x-2">
                 <WorkspaceAdminTag users={users} wsid={wsid}/>
                 <WorkspaceMemberTag users={users} wsid={wsid}/>
-                <WorkspaceAddMemberTag users={users} wsid={wsid}/>
+                {!pending && <WorkspaceAddMemberTag users={users} wsid={wsid}/>}
             </div>
         </div>
     );

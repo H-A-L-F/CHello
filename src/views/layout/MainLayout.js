@@ -5,6 +5,7 @@ import WorkspacePage from '../pages/WorkspacePage';
 import BoardPage from '../pages/BoardPage';
 import ListPage from '../pages/ListPage';
 import KanbanPage from '../components/KanbanPage';
+import CopyLinkPage from '../pages/CopyLinkPage';
 
 function MainLayout() {
   return (

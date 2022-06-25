@@ -1,0 +1,11 @@
+SEQUENCE DIAGRAM
+
+>>A system sequence diagram (SSD) is used to describe this flow of
+information into and out of the automated portion of the system. Thus, an SSD
+documents the inputs and the outputs and identifies the interaction between
+actors and the system.
+
+>> The opt frame is used when a message or a series of messages is optional or based on some true/false condition. The alt frame is used with if-then-else logic
+
+>>The message name should follow the verb-noun syntax to make the purpose
+clear.

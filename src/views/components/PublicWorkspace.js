@@ -7,7 +7,7 @@ import SectionWorkspace from "./SectionWorkspace"
 
 const PublicWorkspace = ({ workspaces }) => {
     const [isPending, setIsPending] = useState(true)
-    const [publicWorkspaces, setPublicWorkspace] = useState()
+    const [publicWorkspaces, setPublicWorkspace] = useState([])
     
     const { user } = useUserAuth()
     const userDocRef = doc(db, "user", user.uid)
@@ -19,12 +19,13 @@ const PublicWorkspace = ({ workspaces }) => {
     }
 
     function isPublic(ws, currUser) {
+        // console.log(!currUser.member.includes(ws.id))
         return ws.public === true && !currUser.admin.includes(ws.id) && !currUser.member.includes(ws.id)
     }
 
     function getPublicWorkspace(workspaces, currUser) {
         workspaces.forEach(e => {
-            if(isPublic(e, currUser)) setPublicWorkspace(e)
+            if(isPublic(e, currUser)) setPublicWorkspace((prevstate) => [...prevstate, e])
         });
         setIsPending(false)
     }
@@ -35,6 +36,8 @@ const PublicWorkspace = ({ workspaces }) => {
             getPublicWorkspace(workspaces, currUser)
         })
     }, [])
+
+    console.log(workspaces)
 
     return (
         <div>

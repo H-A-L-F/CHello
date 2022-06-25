@@ -9,6 +9,7 @@ import SectionWorkspace from "../components/SectionWorkspace";
 import PublicWorkspace from "../components/PublicWorkspace";
 import AdminWorkspace from "../components/AdminWorkspace";
 import MemberWorkspace from "../components/MemberWorkspace";
+import Loading from "../components/Loading";
 
 const WorkspacePage = () => {
     const [isPending, setIsPending] = useState(true)
@@ -27,7 +28,7 @@ const WorkspacePage = () => {
 
     return (
         <div className="w-[90%] mx-auto flex flex-col space-y-8">
-            {isPending && <div>Loading...</div> }
+            {isPending && <Loading /> }
             {workspaces && <SectionWorkspace title={"Workspaces"} workspace={workspaces} />}
             {workspaces && <AdminWorkspace workspaces={workspaces}/>}
             {workspaces && <MemberWorkspace workspaces={workspaces}/>}

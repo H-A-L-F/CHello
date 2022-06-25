@@ -3,6 +3,7 @@ import { useEffect } from "react"
 import { useState } from "react"
 import { useUserAuth } from "../../AuthContext"
 import { db } from "../../firebase"
+import Loading from "./Loading"
 import SectionWorkspace from "./SectionWorkspace"
 
 const PublicWorkspace = ({ workspaces }) => {
@@ -41,7 +42,7 @@ const PublicWorkspace = ({ workspaces }) => {
 
     return (
         <div>
-            {isPending && <div>Loading...</div> }
+            {isPending && <Loading /> }
             {publicWorkspaces && <SectionWorkspace title={"Public Workspaces"} workspace={publicWorkspaces} />}
         </div>
     )

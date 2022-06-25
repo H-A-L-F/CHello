@@ -13,6 +13,7 @@ import WorkspaceMemberTag from "../components/WorkspaceMemberTag";
 import WorkspaceMember from "../components/WorkspaceMember";
 import WorkspaceAddMemberTag from "../components/WorkspaceAddMemberTag";
 import { useUserAuth } from "../../AuthContext";
+import WorkspacePromoteTag from "../components/WorkspacePromoteTag";
 
 const BoardPage = ({}) => {
     const [board, setBoard] = useState([])
@@ -91,6 +92,7 @@ const Header = ({ title, users, wsid, pending, wspath }) => {
                 {!pending && <WorkspaceAdminTag users={users} wsid={wsid}/>}
                 {!pending && <WorkspaceMemberTag users={users} wsid={wsid}/>}
                 {!pending && <WorkspaceAddMemberTag users={users} wsid={wsid} wspath={wspath}/>}
+                {!pending && <WorkspacePromoteTag users={users} wsid={wsid}/>}
             </div>
         </div>
     );

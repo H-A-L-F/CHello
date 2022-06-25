@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { HiOutlineUserAdd } from "react-icons/hi";
+import Loading from "./Loading";
 import Modal from "./Modal"
 import ModalContent from "./ModalContent";
 import Tag from "./Tag"
@@ -35,7 +36,7 @@ const WorkspaceAddMemberTag = ({users, wsid, wspath}) => {
 
     return (
         <div>
-            {(isPendingReg && isPendingDef) && <div>Loading...</div>}
+            {(isPendingReg && isPendingDef) && <Loading />}
             {(!isPendingReg && !isPendingDef) &&
                 <div>
                     <Modal body={<Tag icon={<HiOutlineUserAdd size={24}/>} text={"Add Member"}/>} target={"modal-addM"}/>

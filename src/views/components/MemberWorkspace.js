@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { useUserAuth } from "../../AuthContext"
 import { db } from "../../firebase"
 import Empty from "./Empty"
+import Loading from "./Loading"
 import SectionWorkspace from "./SectionWorkspace"
 
 const MemberWorkspace = ({workspaces}) => {
@@ -39,7 +40,7 @@ const MemberWorkspace = ({workspaces}) => {
 
     return (
         <div>
-            {isPending ? <div>Loading...</div> :
+            {isPending ? <Loading /> :
                 memberWorkspaces ? <SectionWorkspace title={"Member Workspaces"} workspace={memberWorkspaces} /> : <EmptySection title={"Member Workspaces"}/>
             }
         </div>

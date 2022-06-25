@@ -36,6 +36,7 @@ const AcceptInvitePage = () => {
     }
 
     function validateUser(user, data) {
+        console.log(Timestamp.now().seconds - data.created.seconds)
         const adminFlag = user.admin.includes(data.docID)
         const timeFlag = Timestamp.now().seconds - data.created.seconds > 86400
         return !adminFlag && !timeFlag
@@ -84,7 +85,7 @@ const AcceptInvitePage = () => {
             setValid(validateUser(userDb, data))
         }
 
-    }, [userDb])
+    }, [userDb, data])
 
     // console.log(docId)
 

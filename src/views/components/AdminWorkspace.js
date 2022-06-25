@@ -2,6 +2,7 @@ import { doc, getDoc } from "firebase/firestore"
 import { useEffect, useState } from "react"
 import { useUserAuth } from "../../AuthContext"
 import { db } from "../../firebase"
+import Loading from "./Loading"
 import SectionWorkspace from "./SectionWorkspace"
 
 const AdminWorkspace = ({ workspaces }) => {
@@ -38,7 +39,7 @@ const AdminWorkspace = ({ workspaces }) => {
 
     return (
         <div>
-            {isPending && <div>Loading...</div> }
+            {isPending && <Loading /> }
             {adminWorkspaces && <SectionWorkspace title={"Admin Workspaces"} workspace={adminWorkspaces} />}
         </div>
     )

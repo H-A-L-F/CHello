@@ -64,7 +64,7 @@ const WorkspaceAddMemberForm = ({users, all, wspath}) => {
                     isMulti={true}
                 />
             } */}
-            <div class="divider">OR</div>
+            <div className="divider">OR</div>
             <div className="h-28">
                 <Select
                     value={selecteds}

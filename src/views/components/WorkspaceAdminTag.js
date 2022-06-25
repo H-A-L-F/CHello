@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { HiOutlineUser } from "react-icons/hi";
+import Loading from "./Loading";
 import Modal from "./Modal"
 import ModalContent from "./ModalContent";
 import Tag from "./Tag"
@@ -22,7 +23,7 @@ const WorkspaceAdminTag = ({users, wsid}) => {
 
     return (
         <div>
-            {isPending && <div>Loading...</div>}
+            {isPending && <Loading />}
             {!isPending && 
                 <div>
                     <Modal body={<Tag icon={<HiOutlineUser size={24}/>} text={"Admins(" + admins.length + ")"}/>} target={target}/>

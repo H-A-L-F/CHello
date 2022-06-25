@@ -54,7 +54,7 @@ const CopyLinkPage = ({type}) => {
             <div className="hero-content flex-col">
                 <div className="card flex-shrink-0 w-full shadow-2xl bg-base-100">
                 <div className="card-body">
-                    {/* {isPendingLink ? <div>Loading...</div> : <InviteLinkModal path={link}/>} */}
+                    {/* {isPendingLink ? <Loading /> : <InviteLinkModal path={link}/>} */}
                     <InviteLinkModal path={isPendingLink ? "Loading..." : link}/>
                 </div>
                 </div>

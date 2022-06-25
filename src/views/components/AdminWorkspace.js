@@ -2,6 +2,7 @@ import { doc, getDoc } from "firebase/firestore"
 import { useEffect, useState } from "react"
 import { useUserAuth } from "../../AuthContext"
 import { db } from "../../firebase"
+import Empty from "./Empty"
 import Loading from "./Loading"
 import SectionWorkspace from "./SectionWorkspace"
 
@@ -40,9 +41,27 @@ const AdminWorkspace = ({ workspaces }) => {
     return (
         <div>
             {isPending && <Loading /> }
-            {adminWorkspaces && <SectionWorkspace title={"Admin Workspaces"} workspace={adminWorkspaces} />}
+            {adminWorkspaces.length > 0 ? <SectionWorkspace title={"Admin Workspaces"} workspace={adminWorkspaces}/> : <EmptySection title={"Admin Workspaces"}/>} 
         </div>
     )
+}
+
+const EmptySection = ({title}) => {
+    return (
+        <div className="flex flex-col">
+            <Header title={title} />
+            <div className="my-2"></div>
+            <Empty/>
+        </div>
+    )
+}
+
+const Header = ({ title }) => {
+    return (
+        <div className="flex flex-row justify-between w-[50%]">
+            <h1 className="text-3xl font-bold text-primary">{ title }</h1>
+        </div>
+    );
 }
 
 export default AdminWorkspace

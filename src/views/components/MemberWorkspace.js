@@ -41,7 +41,7 @@ const MemberWorkspace = ({workspaces}) => {
     return (
         <div>
             {isPending ? <Loading /> :
-                memberWorkspaces ? <SectionWorkspace title={"Member Workspaces"} workspace={memberWorkspaces} /> : <EmptySection title={"Member Workspaces"}/>
+                memberWorkspaces.length > 0 ? <SectionWorkspace title={"Member Workspaces"} workspace={memberWorkspaces} /> : <EmptySection title={"Member Workspaces"}/>
             }
         </div>
     )

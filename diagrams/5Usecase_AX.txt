@@ -90,3 +90,28 @@
     - the invited user will get a notification to accept / reject
 - invite via link
     - admin need to set link expired time
+
+
+
+
+4. Home Page
+
+    - Validate every public workspace
+        - If true
+            - Show every public workspace
+            - Show them in the Public Workspace section
+        - Else
+            - Dont show workspace
+    - Validate if user is admin of any Workspace
+        - If true
+            - Show every Workspace he is admin of
+            - Show them in the Admin Workspace section
+        - Else
+            -Dont show workspace
+
+
+
+if member/ admin
+	if admin
+	else member
+else neither

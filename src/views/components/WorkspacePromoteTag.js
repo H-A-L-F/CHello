@@ -8,7 +8,7 @@ import WorkspacePromoteForm from "./WorkspacePromoteForm";
 
 const WorkspacePromoteTag = ({users, wsid}) => {
     const [isPending, setPending] = useState(true)
-    const [members, setMember] = useState()
+    const [members, setMember] = useState([])
     const target = "modal-prm-" + wsid
 
     function isMember(u) {
@@ -17,7 +17,14 @@ const WorkspacePromoteTag = ({users, wsid}) => {
 
     useEffect(() => {
         if(users) {
-            setMember(users.filter(isMember))
+            const temp = users.filter(isMember)
+            temp.map((t) => {
+                const data = {
+                    value: t.email,
+                    label: t.email
+                }
+                setMember((prev) => [...prev, data])
+            })
         }
         setPending(false)
 

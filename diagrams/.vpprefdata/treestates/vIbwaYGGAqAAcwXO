@@ -7,9 +7,6 @@
 		<ExpandedPath>DiagramNavigator</ExpandedPath>
 		<ExpandedPath>DiagramNavigator,UML Diagrams</ExpandedPath>
 		<ExpandedPath>UseCaseDiagram</ExpandedPath>
-		<ExpandedPath>ClassDiagram</ExpandedPath>
-		<ExpandedPath>InteractionDiagram</ExpandedPath>
-		<ExpandedPath>ActivityDiagram</ExpandedPath>
 		<ExpandedPath>DiagramNavigator,Requirements Capturing</ExpandedPath>
 		<ExpandedPath>DiagramNavigator,Database Modeling</ExpandedPath>
 		<ExpandedPath>DiagramNavigator,Business Modeling</ExpandedPath>
@@ -27,7 +24,7 @@
 		<ExpandedPath>DiagramNavigator,Network Design</ExpandedPath>
 		<ExpandedPath>DiagramNavigator,General</ExpandedPath>
 		<ExpandedPath>DiagramNavigator,Others</ExpandedPath>
-		<SelectedPath>InteractionDiagram,FDt6hH6FS_nO9Aq5</SelectedPath>
+		<SelectedPath>UseCaseDiagram,YK8KCb6GAqBwAQmz</SelectedPath>
 	</TreeState>
 	<TreeState name="ClassBrowser" viewX="0" viewY="0"/>
 	<TreeState name="LogicalView" viewX="0" viewY="0"/>

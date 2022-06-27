@@ -86,7 +86,7 @@ const BoardPage = ({}) => {
 
 const Header = ({ title, users, wsid, pending, wspath }) => {
     return (
-        <div className="flex flex-row justify-between w-[50%]">
+        <div className="flex flex-row justify-between w-[80%]">
             <h1 className="text-3xl font-bold text-primary">{ title }</h1>
             <div className="flex flex-row space-x-2">
                 {!pending && <WorkspaceAdminTag users={users} wsid={wsid}/>}

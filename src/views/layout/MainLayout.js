@@ -3,9 +3,8 @@ import { Route, Routes } from 'react-router-dom';
 import Home from '../pages/Home'
 import WorkspacePage from '../pages/WorkspacePage';
 import BoardPage from '../pages/BoardPage';
-import ListPage from '../pages/ListPage';
 import KanbanPage from '../components/KanbanPage';
-import CopyLinkPage from '../pages/CopyLinkPage';
+import Boards from '../pages/Boards';
 
 function MainLayout() {
   return (
@@ -16,6 +15,7 @@ function MainLayout() {
           <Route path="workspace" element={<WorkspacePage />}/>
           <Route path="workspace/:path" element={<BoardPage />}/>
           <Route path="board/:path" element={<KanbanPage />} />
+          <Route path='board' element={<Boards />} />
         </Routes>
       </div>
       <SideBar />

@@ -1,4 +1,4 @@
-import { HiCalendar, HiHome, HiOutlinePlusSm, HiOutlineUser, HiOutlineLogin, HiOutlineLogout, HiOutlineClipboardCopy } from "react-icons/hi";
+import { HiCalendar, HiHome, HiOutlinePlusSm, HiOutlineUser, HiOutlineLogin, HiOutlineLogout, HiOutlineClipboardCopy, HiCollection } from "react-icons/hi";
 import { Link, useNavigate } from 'react-router-dom';
 import { useUserAuth } from "../../AuthContext";
 import CreateWorkspace from "./CreateWorkspace";
@@ -35,6 +35,10 @@ const SideBar = () => {
 
             <Link to={"/main/workspace"}>
                 <SideBarIcon icon={<HiCalendar size = "20"/>} text="Workspace"/>
+            </Link>
+
+            <Link to={"/main/board"}>
+                <SideBarIcon icon={<HiCollection size = "20"/>} text="Board"/>
             </Link>
         </div>
     );

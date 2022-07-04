@@ -13,7 +13,7 @@ const SectionWorkspace = ({ workspace, title }) => {
         <div>
             <Header title={title} />
             <div className="my-2"></div>
-            <div className="flex flex-wrap space-x-4">
+            <div className="flex flex-wrap">
                 {isObject(workspace) && <SingleSection ws={workspace}/>}
                 {!isObject(workspace) && workspace.map((ws) => {
                     const workspacePath = window.btoa(ws.path)

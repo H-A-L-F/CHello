@@ -11,8 +11,8 @@ function MainLayout() {
     <div className="flex flex-row">
       <div className="ml-16 my-8 w-[100%] justify-center">
         <Routes>
-          <Route path="home" element={<Home />}/>
-          <Route path="workspace" element={<WorkspacePage />}/>
+          <Route path="home" element={<WorkspacePage />}/>
+          <Route path="workspace" element={<Home />}/>
           <Route path="workspace/:path" element={<BoardPage />}/>
           <Route path="board/:path" element={<KanbanPage />} />
           <Route path='board' element={<Boards />} />

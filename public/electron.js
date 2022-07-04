@@ -8,10 +8,17 @@ function createWindow() {
   const win = new BrowserWindow({
     width: 800,
     height: 600,
+    icon: path.join(__dirname, "tpg.png"),
+    autoHideMenuBar: true,
     webPreferences: {
       nodeIntegration: true,
     },
+    show: false,
   });
+
+  win.setFullScreen(true)
+  win.on("ready-to-show", win.show)
+
 
   // and load the index.html of the app.
   // win.loadFile("index.html");
@@ -22,7 +29,7 @@ function createWindow() {
   );
   // Open the DevTools.
   if (isDev) {
-    win.webContents.openDevTools({ mode: 'detach' });
+    // win.webContents.openDevTools({ mode: 'detach' });
   }
 }
 

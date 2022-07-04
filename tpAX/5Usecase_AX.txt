@@ -1,0 +1,117 @@
+1. Join workspace
+- If user is logged in
+    - If user is not member/admin of workspace
+        - Promote user to member of workspace
+    - Else 
+        - redirect to workspace user want to Join
+- Else
+    - redirect to login page
+
+2. Move Card
+-If workspace is private
+    - If user is admin/member of workspace
+        - If board is private
+            - If user is admin/member of board
+                - If list is valid
+                    - Copy the card to target list
+                    - Remove card from the old list
+                - Else
+                    - Cant move card
+            - Else
+                Cant open card
+        - Else
+            - Copy the card to target list
+            - Remove card from the old list
+    - Else
+        - Cant open Board
+- Else
+     If board is private
+        - If user is admin/member of board
+            - If list is valid
+                - Copy the card to target list
+                - Remove card from the old list
+            - Else
+                - Cant move card
+        - Else
+            Cant open card
+    - Else
+        - Copy the card to target list
+        - Remove card from the old list
+
+3. Leave Board
+- If admin of board
+    - If the only admin
+        - Leave the Board
+        - SOFT DELETE Board
+    - Else
+        - Leave the board
+- If member of board
+    - Leave the board
+- Notify user (admin && member) of Board
+
+4. Home Page
+- If user is logged in 
+    - Validate every public workspace
+        - If true
+            - Show every public workspace
+            - Show them in the Public Workspace section
+        - Else
+            - Dont show workspace
+    - Validate if user is admin of any Workspace
+        - If true
+            - Show every Workspace he is admin of
+            - Show them in the Admin Workspace section
+        - Else
+            -Dont show workspace
+- Else
+    - Redirect to Login Page
+
+5. Invite User To Workspace
+- Admin press member tab
+- Admin choose either invite via email or generate link 
+- invite via email
+    - filter user to show only uninvited user
+    - choose the user to invite
+    - the invited user will get a notification to accept / reject
+- invite via link
+    - admin need to set link expired time
+    - validate if the link is still not expired
+    - validate if user have chello account 
+- if a user joins then send notifications to all workspace members and admins
+
+
+//rev5
+5. Invite User To Workspace
+- Admin press member tab
+- Admin choose either invite via email or generate link 
+- invite via email
+    - filter user to show only uninvited user
+    - choose the user to invite
+    - the invited user will get a notification to accept / reject
+- invite via link
+    - admin need to set link expired time
+
+
+
+
+4. Home Page
+
+    - Validate every public workspace
+        - If true
+            - Show every public workspace
+            - Show them in the Public Workspace section
+        - Else
+            - Dont show workspace
+    - Validate if user is admin of any Workspace
+        - If true
+            - Show every Workspace he is admin of
+            - Show them in the Admin Workspace section
+        - Else
+            -Dont show workspace
+
+
+
+if member/ admin
+	if admin
+	else member
+else neither

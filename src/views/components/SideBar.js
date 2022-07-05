@@ -1,5 +1,6 @@
 import { HiCalendar, HiHome, HiOutlinePlusSm, HiOutlineUser, HiOutlineLogin, HiOutlineLogout, HiOutlineClipboardCopy, HiCollection } from "react-icons/hi";
 import { Link, useNavigate } from 'react-router-dom';
+import CreateWorkspaceForm from "../../application/components/CreateWorkspaceForm";
 import { useUserAuth } from "../../AuthContext";
 import CreateWorkspace from "./CreateWorkspace";
 import Modal from "./Modal";
@@ -40,6 +41,9 @@ const SideBar = () => {
             <Link to={"/main/board"}>
                 <SideBarIcon icon={<HiCollection size = "20"/>} text="Board"/>
             </Link>
+
+            <Modal body={<SideBarIcon icon={<HiOutlinePlusSm size = "32"/>} text="Create Workspace Form" />} target="modal-cwsf"/>
+            <ModalContent target="modal-cwsf" content={<CreateWorkspaceForm />}/>
         </div>
     );
 }

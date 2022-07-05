@@ -2,6 +2,7 @@ import { collection } from "firebase/firestore"
 import { useRef } from "react"
 import { db } from "../../firebase"
 import { useSnapCollection } from "../hooks/useSnapCollection"
+import Select from 'react-select';
 
 const CreateWorkspaceForm = () => {
     const userState = useSnapCollection(collection(db, "user"))
@@ -30,11 +31,11 @@ const CreateWorkspaceForm = () => {
                 </label>
             </div>
             <div className="form-control mt-2 h-28">
-                <Select 
+                {/* <Select 
                     ref={memberRef}
                     options={alls}
                     isMulti={true}
-                />
+                /> */}
             </div>
             <div className="form-control mt-6">
                 <button className="btn btn-primary" onClick={handleCreateWorkspace}>Create</button>

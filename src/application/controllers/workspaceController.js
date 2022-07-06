@@ -6,6 +6,10 @@ export function createWorkspace(data) {
     return addDoc(colRef, data)
 }
 
+export function addWorkspaceMember(uid) {
+    
+}
+
 export function deleteWorkspace(data) {
     
 }

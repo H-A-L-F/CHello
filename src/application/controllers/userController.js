@@ -1,11 +1,18 @@
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 
-
-export function addWSRef(uid, wsid) {
+export function joinWSAdmin(uid, wsid) {
     const userDocRef = doc(db, "user", uid)
     const newField = {
         ws_admin: arrayUnion(wsid)
     }
-    updateDoc(userDocRef, newField)
+    return updateDoc(userDocRef, newField)
+}
+
+export function joinWSMember(uid, wsid) {
+    const userDocRef = doc(db, "user", uid)
+    const newField = {
+        ws_member: arrayUnion(wsid)
+    }
+    return updateDoc(userDocRef, newField)
 }

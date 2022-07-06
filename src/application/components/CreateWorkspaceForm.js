@@ -8,10 +8,15 @@ import Select from 'react-select';
 import { FIRESTORE_FETCH_SUCCESS } from "../actions/useSnapCollection";
 import ErrorHolder from "../views/ErrorHolder";
 import LoadingHolder from "../views/LoadingHolder";
+import { useUserAuth } from "../../AuthContext";
+import { constructWorkspace } from "../models/workspace";
+import { createWorkspace } from "../controllers/userWorkspaceController";
 
 const CreateWorkspaceForm = () => {
     const userState = useSnapCollection(collection(db, "user"))
     const [selecteds, setSelected] = useState()
+
+    const {user} = useUserAuth()
 
     const titleRef = useRef()
     const publicRef = useRef()
@@ -26,6 +31,9 @@ const CreateWorkspaceForm = () => {
 
     function handleCreateWorkspace() {
         console.log(selecteds)
+        const bool = publicRef.current.value === "on" ? true : false
+        const workspace = constructWorkspace(titleRef.current.value, bool)
+        createWorkspace(user.uid, workspace)
     }
 
     function handleChange(options) {

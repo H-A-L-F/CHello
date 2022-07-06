@@ -9,6 +9,7 @@ import {
 import { auth, db } from "./firebase";
 import { useLocation } from "react-router-dom";
 import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import { constructUser } from "./application/models/user";
 
 const userAuthContext = createContext();
 
@@ -24,17 +25,9 @@ export function UserAuthContextProvider({ children }) {
   function saveUser(id, email, password, username) {
     const userRef = collection(db, "user")
     const path = 'user/' + id
+    const newUser = constructUser(username, email, password, path)
 
-    return setDoc(doc(db, path), {
-      username: username,
-      email: email,
-      password: password,
-      admin: [],
-      member: [],
-      adminBoard: [],
-      memberBoard: [],
-      path: path
-    })
+    return setDoc(doc(db, path), newUser)
   }
 
   function setName(uname) {

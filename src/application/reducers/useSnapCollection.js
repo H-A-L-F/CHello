@@ -7,9 +7,9 @@ const reducer = (state, action) => {
       case FIRESTORE_FETCH_LOADING:
         return { status: FIRESTORE_FETCH_LOADING, data: undefined, error: undefined };
       case FIRESTORE_FETCH_SUCCESS:
-        return { status: FIRESTORE_FETCH_SUCCESS, data: action.payload, error: undefined };
+        return { status: FIRESTORE_FETCH_SUCCESS, data: action.payLoad, error: undefined };
       case FIRESTORE_FETCH_ERROR:
-        return { status: FIRESTORE_FETCH_ERROR, data: undefined, error: action.payload };
+        return { status: FIRESTORE_FETCH_ERROR, data: undefined, error: action.payLoad };
       default:
         throw new Error("invalid action");
     }

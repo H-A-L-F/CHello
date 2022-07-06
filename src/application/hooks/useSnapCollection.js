@@ -16,13 +16,13 @@ export function useSnapCollection(ref) {
     dispatch(firestoreFetchLoading);
     return onSnapshot(ref,
         (response) => {
-        const data = response.docs
-            ? getCollectionData(response)
-            : getDocData(response);
-        dispatch(firestoreFetchSuccess(data));
+            const data = response.docs
+                ? getCollectionData(response)
+                : getDocData(response)
+            dispatch(firestoreFetchSuccess(data))
         },
         (error) => {
-        dispatch(firestoreFetchError(error));
+            dispatch(firestoreFetchError(error))
         }
     );
     }, []);
@@ -31,7 +31,7 @@ export function useSnapCollection(ref) {
 }
 
 function getDocData(doc) {
-    return doc.exists === true ? { id: doc.id, ...doc.data() } : null;
+    return doc ? { id: doc.id, ...doc.data() } : null;
 }
 
 function getCollectionData(collection) {

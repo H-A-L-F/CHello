@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import Empty from "../../views/components/Empty"
 import WorkspaceCard from "../../views/components/WorkspaceCard"
 
 const SectionWorkspace = ({ workspace, title }) => {
@@ -14,6 +15,7 @@ const SectionWorkspace = ({ workspace, title }) => {
             <Header title={title} />
             <div className="my-2"></div>
             <div className="flex flex-wrap">
+                {workspace.length === 0 && <Empty />}
                 {isObject(workspace) && <SingleSection ws={workspace}/>}
                 {!isObject(workspace) && workspace.map((ws) => {
                     const workspacePath = window.btoa(ws.path)

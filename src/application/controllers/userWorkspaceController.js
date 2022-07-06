@@ -20,7 +20,7 @@ export function wsInvUserLink(bid, uid) {
     // link logic
 }
 
-export function userFilterAdminWS(user, workspaces) {
+export function userFilterAuthWS(user, workspaces) {
     let res = []
     workspaces.forEach(element => {
         console.log()

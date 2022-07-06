@@ -46,8 +46,9 @@ export function UserAuthContextProvider({ children }) {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       getDoc(doc(db, "user", currentUser.uid)).then((u) => {
-        setUser(u.data());
-        window.localStorage.setItem('user', JSON.stringify(u.data()));
+        const data = {...u.data(), id: u.id}
+        setUser(data);
+        window.localStorage.setItem('user', JSON.stringify(data));
       })
     });
     return unsubscribe;

@@ -8,7 +8,7 @@ import {
 } from "firebase/auth";
 import { auth, db } from "./firebase";
 import { useLocation } from "react-router-dom";
-import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, setDoc } from "firebase/firestore";
 import { constructUser } from "./application/models/user";
 
 const userAuthContext = createContext();
@@ -45,8 +45,10 @@ export function UserAuthContextProvider({ children }) {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      window.localStorage.setItem('user', JSON.stringify(currentUser));
+      getDoc(doc(db, "user", currentUser.uid)).then((u) => {
+        setUser(u.data());
+        window.localStorage.setItem('user', JSON.stringify(u.data()));
+      })
     });
     return unsubscribe;
   }, [location]);

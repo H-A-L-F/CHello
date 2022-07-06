@@ -1,6 +1,6 @@
 import { doc } from "firebase/firestore"
 import { db } from "../../firebase"
-import { joinWSAdmin } from "./userController"
+import { isUserAdmin, joinWSAdmin } from "./userController"
 import { addWorkspaceAdmin, createWorkspace } from "./workspaceController"
 
 export function userCreateWorkspace(uid, workspace) {
@@ -18,4 +18,13 @@ export function wsInvUserEmail(wsid, uid) {
 export function wsInvUserLink(bid, uid) {
     const userDocRef = doc(db, "user", uid)
     // link logic
+}
+
+export function userFilterAdminWS(user, workspaces) {
+    let res = []
+    workspaces.forEach(element => {
+        console.log()
+        if(isUserAdmin(user, element.id)) res.push(element)
+    })
+    return res
 }

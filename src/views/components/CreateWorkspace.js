@@ -13,7 +13,7 @@ const CreateWorkspace = () => {
     let workspaceCollectionRef = 'workspace/'  + makeid(20)
 
     function addWorkspaceRefToMember(wsid) {
-        const id = user.uid
+        const id = user.id
         const userDocRef = doc(db, "user", id)
         const newField = {
             admin: arrayUnion(wsid)

@@ -11,7 +11,7 @@ const AdminWorkspace = ({ workspaces }) => {
     const [adminWorkspaces, setAdminWorkspaces] = useState([])
 
     const { user } = useUserAuth()
-    const userDocRef = doc(db, "user", user.uid)
+    const userDocRef = doc(db, "user", user.id)
     const currUser = getUserDoc(userDocRef)
 
     async function getUserDoc(doc) {

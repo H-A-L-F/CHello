@@ -24,7 +24,7 @@ const AcceptInvitePage = () => {
     }
 
     function setUserRef(data) {
-        const userDocRef = doc(db, "user", user.uid)
+        const userDocRef = doc(db, "user", user.id)
         const newData = data.for === "workspace" ? {member: arrayUnion(data.docID)} : {boardMember: arrayUnion(data.docID)}
         updateDoc(userDocRef, newData)
     }

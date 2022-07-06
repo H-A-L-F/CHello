@@ -24,7 +24,7 @@ const CreateBoardForm = ({ ws }) => {
     }
 
     function addBoardToMember(bid) {
-        const id = user.uid
+        const id = user.id
         const userDocRef = doc(db, "user", id)
         const newField = {
             adminBoard: arrayUnion(bid)

@@ -23,5 +23,5 @@ export function addWorkspaceAdmin(uid, wsid) {
 }
 
 export function deleteWorkspace(data) {
-    
+    // delete workspace
 }

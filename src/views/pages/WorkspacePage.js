@@ -83,7 +83,7 @@ const OwnedWorkspace = () => {
 
     const {user} = useUserAuth()
     const workspaceCollectionRef = collection(db, "workspace")
-    const q = query(workspaceCollectionRef, where("admin", "array-contains", user.uid))
+    const q = query(workspaceCollectionRef, where("admin", "array-contains", user.id))
 
     useEffect(() => {
         const unsub = onSnapshot(q, (data) => {

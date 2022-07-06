@@ -29,7 +29,7 @@ const BoardPage = ({}) => {
     const boardCollectionRef = collection(db, wsPath + "/board/")
     const workspaceDocumentRef = doc(db, "workspace", id)
 
-    const userUid = user.uid
+    const userUid = user.id
     const userWsLink = wsPath + "/" + userUid
     
     useEffect(() => {

@@ -33,7 +33,7 @@ const CreateWorkspaceForm = () => {
         console.log(selecteds)
         const bool = publicRef.current.value === "on" ? true : false
         const workspace = constructWorkspace(titleRef.current.value, bool)
-        userCreateWorkspace(user.uid, workspace)
+        userCreateWorkspace(user.id, workspace)
     }
 
     function handleChange(options) {

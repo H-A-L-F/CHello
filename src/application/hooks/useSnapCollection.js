@@ -3,7 +3,7 @@ import { useEffect, useReducer } from "react";
 import { firestoreFetchError, firestoreFetchLoading, firestoreFetchSuccess, FIRESTORE_FETCH_IDLE, FIRESTORE_FETCH_LOADING } from "../actions/useSnapCollection";
 import reducer from "../reducers/useSnapCollection";
 
-export function useSnapCollection(ref) {
+export function useSnapCollection(ref, filter) {
     const initialState = {
         status: ref ? FIRESTORE_FETCH_LOADING : FIRESTORE_FETCH_IDLE,
         data: undefined,

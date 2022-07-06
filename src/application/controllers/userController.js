@@ -16,3 +16,7 @@ export function joinWSMember(uid, wsid) {
     }
     return updateDoc(userDocRef, newField)
 }
+
+export function isUserAdmin(user, id) {
+    return user.includes(id)
+}

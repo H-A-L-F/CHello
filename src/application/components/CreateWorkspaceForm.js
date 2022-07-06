@@ -9,22 +9,18 @@ import { FIRESTORE_FETCH_SUCCESS } from "../actions/useSnapCollection";
 
 const CreateWorkspaceForm = () => {
     const userState = useSnapCollection(collection(db, "user"))
-    const [isPendingOpt, setPendingOpt] = useState(true)
-    const [opts, setOpt] = useState([])
     const [selecteds, setSelected] = useState()
 
     const titleRef = useRef()
     const publicRef = useRef()
 
-    useEffect(() => {
-        if(userState.status === FIRESTORE_FETCH_SUCCESS) {
-            setOpt([])
-            userState.data.forEach(element => {
-                setOpt((prev) => [...prev, convertForSelect(element.email)])
-            });
-            setPendingOpt(false)
-        }
-    }, [userState])
+    function generateOptions(data) {
+        let res = []
+        data.forEach(element => {
+            res.push(convertForSelect(element.email))
+        });
+        return res
+    }
 
     function handleCreateWorkspace() {
         console.log(selecteds)
@@ -52,13 +48,12 @@ const CreateWorkspaceForm = () => {
             <div className="form-control mt-2 h-64">
                 {userState.status === "loading" && <div>loading...</div>}
                 {userState.status === "error" && <div>error...</div>}
-                {!isPendingOpt && 
+                {userState.status === FIRESTORE_FETCH_SUCCESS && 
                     <Select
                         defaultMenuIsOpen={true}
                         closeMenuOnSelect={false}
                         closeMenuOnScroll={false}
-                        isLoading={isPendingOpt}
-                        options={opts}
+                        options={generateOptions(userState.data)}
                         isMulti={true}
                         onChange={handleChange}
                     />

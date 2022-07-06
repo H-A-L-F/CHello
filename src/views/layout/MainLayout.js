@@ -5,6 +5,7 @@ import WorkspacePage from '../pages/WorkspacePage';
 import BoardPage from '../pages/BoardPage';
 import KanbanPage from '../components/KanbanPage';
 import Boards from '../pages/Boards';
+import HomePage from '../../application/components/HomePage';
 
 function MainLayout() {
   return (
@@ -12,6 +13,7 @@ function MainLayout() {
       <div className="ml-16 my-8 w-[100%] justify-center">
         <Routes>
           <Route path="home" element={<WorkspacePage />}/>
+          <Route path="testhome" element={<HomePage />}/>
           <Route path="workspace" element={<Home />}/>
           <Route path="workspace/:path" element={<BoardPage />}/>
           <Route path="board/:path" element={<KanbanPage />} />

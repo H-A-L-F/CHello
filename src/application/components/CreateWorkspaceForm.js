@@ -10,7 +10,7 @@ import ErrorHolder from "../views/ErrorHolder";
 import LoadingHolder from "../views/LoadingHolder";
 import { useUserAuth } from "../../AuthContext";
 import { constructWorkspace } from "../models/workspace";
-import { createWorkspace } from "../controllers/userWorkspaceController";
+import { userCreateWorkspace } from "../controllers/userWorkspaceController";
 
 const CreateWorkspaceForm = () => {
     const userState = useSnapCollection(collection(db, "user"))
@@ -33,7 +33,7 @@ const CreateWorkspaceForm = () => {
         console.log(selecteds)
         const bool = publicRef.current.value === "on" ? true : false
         const workspace = constructWorkspace(titleRef.current.value, bool)
-        createWorkspace(user.uid, workspace)
+        userCreateWorkspace(user.uid, workspace)
     }
 
     function handleChange(options) {

@@ -44,6 +44,10 @@ const SideBar = () => {
 
             <Modal body={<SideBarIcon icon={<HiOutlinePlusSm size = "32"/>} text="Create Workspace Form" />} target="modal-cwsf"/>
             <ModalContent target="modal-cwsf" content={<CreateWorkspaceForm />}/>
+
+            <Link to={"/main/testhome"}>
+                <SideBarIcon icon={<HiHome size = "28"/>} text="Home" />
+            </Link>
         </div>
     );
 }

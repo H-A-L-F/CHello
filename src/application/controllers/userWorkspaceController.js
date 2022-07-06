@@ -1,11 +1,12 @@
 import { doc } from "firebase/firestore"
 import { db } from "../../firebase"
 import { joinWSAdmin } from "./userController"
-import { createWorkspace } from "./workspaceController"
+import { addWorkspaceAdmin, createWorkspace } from "./workspaceController"
 
 export function userCreateWorkspace(uid, workspace) {
     createWorkspace(workspace).then((wsref) => {
         joinWSAdmin(uid, wsref.id)
+        addWorkspaceAdmin(uid, wsref.id)
     })
 }
 

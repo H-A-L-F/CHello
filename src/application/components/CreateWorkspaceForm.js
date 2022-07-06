@@ -1,11 +1,13 @@
 import { collection } from "firebase/firestore"
 import { useRef } from "react"
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { db } from "../../firebase"
 import { convertForSelect } from "../modules/convertForSelect"
 import { useSnapCollection } from "../hooks/useSnapCollection"
 import Select from 'react-select';
 import { FIRESTORE_FETCH_SUCCESS } from "../actions/useSnapCollection";
+import ErrorHolder from "../views/ErrorHolder";
+import LoadingHolder from "../views/LoadingHolder";
 
 const CreateWorkspaceForm = () => {
     const userState = useSnapCollection(collection(db, "user"))
@@ -46,8 +48,8 @@ const CreateWorkspaceForm = () => {
                 </label>
             </div>
             <div className="form-control mt-2 h-64">
-                {userState.status === "loading" && <div>loading...</div>}
-                {userState.status === "error" && <div>error...</div>}
+                {userState.status === "loading" && <LoadingHolder />}
+                {userState.status === "error" && <ErrorHolder />}
                 {userState.status === FIRESTORE_FETCH_SUCCESS && 
                     <Select
                         defaultMenuIsOpen={true}

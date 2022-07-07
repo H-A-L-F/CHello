@@ -13,8 +13,8 @@ const SectionBoard = ({ board, title }) => {
             <div className="my-2"></div>
             <div className="flex flex-wrap">
                 {board.length === 0 && <Empty />}
-                {board !== undefined && board.length === 1 && <SingleSection ws={board}/>}
-                {board !== undefined && board.length > 1 && board.map((b) => {
+                {/* {board !== undefined && board.length === 1 && <SingleSection ws={board[0]}/>} */}
+                {board !== undefined && board.length >= 1 && board.map((b) => {
                     const link = getBoardUrl(b.id)
 
                     return (
@@ -29,6 +29,7 @@ const SectionBoard = ({ board, title }) => {
 }
 
 const SingleSection = ({ b }) => {
+    console.log(b)
     const link = getBoardUrl(b.id)
 
     return (

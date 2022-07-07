@@ -7,7 +7,7 @@ export function userCreateBoard(uid, board, invites) {
     createBoard(board).then((bref) => {
         joinBAdmin(uid, bref.id)
         addBoardAdmin(uid, bref.id)
-        handleInvite(invites, bref.id)
+        if(invites)handleInvite(invites, bref.id)
     })
 }
 

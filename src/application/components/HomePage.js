@@ -1,5 +1,5 @@
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
-import { collection, doc } from 'firebase/firestore'
+import { collection, doc, query, where } from 'firebase/firestore'
 import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
@@ -21,6 +21,7 @@ export default function HomePage() {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')))
     // const memberWorkspaceState = useSnapCollection(collection(db, "workspace"), isUserAuth, user.ws_member)
     // const adminWorkspaceState = useSnapCollection(collection(db, "workspace"), isUserAuth, user.ws_admin)
+    const publicWorkspaceState = useSnapCollection(query(collection(db, "workspace"), where("visibility", "==", true)))
 
     useEffect(() => {
         setUser(JSON.parse(localStorage.getItem('user')))
@@ -63,6 +64,7 @@ export default function HomePage() {
             <SectionWorkspace title={"Workspaces"} workspace={workspaceState.data} />
             <SectionWorkspace title={"Admin Workspaces"} workspace={userFilterAuthWS(user.ws_admin, workspaceState.data)} />
             <SectionWorkspace title={"Member Workspaces"} workspace={userFilterAuthWS(user.ws_member, workspaceState.data)} />
+            <SectionWorkspace title={"Public Workspaces"} workspace={publicWorkspaceState.data} />
             {/* {workspaces && <PublicWorkspace workspaces={workspaces}/>} */}
         </div>
     )

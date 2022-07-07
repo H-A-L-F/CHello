@@ -1,6 +1,4 @@
 import { collection, query, where } from "firebase/firestore"
-import { useEffect } from "react"
-import { useState } from "react"
 import { db } from "../../firebase"
 import { FIRESTORE_FETCH_ERROR, FIRESTORE_FETCH_LOADING } from "../actions/useSnapCollection"
 import { useSnapCollection } from "../hooks/useSnapCollection"

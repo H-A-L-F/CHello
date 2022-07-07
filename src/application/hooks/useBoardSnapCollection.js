@@ -4,7 +4,7 @@ import { useUserAuth } from "../../AuthContext";
 import { firestoreFetchError, firestoreFetchLoading, firestoreFetchSuccess, FIRESTORE_FETCH_IDLE, FIRESTORE_FETCH_LOADING } from "../actions/useSnapCollection";
 import reducer from "../reducers/useSnapCollection";
 
-export function useSnapCollection(ref, filterAuth, user) {
+export function useBoardSnapCollection(ref, wsid, filterAuth, user) {
     const initialState = {
         status: ref ? FIRESTORE_FETCH_LOADING : FIRESTORE_FETCH_IDLE,
         data: undefined,

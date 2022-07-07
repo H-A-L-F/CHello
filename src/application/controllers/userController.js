@@ -29,7 +29,6 @@ export function joinWSAdmin(uid, wsid) {
         ws_admin: arrayUnion(wsid)
     }
     localAddAdminWS(wsid)
-    console.log(getUserLocal())
     return updateDoc(userDocRef, newField)
 }
 
@@ -48,5 +47,20 @@ export function isUserAuth(user, id) {
 function localAddAdminWS(id) {
     const temp = getUserLocal()
     temp.ws_admin.push(id)
+    setUserLocal(temp)
+}
+
+export function joinBAdmin(uid, bid) {
+    const userRef = doc(db, "user", uid)
+    const newField = {
+        b_admin: arrayUnion(bid)
+    }
+    localAddAdminB(bid)
+    return updateDoc(userRef, newField)
+}
+
+function localAddAdminB(id) {
+    const temp = getUserLocal()
+    temp.b_admin.push(id)
     setUserLocal(temp)
 }

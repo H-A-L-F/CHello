@@ -2,7 +2,7 @@ import { collection } from "firebase/firestore"
 import { useRef } from "react"
 import { useState } from 'react';
 import { db } from "../../firebase"
-import { convertForSelect } from "../modules/convertForSelect"
+import { convertForSelect, generateOptions } from "../modules/convertForSelect"
 import { useSnapCollection } from "../hooks/useSnapCollection"
 import Select from 'react-select';
 import { FIRESTORE_FETCH_SUCCESS } from "../actions/useSnapCollection";
@@ -21,15 +21,8 @@ const CreateWorkspaceForm = () => {
     const titleRef = useRef()
     const publicRef = useRef()
 
-    function generateOptions(data) {
-        let res = []
-        data.forEach(element => {
-            res.push(convertForSelect(element.email))
-        });
-        return res
-    }
-
     function handleCreateWorkspace() {
+        // handle invite
         console.log(selecteds)
         const bool = publicRef.current.value === "on" ? true : false
         const workspace = constructWorkspace(titleRef.current.value, bool)

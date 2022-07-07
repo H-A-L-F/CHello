@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import Empty from "../../views/components/Empty"
-import WorkspaceCard from "../../views/components/WorkspaceCard"
+import { getWorkspaceUrl } from "../controllers/workspaceController"
+import WorkspaceCard from "./WorkspaceCard"
 
 const SectionWorkspace = ({ workspace, title }) => {
 
@@ -18,8 +19,7 @@ const SectionWorkspace = ({ workspace, title }) => {
                 {workspace.length === 0 && <Empty />}
                 {isObject(workspace) && <SingleSection ws={workspace}/>}
                 {!isObject(workspace) && workspace.map((ws) => {
-                    const workspacePath = window.btoa(ws.path)
-                    const link = "/main/workspace/" + workspacePath
+                    const link = getWorkspaceUrl(ws.id)
 
                     return (
                         <Link to={link} key={ws.id}>
@@ -33,8 +33,7 @@ const SectionWorkspace = ({ workspace, title }) => {
 }
 
 const SingleSection = ({ ws }) => {
-    const workspacePath = window.btoa(ws.path)
-    const link = "/main/workspace/" + workspacePath
+    const link = getWorkspaceUrl(ws.id)
 
     return (
         <Link to={link} key={ws.id}>

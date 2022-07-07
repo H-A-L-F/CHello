@@ -1,7 +1,8 @@
 import { BrowserRouter, Route, Routes, Navigate, useLocation } from "react-router-dom";
+import MainLayout from "./application/views/MainLayout";
 import { UserAuthContextProvider, useUserAuth } from "./AuthContext";
 import "./index.css";
-import MainLayout from "./views/layout/MainLayout";
+// import MainLayout from "./views/layout/MainLayout";
 import AcceptInvitePage from "./views/pages/AcceptInvitePage";
 import CopyLinkPage from "./views/pages/CopyLinkPage";
 import Login from "./views/pages/Login";

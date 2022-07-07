@@ -22,6 +22,10 @@ export function addWorkspaceAdmin(uid, wsid) {
     updateDoc(wsRef, newField)
 }
 
+export function getWorkspaceUrl(id) {
+    return "/main/workspace/" + id
+}
+
 export function deleteWorkspace(data) {
     // delete workspace
 }

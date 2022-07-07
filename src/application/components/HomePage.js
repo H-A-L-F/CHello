@@ -11,6 +11,7 @@ import { userFilterAuthWS } from '../controllers/userWorkspaceController'
 import { useSnapCollection } from '../hooks/useSnapCollection'
 import ErrorHolder from '../views/ErrorHolder'
 import LoadingHolder from '../views/LoadingHolder'
+import SectionBoard from './SectionBoard'
 import SectionWorkspace from './SectionWorkspace'
 import StatefulComponent from './StatefulComponent'
 
@@ -22,6 +23,7 @@ export default function HomePage() {
     // const memberWorkspaceState = useSnapCollection(collection(db, "workspace"), isUserAuth, user.ws_member)
     // const adminWorkspaceState = useSnapCollection(collection(db, "workspace"), isUserAuth, user.ws_admin)
     const publicWorkspaceState = useSnapCollection(query(collection(db, "workspace"), where("visibility", "==", true)))
+    const publicBoardState = useSnapCollection(query(collection(db, "board"), where("visibility", "==", "public")))
 
     useEffect(() => {
         setUser(JSON.parse(localStorage.getItem('user')))
@@ -65,6 +67,7 @@ export default function HomePage() {
             <SectionWorkspace title={"Admin Workspaces"} workspace={userFilterAuthWS(user.ws_admin, workspaceState.data)} />
             <SectionWorkspace title={"Member Workspaces"} workspace={userFilterAuthWS(user.ws_member, workspaceState.data)} />
             <SectionWorkspace title={"Public Workspaces"} workspace={publicWorkspaceState.data} />
+            <SectionBoard title={"Public Boards"} board={publicBoardState.data}/>
             {/* {workspaces && <PublicWorkspace workspaces={workspaces}/>} */}
         </div>
     )

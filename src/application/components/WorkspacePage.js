@@ -19,7 +19,6 @@ export default function WorkspacePage() {
     const workspaceState = useSnapCollection(doc(db, "workspace", id))
     const boardState = useSnapCollection(query(collection(db, "board"), where("workspace", "==", id)))
 
-
     if (workspaceState.status === FIRESTORE_FETCH_LOADING) return <LoadingHolder />
     if (workspaceState.status === FIRESTORE_FETCH_ERROR) return <ErrorHolder error={workspaceState.error} />
     return (

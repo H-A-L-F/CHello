@@ -1,4 +1,4 @@
-import { collection } from "firebase/firestore"
+import { collection, query, where } from "firebase/firestore"
 import { useRef } from "react"
 import { useState } from 'react';
 import { db } from "../../firebase"
@@ -13,7 +13,7 @@ import { constructWorkspace } from "../models/workspace";
 import { userCreateWorkspace } from "../controllers/userWorkspaceController";
 
 const CreateWorkspaceForm = () => {
-    const userState = useSnapCollection(collection(db, "user"))
+    const userState = useSnapCollection(query(collection(db, "user")))
     const [selecteds, setSelected] = useState()
 
     const {user} = useUserAuth()

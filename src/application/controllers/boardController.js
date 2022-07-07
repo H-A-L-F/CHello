@@ -22,3 +22,7 @@ export function addBoardMember(uid, bid) {
     }
     updateDoc(boardRef, newField)
 }
+
+export function getBoardUrl(bid) {
+    return "/main/board/" + bid
+}

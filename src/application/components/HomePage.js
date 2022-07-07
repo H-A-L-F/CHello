@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { useUserAuth } from '../../AuthContext'
 import { db } from '../../firebase'
 import { FIRESTORE_FETCH_ERROR, FIRESTORE_FETCH_LOADING, FIRESTORE_FETCH_SUCCESS } from '../actions/useSnapCollection'
+import { isUserAuth } from '../controllers/userController'
 import { userFilterAuthWS } from '../controllers/userWorkspaceController'
 import { useSnapCollection } from '../hooks/useSnapCollection'
 import ErrorHolder from '../views/ErrorHolder'
@@ -14,7 +15,15 @@ import StatefulComponent from './StatefulComponent'
 
 export default function HomePage() {
     const workspaceState = useSnapCollection(collection(db, "workspace"))
+
     const {user} = useUserAuth()
+    const memberWorkspaceState = useSnapCollection(collection(db, "workspace"), isUserAuth, user.ws_member)
+    const adminWorkspaceState = useSnapCollection(collection(db, "workspace"), isUserAuth, user.ws_admin)
+
+    useEffect(() => {
+        console.log(workspaceState)
+        console.log(adminWorkspaceState)
+    }, [adminWorkspaceState])
 
     if(workspaceState.status === FIRESTORE_FETCH_LOADING) return <LoadingHolder />
     if(workspaceState.status === FIRESTORE_FETCH_ERROR) return <ErrorHolder error={workspaceState.error}/>

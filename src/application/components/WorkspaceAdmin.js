@@ -7,7 +7,7 @@ import LoadingHolder from "../views/LoadingHolder"
 import SectionPeople from "../views/SectionPeople"
 
 const WorkspaceAdmin = ({ wsid }) => {
-    const workspaceAdmin = useSnapCollection(query(collection(db, "user"), where("b_admin", "array-contains", wsid)))
+    const workspaceAdmin = useSnapCollection(query(collection(db, "user"), where("ws_admin", "array-contains", wsid)))
 
     if (workspaceAdmin.status === FIRESTORE_FETCH_LOADING) {
         return <LoadingHolder />

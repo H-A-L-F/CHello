@@ -48,11 +48,11 @@ export function UserAuthContextProvider({ children }) {
       getDoc(doc(db, "user", currentUser.uid)).then((u) => {
         const data = {...u.data(), id: u.id}
         setUser(data);
-        window.localStorage.setItem('user', JSON.stringify(data));
+        window.localStorage.setItem('user', JSON.stringify(data))
       })
     });
     return unsubscribe;
-  }, [location]);
+  }, []);
 
   return (
     <userAuthContext.Provider value={{ user, signUp, login, logout, setName, saveUser }}>

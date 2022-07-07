@@ -46,7 +46,6 @@ function getCollectionData(collection) {
 
 function getFilterDocData(doc, filterAuth, user) {
     if(doc && user.length > 0) {
-        console.log(filterAuth(user, doc.id))
         return filterAuth(user, doc.id) === true ? { id: doc.id, ...doc.data() } : null
     }
     return null

@@ -1,15 +1,14 @@
-import { arrayUnion, collection, doc, setDoc, updateDoc } from "firebase/firestore";
+import { collection } from "firebase/firestore";
 import { useRef, useState } from "react";
 import { db } from "../../firebase";
 import { useUserAuth } from "../../AuthContext";
-import { makeid } from "../../GenerateId";
 import { useSnapCollection } from "../hooks/useSnapCollection";
 import LoadingHolder from "../views/LoadingHolder";
 import ErrorHolder from "../views/ErrorHolder";
 import { FIRESTORE_FETCH_SUCCESS } from "../actions/useSnapCollection";
-import { convertForSelect, generateOptions } from "../modules/convertForSelect";
+import { generateOptions } from "../modules/convertForSelect";
 import { constructBoard } from "../models/board";
-import { bInvUserEmail, userCreateBoard } from "../controllers/userBoardController";
+import { userCreateBoard } from "../controllers/userBoardController";
 import Select from 'react-select';
 
 const CreateBoardForm = ({ ws }) => {
@@ -27,7 +26,6 @@ const CreateBoardForm = ({ ws }) => {
     function handleCreateBoard() {
         // handle invite
         const board = constructBoard(titleRef.current.value, visibility, ws.id)
-        console.log(board)
         userCreateBoard(user.id, board, selecteds)
     }
 

@@ -2,7 +2,7 @@ import { collection } from "firebase/firestore"
 import { useRef } from "react"
 import { useState } from 'react';
 import { db } from "../../firebase"
-import { convertForSelect, generateOptions } from "../modules/convertForSelect"
+import { generateOptions } from "../modules/convertForSelect"
 import { useSnapCollection } from "../hooks/useSnapCollection"
 import Select from 'react-select';
 import { FIRESTORE_FETCH_SUCCESS } from "../actions/useSnapCollection";

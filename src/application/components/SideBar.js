@@ -25,7 +25,11 @@ const SideBar = () => {
                 <SideBarIcon icon={<HiHome size = "28"/>} text="Home" />
             </Link>
 
-            {user ? <SideBarIcon icon={<HiOutlineUser size={20}/>} text={user.username}/> : <UserSideBarIcon />}
+            {user ? 
+            <SideBarIcon 
+                icon={<Link to={"/main/profile"}><HiOutlineUser size={20}/></Link>} 
+                text={user.username}/> : 
+            <UserSideBarIcon />}
 
             <div onClick={handleLogout}>
                 <SideBarIcon icon={<HiOutlineLogout size = "20"/>} text="Logout"/>

@@ -3,6 +3,8 @@ export function constructUser(username, email, password, path) {
         username: username,
         email: email,
         password: password,
+        photoURL: "",
+        bio: "",
         ws_admin: [],
         ws_member: [],
         b_admin: [],

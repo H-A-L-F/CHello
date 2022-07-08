@@ -1,5 +1,9 @@
+import { onAuthStateChanged, updateProfile } from "firebase/auth";
 import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
-import { db } from "../../firebase";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { useEffect } from "react";
+import { useState } from "react";
+import { auth, db, storage } from "../../firebase";
 
 export async function updateLocalUser(uid) {
     await getDoc(doc(db, "user", uid)).then((u) => {
@@ -63,4 +67,47 @@ function localAddAdminB(id) {
     const temp = getUserLocal()
     temp.b_admin.push(id)
     setUserLocal(temp)
+}
+
+export async function uploadProfPic(file, uid, setLoading) {
+    const fileRef = ref(storage, uid + ".jpg")
+
+    setLoading(true)
+    const snapshot = await uploadBytes(fileRef, file)
+    const photoURL = await getDownloadURL(fileRef)
+    
+    const userRef = doc(db, "user", uid)
+    const data = {
+        photoURL: photoURL
+    }
+    updateDoc(userRef, data)
+
+    setLoading(false)
+}
+
+export function updateBio(uid, bio) {
+    const userRef = doc(db, "user", uid)
+    const data = {
+        bio: bio
+    }
+    return updateDoc(userRef, data)
+}
+
+export function updateUname(uid, uname) {
+    const userRef = doc(db, "user", uid)
+    const data = {
+        username: uname
+    }
+    return updateDoc(userRef, data)
+}
+
+export function useAuth() {
+    const [currUser, setCurrUser] = useState()
+
+    useEffect(() =>{
+        const unsub = onAuthStateChanged(auth, user => setCurrUser(user))
+        return unsub
+    }, [])
+
+    return currUser
 }

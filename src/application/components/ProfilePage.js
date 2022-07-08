@@ -58,10 +58,10 @@ export default function ProfilePage() {
       </div>
       <div className='my-4'></div>
       <label>Biodata</label>
-      <textarea className="textarea textarea-primary max-w-[100%] h-28 text-primary" ref={bioRef} placeholder="Bio"></textarea>
+      <textarea className="textarea textarea-primary max-w-[100%] h-28 text-primary" ref={bioRef} placeholder="Bio" defaultValue={user.bio}></textarea>
       <div className='my-2'></div>
       <Modal body={<div className="link link-primary">Change Password</div>} target={"cp-m"} />
-      <ModalContent content={<ChangePasswordForm />} />
+      <ModalContent content={<ChangePasswordForm />} target={"cp-m"} />
       <div className='my-8'></div>
       <button className="btn btn-primary" onClick={handleSubmit}>Submit</button>
     </div>

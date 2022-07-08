@@ -3,6 +3,7 @@ import SideBar from '../components/SideBar';
 import { Route, Routes } from 'react-router-dom';
 import HomePage from '../../application/components/HomePage';
 import WorkspacePage from '../components/WorkspacePage';
+import BoardPage from '../components/BoardPage';
 
 function MainLayout() {
   return (
@@ -11,6 +12,7 @@ function MainLayout() {
         <Routes>
           <Route path="home" element={<HomePage />}/>
           <Route path="workspace/:id" element={<WorkspacePage />}/>
+          <Route path='board/:id' element={<BoardPage />}/>
         </Routes>
       </div>
       <SideBar />

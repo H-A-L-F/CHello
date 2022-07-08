@@ -5,8 +5,6 @@ import Board from "../views/Board"
 
 const SectionBoard = ({ board, title }) => {
 
-    console.log(board)
-
     return (
         <div>
             <Header title={title} />

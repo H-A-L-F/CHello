@@ -55,5 +55,5 @@ const Header = ({ title }) => {
 
             </div>
         </div>
-    );
+    )
 }

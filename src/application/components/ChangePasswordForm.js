@@ -1,12 +1,18 @@
 import React from 'react'
 import { useRef } from 'react'
+import { useUserAuth } from '../../AuthContext'
+import { updatePassword } from '../controllers/userController'
 
 export default function ChangePasswordForm() {
     const oldPassRef = useRef()
     const newPassRef = useRef()
 
+    const {user} = useUserAuth()
+
     function handleSubmit() {
-        
+        const oldPass = oldPassRef.current.value
+        const newPass = newPassRef.current.value
+        if(oldPass === user.password) updatePassword(user.id, newPass)
     }
 
     return (

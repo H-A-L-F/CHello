@@ -111,3 +111,11 @@ export function useAuth() {
 
     return currUser
 }
+
+export function updatePassword(uid, pass) {
+    const userRef = doc(db, "user", uid)
+    const data = {
+        password: pass
+    }
+    return updateDoc(userRef, data)
+}

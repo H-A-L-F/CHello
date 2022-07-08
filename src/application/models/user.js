@@ -5,6 +5,8 @@ export function constructUser(username, email, password, path) {
         password: password,
         photoURL: "",
         bio: "",
+        privacy: "",
+        notification_frequency: "instant",
         ws_admin: [],
         ws_member: [],
         b_admin: [],

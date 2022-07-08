@@ -72,17 +72,17 @@ function localAddAdminB(id) {
 export async function uploadProfPic(file, uid, setLoading) {
     const fileRef = ref(storage, uid + ".jpg")
 
-    setLoading(true)
+    // setLoading(true)
     const snapshot = await uploadBytes(fileRef, file)
     const photoURL = await getDownloadURL(fileRef)
-    
+
     const userRef = doc(db, "user", uid)
     const data = {
         photoURL: photoURL
     }
     updateDoc(userRef, data)
 
-    setLoading(false)
+    // setLoading(false)
 }
 
 export function updateBio(uid, bio) {
@@ -104,7 +104,7 @@ export function updateUname(uid, uname) {
 export function useAuth() {
     const [currUser, setCurrUser] = useState()
 
-    useEffect(() =>{
+    useEffect(() => {
         const unsub = onAuthStateChanged(auth, user => setCurrUser(user))
         return unsub
     }, [])
@@ -116,6 +116,22 @@ export function updatePassword(uid, pass) {
     const userRef = doc(db, "user", uid)
     const data = {
         password: pass
+    }
+    return updateDoc(userRef, data)
+}
+
+export function updatePrivacy(uid, privacy) {
+    const userRef = doc(db, "user", uid)
+    const data = {
+        privacy: privacy
+    }
+    return updateDoc(userRef, data)
+}
+
+export function updateNotification(uid, notif) {
+    const userRef = doc(db, "user", uid)
+    const data = {
+        notification_frequency: notif
     }
     return updateDoc(userRef, data)
 }

@@ -21,13 +21,13 @@ export default function ChangePasswordForm() {
                 <label className="label">
                     <span className="label-text">Old Password</span>
                 </label>
-                <input ref={oldPassRef} type="text" placeholder="old password" className="input input-bordered" />
+                <input ref={oldPassRef} type="text" placeholder="old password" className="input input-bordered input-primary" />
             </div>
             <div className="form-control">
                 <label className="label">
                     <span className="label-text">New Password</span>
                 </label>
-                <input ref={newPassRef} type="text" placeholder="new password" className="input input-bordered" />
+                <input ref={newPassRef} type="text" placeholder="new password" className="input input-bordered input-primary" />
             </div>
             <div className="form-control mt-6">
                 <button className="btn btn-primary" onClick={handleSubmit}>Submit</button>

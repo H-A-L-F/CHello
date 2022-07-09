@@ -1,7 +1,7 @@
 import { doc } from "firebase/firestore"
 import { db } from "../../firebase"
-import { isUserAuth, joinWSAdmin } from "./userController"
-import { addWorkspaceAdmin, createWorkspace } from "./workspaceController"
+import { isUserAuth, joinWSAdmin, joinWSMember } from "./userController"
+import { addWorkspaceAdmin, addWorkspaceMember, createWorkspace } from "./workspaceController"
 
 export function userCreateWorkspace(uid, workspace) {
     createWorkspace(workspace).then((wsref) => {
@@ -31,4 +31,10 @@ export function userFilterAuthWS(user, workspaces) {
 
 export function userAllowedWorkspace(user, wsid) {
     return user.ws_admin.includes(wsid) || user.ws_member.includes(wsid)
+}
+
+export function userJoinWorkspace(uid, wsid) {
+    console.log(wsid, uid)
+    joinWSMember(uid, wsid)
+    addWorkspaceMember(uid, wsid)
 }

@@ -15,7 +15,6 @@ export function generateLink(id) {
 
 export function getLink(id) {
     const linkRef = doc(db, "link", id)
-    console.log("ambil link dr db")
     return getDoc(linkRef)
 }
 
@@ -29,7 +28,5 @@ export function isLink(link) {
     arr.pop()
     const compare = LINK.split('/')
     compare.pop()
-    console.log(arr)
-    console.log(compare)
     return JSON.stringify(arr) === JSON.stringify(compare)
 }

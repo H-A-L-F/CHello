@@ -18,22 +18,16 @@ export default function JoinLinkForm() {
 
     function handleChange(e) {
         const input = linkRef.current.value
-        console.log(input)
-        console.log(isLink(input))
         if(!isLink(input)) {
             return ;
         }
         const linkId = input.split('/')[2]
-        console.log(linkId)
         getLink(linkId).then((data) => {
             const res = { id: data.id, ...data.data() }
             setDocument(res)
-            console.log(document)
             if(document.type === "workspace") {
                 const isValid = isValidLink(document)
                 const isAdmin = isUserAuth(user.ws_admin, document.target)
-                console.log(isValid)
-                console.log(isAdmin)
                 setAllowed(isValid && !isAdmin)
             } else if (data.type === "board") {
                 // board logic

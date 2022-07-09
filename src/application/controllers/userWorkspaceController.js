@@ -34,7 +34,6 @@ export function userAllowedWorkspace(user, wsid) {
 }
 
 export function userJoinWorkspace(uid, wsid) {
-    console.log(wsid, uid)
     joinWSMember(uid, wsid)
     addWorkspaceMember(uid, wsid)
 }

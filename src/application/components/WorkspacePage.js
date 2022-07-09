@@ -28,8 +28,8 @@ export default function WorkspacePage() {
     const [authorized, setAuthorized] = useState(false)
 
     useEffect(() => {
-        setAuthorized(userAllowedWorkspace(user, id))
-    }, [])
+        if(user) setAuthorized(userAllowedWorkspace(user, id))
+    }, [user])
 
 
     if (workspaceState.status === FIRESTORE_FETCH_LOADING) return <LoadingHolder />

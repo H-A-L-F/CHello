@@ -13,7 +13,6 @@ function MainLayout() {
       <div className="ml-16 my-8 w-[100%] justify-center">
         <Routes>
           <Route path="home" element={<WorkspacePage />}/>
-          <Route path="testhome" element={<HomePage />}/>
           <Route path="workspace" element={<Home />}/>
           <Route path="workspace/:path" element={<BoardPage />}/>
           <Route path="board/:path" element={<KanbanPage />} />

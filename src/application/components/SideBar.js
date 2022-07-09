@@ -1,9 +1,10 @@
-import { HiCalendar, HiHome, HiOutlinePlusSm, HiOutlineUser, HiOutlineLogin, HiOutlineLogout, HiOutlineClipboardCopy, HiCollection } from "react-icons/hi";
+import { HiCalendar, HiHome, HiOutlinePlusSm, HiOutlineUser, HiOutlineLogin, HiOutlineLogout, HiOutlineClipboardCopy, HiOutlineUsers } from "react-icons/hi";
 import { Link, useNavigate } from 'react-router-dom';
 import { useUserAuth } from "../../AuthContext";
 import Modal from "../views/Modal";
 import ModalContent from "../views/ModalContent";
 import CreateWorkspaceForm from "./CreateWorkspaceForm";
+import JoinLinkForm from "./JoinLinkForm";
 
 const SideBar = () => {
     const { user, logout } = useUserAuth()
@@ -37,6 +38,9 @@ const SideBar = () => {
 
             <Modal body={<SideBarIcon icon={<HiOutlinePlusSm size = "32"/>} text="Create Workspace Form" />} target="modal-cwsf"/>
             <ModalContent target="modal-cwsf" content={<CreateWorkspaceForm />}/>
+
+            <Modal body={<SideBarIcon icon={<HiOutlineUsers size = "32"/>} text="Join via link" />} target="modal-jl"/>
+            <ModalContent target="modal-jl" content={<JoinLinkForm />}/>
         </div>
     );
 }

@@ -44,8 +44,8 @@ export function joinWSMember(uid, wsid) {
     return updateDoc(userDocRef, newField)
 }
 
-export function isUserAuth(user, id) {
-    return user.includes(id)
+export function isUserAuth(arr, id) {
+    return arr.includes(id)
 }
 
 function localAddAdminWS(id) {

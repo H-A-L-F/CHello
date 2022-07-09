@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes, Navigate, useLocation } from "react-router-dom";
+import InviteLinkPage from "./application/components/InviteLinkPage";
 import MainLayout from "./application/views/MainLayout";
 import { UserAuthContextProvider, useUserAuth } from "./AuthContext";
 import "./index.css";
@@ -27,6 +28,7 @@ function App() {
                 <Route path='page/workspace/:path' element={<CopyLinkPage type={"workspace"}/>} />
                 <Route path='page/board/:path' element={<CopyLinkPage type={"board"}/>} />
                 <Route path='join/:path' element={<AcceptInvitePage />} />
+                <Route path='workspace/copylink/:id' element={<InviteLinkPage type={"workspace"}/>} />
               </Routes>
             </RequireAuth>
           }/>

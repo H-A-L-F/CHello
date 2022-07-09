@@ -12,6 +12,7 @@ import Modal from '../views/Modal'
 import ModalContent from '../views/ModalContent'
 import CreateBoardForm from './CreateBoardForm'
 import WorkspaceAdmin from './WorkspaceAdmin'
+import WorkspaceInviteTag from './WorkspaceInviteTag'
 import WorkspaceMember from './WorkspaceMember'
 
 export default function WorkspacePage() {
@@ -23,7 +24,7 @@ export default function WorkspacePage() {
     if (workspaceState.status === FIRESTORE_FETCH_ERROR) return <ErrorHolder error={workspaceState.error} />
     return (
         <div className="w-[90%] mx-auto">
-            <Header title={workspaceState.data.name} />
+            <Header title={workspaceState.data.name} id={id}/>
             <div className="my-2"></div>
             <div className="flex flex-wrap">
                 {boardState.status === FIRESTORE_FETCH_SUCCESS && boardState.data.map((b) => {
@@ -47,12 +48,12 @@ export default function WorkspacePage() {
     )
 }
 
-const Header = ({ title }) => {
+const Header = ({ title, id }) => {
     return (
         <div className="flex flex-row justify-between w-[80%]">
             <h1 className="text-3xl font-bold text-primary">{title}</h1>
             <div className="flex flex-row space-x-2">
-
+            {<WorkspaceInviteTag wsid={id}/>}
             </div>
         </div>
     )

@@ -28,3 +28,7 @@ export function userFilterAuthWS(user, workspaces) {
     })
     return res
 }
+
+export function userAllowedWorkspace(user, wsid) {
+    return user.ws_admin.includes(wsid) || user.ws_member.includes(wsid)
+}

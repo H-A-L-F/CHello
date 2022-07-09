@@ -1,8 +1,12 @@
 import { collection, doc, query, where } from 'firebase/firestore'
 import React from 'react'
+import { useEffect } from 'react'
+import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import { useUserAuth } from '../../AuthContext'
 import { db } from '../../firebase'
 import { FIRESTORE_FETCH_ERROR, FIRESTORE_FETCH_LOADING, FIRESTORE_FETCH_SUCCESS } from '../actions/useSnapCollection'
+import { userAllowedWorkspace } from '../controllers/userWorkspaceController'
 import { useSnapCollection } from '../hooks/useSnapCollection'
 import Board from '../views/Board'
 import CreateBoardCard from '../views/CreateBoardCard'
@@ -20,6 +24,14 @@ export default function WorkspacePage() {
     const workspaceState = useSnapCollection(doc(db, "workspace", id))
     const boardState = useSnapCollection(query(collection(db, "board"), where("workspace", "==", id)))
 
+    const {user} = useUserAuth()
+    const [authorized, setAuthorized] = useState(false)
+
+    useEffect(() => {
+        setAuthorized(userAllowedWorkspace(user, id))
+    }, [])
+
+
     if (workspaceState.status === FIRESTORE_FETCH_LOADING) return <LoadingHolder />
     if (workspaceState.status === FIRESTORE_FETCH_ERROR) return <ErrorHolder error={workspaceState.error} />
     return (
@@ -36,9 +48,9 @@ export default function WorkspacePage() {
                         </Link>
                     );
                 })}
-
-                <Modal body={<CreateBoardCard />} target="modal-cb" />
-                <ModalContent target="modal-cb" content={<CreateBoardForm ws={workspaceState.data} />} />
+                
+                {authorized && <Modal body={<CreateBoardCard />} target="modal-cb" />}
+                {authorized && <ModalContent target="modal-cb" content={<CreateBoardForm ws={workspaceState.data} />} />}
             </div>
             <div className="my-4"></div>
             {<WorkspaceAdmin wsid={id}/>}

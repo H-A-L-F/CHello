@@ -1,5 +1,5 @@
-import { onAuthStateChanged, updateProfile } from "firebase/auth";
-import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
+import { getAuth, onAuthStateChanged, updateProfile } from "firebase/auth";
+import { arrayRemove, arrayUnion, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -33,6 +33,8 @@ export function joinWSAdmin(uid, wsid) {
         ws_admin: arrayUnion(wsid)
     }
     localAddAdminWS(wsid)
+    console.log("addAdmin?")
+    updateLocalUser(uid)
     return updateDoc(userDocRef, newField)
 }
 
@@ -113,6 +115,10 @@ export function useAuth() {
 }
 
 export function updatePassword(uid, pass) {
+    const auth = getAuth()
+    const user = auth.currentUser
+    updatePassword(user, pass)
+
     const userRef = doc(db, "user", uid)
     const data = {
         password: pass
@@ -132,6 +138,32 @@ export function updateNotification(uid, notif) {
     const userRef = doc(db, "user", uid)
     const data = {
         notification_frequency: notif
+    }
+    return updateDoc(userRef, data)
+}
+
+export function userPromoteWorkspace(uid, wsid) {
+    const userRef = doc(db, "user", uid)
+    const data = {
+        ws_member: arrayRemove(wsid),
+        ws_admin: arrayUnion(wsid)
+    }
+    return updateDoc(userRef, data)
+}
+
+export function userDemoteWorkspace(uid, wsid) {
+    const userRef = doc(db, "user", uid)
+    const data = {
+        ws_member: arrayUnion(wsid),
+        ws_admin: arrayRemove(wsid)
+    }
+    return updateDoc(userRef, data)
+}
+
+export function userKickedWorkspace(uid, wsid) {
+    const userRef = doc(db, "user", uid)
+    const data = {
+        ws_member: arrayRemove(wsid)
     }
     return updateDoc(userRef, data)
 }

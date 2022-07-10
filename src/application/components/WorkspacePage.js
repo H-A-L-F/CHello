@@ -39,7 +39,7 @@ export default function WorkspacePage() {
     if (workspaceState.status === FIRESTORE_FETCH_ERROR) return <ErrorHolder error={workspaceState.error} />
     return (
         <div className="w-[90%] mx-auto">
-            <Header title={workspaceState.data.name} id={id} user={user}/>
+            {user ? <Header title={workspaceState.data.name} id={id} user={user}/> : <LoadingHolder />}
             <div className="my-2"></div>
             <div className="flex flex-wrap">
                 {boardState.status === FIRESTORE_FETCH_SUCCESS && boardState.data.map((b) => {
@@ -56,9 +56,9 @@ export default function WorkspacePage() {
                 {authorized && <ModalContent target="modal-cb" content={<CreateBoardForm ws={workspaceState.data} />} />}
             </div>
             <div className="my-4"></div>
-            {<WorkspaceAdmin wsid={id}/>}
+            {<WorkspaceAdmin wsid={id} user={user}/>}
             <div className="my-2"></div>
-            {<WorkspaceMember wsid={id}/>}
+            {<WorkspaceMember wsid={id} user={user}/>}
         </div>
     )
 }

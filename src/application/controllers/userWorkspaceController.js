@@ -1,7 +1,7 @@
 import { doc } from "firebase/firestore"
 import { db } from "../../firebase"
-import { isUserAuth, joinWSAdmin, joinWSMember } from "./userController"
-import { addWorkspaceAdmin, addWorkspaceMember, createWorkspace } from "./workspaceController"
+import { isUserAuth, joinWSAdmin, joinWSMember, userDemoteWorkspace, userKickedWorkspace, userPromoteWorkspace } from "./userController"
+import { addWorkspaceAdmin, addWorkspaceMember, createWorkspace, workspaceDemoteAdmin, workspacePromoteUser, workspaceRemoveMember } from "./workspaceController"
 
 export function userCreateWorkspace(uid, workspace) {
     createWorkspace(workspace).then((wsref) => {
@@ -36,4 +36,19 @@ export function userAllowedWorkspace(user, wsid) {
 export function userJoinWorkspace(uid, wsid) {
     joinWSMember(uid, wsid)
     addWorkspaceMember(uid, wsid)
+}
+
+export function promoteUserWorkspace(uid, wsid) {
+    userPromoteWorkspace(uid, wsid)
+    workspacePromoteUser(uid, wsid)
+}
+
+export function demoteUserWorkspace(uid, wsid) {
+    userDemoteWorkspace(uid, wsid)
+    workspaceDemoteAdmin(uid, wsid)
+}
+
+export function removeUserWorkspace(uid, wsid) {
+    userKickedWorkspace(uid, wsid)
+    workspaceRemoveMember(uid, wsid)
 }

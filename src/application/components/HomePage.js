@@ -23,7 +23,7 @@ export default function HomePage() {
     // const memberWorkspaceState = useSnapCollection(collection(db, "workspace"), isUserAuth, user.ws_member)
     // const adminWorkspaceState = useSnapCollection(collection(db, "workspace"), isUserAuth, user.ws_admin)
     const publicWorkspaceState = useSnapCollection(query(collection(db, "workspace"), where("visibility", "==", true)))
-    const publicBoardState = useSnapCollection(query(collection(db, "board"), where("visibility", "==", "public")))
+    const publicBoardState = useSnapCollection(query(collection(db, "board"), where("visibility", "==", true)))
 
     useEffect(() => {
         setUser(JSON.parse(localStorage.getItem('user')))

@@ -19,18 +19,21 @@ const CreateWorkspaceForm = () => {
     const {user} = useUserAuth()
 
     const titleRef = useRef()
-    const publicRef = useRef()
+    const [visibility, setVisibility] = useState(true)
 
     function handleCreateWorkspace() {
         // handle invite
         console.log(selecteds)
-        const bool = publicRef.current.value === "on" ? true : false
-        const workspace = constructWorkspace(titleRef.current.value, bool)
+        const workspace = constructWorkspace(titleRef.current.value, visibility)
         userCreateWorkspace(user.id, workspace)
     }
 
     function handleChange(options) {
         setSelected(options)
+    }
+
+    function handleChangeCheckbox(e) {
+        setVisibility(!visibility)
     }
 
     return(
@@ -45,7 +48,7 @@ const CreateWorkspaceForm = () => {
             <div className="form-control">
                 <label className="label cursor-pointer">
                     <span className="label-text">Public</span>
-                    <input ref={publicRef} type="checkbox" className="toggle toggle-primary" defaultChecked />
+                    <input type="checkbox" className="toggle toggle-primary" defaultChecked={true} onChange={handleChangeCheckbox}/>
                 </label>
             </div>
             <div className="form-control mt-2 h-64">

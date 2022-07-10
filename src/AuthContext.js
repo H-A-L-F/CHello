@@ -15,8 +15,17 @@ const userAuthContext = createContext();
 
 export function UserAuthContextProvider({ children }) {
   const [user, setUser] = useState("");
+  const [refresh, setRefresh] = useState(true);
 
   const location = useLocation();
+
+  function refreshPage() {
+    if (refresh) {
+      setRefresh(false);
+    } else {
+      setRefresh(true);
+    }
+  }
 
   function signUp(email, password) {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -46,16 +55,16 @@ export function UserAuthContextProvider({ children }) {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       getDoc(doc(db, "user", currentUser.uid)).then((u) => {
-        const data = {...u.data(), id: u.id}
+        const data = { ...u.data(), id: u.id }
         setUser(data);
         window.localStorage.setItem('user', JSON.stringify(data))
       })
     });
     return unsubscribe;
-  }, []);
+  }, [location, refresh]);
 
   return (
-    <userAuthContext.Provider value={{ user, signUp, login, logout, setName, saveUser }}>
+    <userAuthContext.Provider value={{ user, refreshPage, signUp, login, logout, setName, saveUser }}>
       {children}
     </userAuthContext.Provider>
   );

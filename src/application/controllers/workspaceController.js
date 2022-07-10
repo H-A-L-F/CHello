@@ -1,9 +1,14 @@
-import { addDoc, arrayUnion, collection, doc, updateDoc } from "firebase/firestore";
+import { addDoc, arrayRemove, arrayUnion, collection, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 
 export function createWorkspace(data) {
     const colRef = collection(db, "workspace")
     return addDoc(colRef, data)
+}
+
+export function getWorkspace(wsid) {
+    const wsRef = doc(db, "workspace", wsid)
+    return getDoc(wsRef)
 }
 
 export function addWorkspaceMember(uid, wsid) {
@@ -28,4 +33,30 @@ export function getWorkspaceUrl(id) {
 
 export function deleteWorkspace(data) {
     // delete workspace
+}
+
+export function workspacePromoteUser(uid, wsid) {
+    const wsRef = doc(db, "workspace", wsid)
+    const data = {
+        member: arrayRemove(uid),
+        admin: arrayUnion(uid)
+    }
+    return updateDoc(wsRef, data)
+}
+
+export function workspaceDemoteAdmin(uid, wsid) {
+    const wsRef = doc(db, "workspace", wsid)
+    const data = {
+        member: arrayUnion(uid),
+        admin: arrayRemove(uid)
+    }
+    return updateDoc(wsRef, data)
+}
+
+export function workspaceRemoveMember(uid, wsid) {
+    const wsRef = doc(db, "workspace", wsid)
+    const data = {
+        member: arrayRemove(uid)
+    }
+    return updateDoc(wsRef, data)
 }

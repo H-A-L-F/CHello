@@ -60,3 +60,12 @@ export function boardRemoveMember(uid, bid) {
     }
     return updateDoc(bRef, data)
 }
+
+export function updateBoard(name, vis, bid) {
+    const bRef = doc(db, "board", bid)
+    const data = {
+        name: name,
+        visibility: vis
+    }
+    return updateDoc(bRef, data)
+}

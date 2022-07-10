@@ -7,16 +7,24 @@ import { db } from '../../firebase'
 import { FIRESTORE_FETCH_ERROR, FIRESTORE_FETCH_LOADING } from '../actions/useSnapCollection'
 import { moveCard } from '../controllers/cardController'
 import { userAllowedBoard } from '../controllers/userBoardController'
+import { isUserAuth } from '../controllers/userController'
 import { useSnapCollection } from '../hooks/useSnapCollection'
 import CreateListCard from '../views/CreateListCard'
 import ErrorHolder from '../views/ErrorHolder'
 import LoadingHolder from '../views/LoadingHolder'
+import ManageTag from '../views/ManageTag'
 import Modal from '../views/Modal'
 import ModalContent from '../views/ModalContent'
 import BoardAdmin from './BoardAdmin'
+import BoardInviteTag from './BoardInviteTag'
 import BoardMember from './BoardMember'
 import CreateListForm from './CreateListForm'
+import DeleteForm from './DeleteForm'
+import DeleteTag from './DeleteTag'
 import DroppableList from './DroppableList'
+import LeaveForm from './LeaveForm'
+import LeaveTag from './LeaveTag'
+import ManageBoardForm from './ManageBoardForm'
 
 export default function BoardPage() {
     const { id } = useParams()
@@ -60,12 +68,35 @@ export default function BoardPage() {
 }
 
 const Header = ({ title, id, user, b, authorized }) => {
+    function isAdmin() {
+        return isUserAuth(user.b_admin, id)
+    }
+
     return (
         <div className="flex flex-row justify-between w-[80%]">
             <h1 className="text-3xl font-bold text-primary">{title}</h1>
             <div className="flex flex-row space-x-2">
-
+                {authorized && <AuthorizedHeader b={b} user={user} isAdmin={isAdmin()} />}
+                {isAdmin() && <AdminHeader b={b} user={user} />}
             </div>
+        </div>
+    )
+}
+
+const AdminHeader = ({ b }) => {
+    return (
+        <div className='flex flex-row space-x-2'>
+            <ManageTag form={<ManageBoardForm b={b} />} />
+            <DeleteTag form={<DeleteForm data={b} />} />
+        </div>
+    )
+}
+
+const AuthorizedHeader = ({ b, user, isAdmin }) => {
+    return (
+        <div className='flex flex-row space-x-2'>
+            <BoardInviteTag wsid={b.id} />
+            <LeaveTag form={<LeaveForm data={b} user={user} isAdmin={isAdmin} />} />
         </div>
     )
 }

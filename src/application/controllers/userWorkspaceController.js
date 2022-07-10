@@ -1,7 +1,8 @@
-import { doc } from "firebase/firestore"
+import { collection, doc, query, where } from "firebase/firestore"
 import { db } from "../../firebase"
+import { useSnapCollection } from "../hooks/useSnapCollection"
 import { isUserAuth, joinWSAdmin, joinWSMember, userDemoteWorkspace, userKickedWorkspace, userPromoteWorkspace } from "./userController"
-import { addWorkspaceAdmin, addWorkspaceMember, createWorkspace, workspaceDemoteAdmin, workspacePromoteUser, workspaceRemoveMember } from "./workspaceController"
+import { addWorkspaceAdmin, addWorkspaceMember, createWorkspace, deleteWorkspace, workspaceDemoteAdmin, workspacePromoteUser, workspaceRemoveMember } from "./workspaceController"
 
 export function userCreateWorkspace(uid, workspace) {
     createWorkspace(workspace).then((wsref) => {

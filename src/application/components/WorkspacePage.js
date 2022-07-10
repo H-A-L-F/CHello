@@ -17,6 +17,8 @@ import ManageTag from '../views/ManageTag'
 import Modal from '../views/Modal'
 import ModalContent from '../views/ModalContent'
 import CreateBoardForm from './CreateBoardForm'
+import DeleteForm from './DeleteForm'
+import DeleteTag from './DeleteTag'
 import ManageWorkspaceForm from './ManageWorkspaceForm'
 import WorkspaceAdmin from './WorkspaceAdmin'
 import WorkspaceInviteTag from './WorkspaceInviteTag'
@@ -27,11 +29,11 @@ export default function WorkspacePage() {
     const workspaceState = useSnapCollection(doc(db, "workspace", id))
     const boardState = useSnapCollection(query(collection(db, "board"), where("workspace", "==", id)))
 
-    const {user} = useUserAuth()
+    const { user } = useUserAuth()
     const [authorized, setAuthorized] = useState(false)
 
     useEffect(() => {
-        if(user) setAuthorized(userAllowedWorkspace(user, id))
+        if (user) setAuthorized(userAllowedWorkspace(user, id))
     }, [user])
 
 
@@ -39,7 +41,7 @@ export default function WorkspacePage() {
     if (workspaceState.status === FIRESTORE_FETCH_ERROR) return <ErrorHolder error={workspaceState.error} />
     return (
         <div className="w-[90%] mx-auto">
-            {user ? <Header title={workspaceState.data.name} id={id} user={user} ws={workspaceState.data}/> : <LoadingHolder />}
+            {user ? <Header title={workspaceState.data.name} id={id} user={user} ws={workspaceState.data} /> : <LoadingHolder />}
             <div className="my-2"></div>
             <div className="flex flex-wrap">
                 {boardState.status === FIRESTORE_FETCH_SUCCESS && boardState.data.map((b) => {
@@ -51,14 +53,14 @@ export default function WorkspacePage() {
                         </Link>
                     );
                 })}
-                
+
                 {authorized && <Modal body={<CreateBoardCard />} target="modal-cb" />}
                 {authorized && <ModalContent target="modal-cb" content={<CreateBoardForm ws={workspaceState.data} />} />}
             </div>
             <div className="my-4"></div>
-            {<WorkspaceAdmin wsid={id} user={user}/>}
+            {<WorkspaceAdmin wsid={id} user={user} />}
             <div className="my-2"></div>
-            {<WorkspaceMember wsid={id} user={user}/>}
+            {<WorkspaceMember wsid={id} user={user} />}
         </div>
     )
 }
@@ -72,9 +74,18 @@ const Header = ({ title, id, user, ws }) => {
         <div className="flex flex-row justify-between w-[50%]">
             <h1 className="text-3xl font-bold text-primary">{title}</h1>
             <div className="flex flex-row space-x-2">
-            {<WorkspaceInviteTag wsid={id}/>}
-            {isAdmin() && <ManageTag form={<ManageWorkspaceForm ws={ws}/>}/>}
+                {<WorkspaceInviteTag wsid={id} />}
+                {isAdmin() && <AdminHeader ws={ws}/>}
             </div>
+        </div>
+    )
+}
+
+const AdminHeader = ({ ws }) => {
+    return (
+        <div className='flex flex-row space-x-2'>
+            <ManageTag form={<ManageWorkspaceForm ws={ws} />} />
+            <DeleteTag form={<DeleteForm data={ws}/>}/>
         </div>
     )
 }

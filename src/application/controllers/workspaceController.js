@@ -1,4 +1,4 @@
-import { addDoc, arrayRemove, arrayUnion, collection, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { addDoc, arrayRemove, arrayUnion, collection, deleteDoc, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 
 export function createWorkspace(data) {
@@ -31,8 +31,9 @@ export function getWorkspaceUrl(id) {
     return "/main/workspace/" + id
 }
 
-export function deleteWorkspace(data) {
-    // delete workspace
+export function deleteWorkspace(wsid) {
+    const wsRef = doc(db, "workspace", wsid)
+    return deleteDoc(wsRef)
 }
 
 export function workspacePromoteUser(uid, wsid) {

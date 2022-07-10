@@ -3,8 +3,6 @@ import { useUserAuth } from '../../AuthContext'
 import { updateWorkspace } from '../controllers/workspaceController'
 
 export default function ManageWorkspaceForm({ws}) {
-  const { user } = useUserAuth()
-
   const titleRef = useRef()
   const [visibility, setVisibility] = useState(ws.visibility)
 

@@ -39,7 +39,7 @@ export default function WorkspacePage() {
     if (workspaceState.status === FIRESTORE_FETCH_ERROR) return <ErrorHolder error={workspaceState.error} />
     return (
         <div className="w-[90%] mx-auto">
-            {user ? <Header title={workspaceState.data.name} id={id} user={user}/> : <LoadingHolder />}
+            {user ? <Header title={workspaceState.data.name} id={id} user={user} ws={workspaceState.data}/> : <LoadingHolder />}
             <div className="my-2"></div>
             <div className="flex flex-wrap">
                 {boardState.status === FIRESTORE_FETCH_SUCCESS && boardState.data.map((b) => {
@@ -63,17 +63,17 @@ export default function WorkspacePage() {
     )
 }
 
-const Header = ({ title, id, user }) => {
+const Header = ({ title, id, user, ws }) => {
     function isAdmin() {
         return isUserAuth(user.ws_admin, id)
     }
 
     return (
-        <div className="flex flex-row justify-between w-[80%]">
+        <div className="flex flex-row justify-between w-[50%]">
             <h1 className="text-3xl font-bold text-primary">{title}</h1>
             <div className="flex flex-row space-x-2">
             {<WorkspaceInviteTag wsid={id}/>}
-            {isAdmin() && <ManageTag form={<ManageWorkspaceForm />}/>}
+            {isAdmin() && <ManageTag form={<ManageWorkspaceForm ws={ws}/>}/>}
             </div>
         </div>
     )

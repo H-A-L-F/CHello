@@ -60,3 +60,12 @@ export function workspaceRemoveMember(uid, wsid) {
     }
     return updateDoc(wsRef, data)
 }
+
+export function updateWorkspace(name, vis, wsid) {
+    const wsRef = doc(db, "workspace", wsid)
+    const data = {
+        name: name,
+        visibility: vis
+    }
+    return updateDoc(wsRef, data)
+}

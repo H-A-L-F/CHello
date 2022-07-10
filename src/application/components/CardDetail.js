@@ -1,6 +1,7 @@
 import { doc, updateDoc } from "firebase/firestore";
 import { useRef } from "react";
 import { db } from "../../firebase";
+import { updateCard } from "../controllers/cardController";
 
 const CardDetail = ({ c }) => {
     const titleRef = useRef()
@@ -10,14 +11,13 @@ const CardDetail = ({ c }) => {
         status = v.target.value
     }
 
-    const updateCard = async() => {
-        const cardDocRef = doc(db, c.path)
+    const handleUpdateCard = async() => {
         const newField = { name: titleRef.current.value, status: status }
-        await updateDoc(cardDocRef, newField)
+        updateCard(c.id, newField)
     }
  
     const handleEditCard = () => {
-        updateCard()
+        handleUpdateCard()
     }
 
     return (

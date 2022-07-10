@@ -4,7 +4,7 @@ import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { useUserAuth } from '../../AuthContext'
-import { db } from '../../firebase'
+import { auth, db } from '../../firebase'
 import { FIRESTORE_FETCH_ERROR, FIRESTORE_FETCH_LOADING, FIRESTORE_FETCH_SUCCESS } from '../actions/useSnapCollection'
 import { getUserDB, getUserLocal, isUserAuth } from '../controllers/userController'
 import { userFilterAuthWS } from '../controllers/userWorkspaceController'
@@ -25,16 +25,22 @@ export default function HomePage() {
     const publicWorkspaceState = useSnapCollection(query(collection(db, "workspace"), where("visibility", "==", true)))
     const publicBoardState = useSnapCollection(query(collection(db, "board"), where("visibility", "==", "public")))
 
+    const { refreshPage } = useUserAuth()
+
     useEffect(() => {
         setUser(JSON.parse(localStorage.getItem('user')))
     }, [workspaceState])
+
+    useEffect(() => {
+        refreshPage()
+    }, []) 
 
     function filterClosedBoard(b) {
         return !(b.delete === "closed")
     }
 
-    if(workspaceState.status === FIRESTORE_FETCH_LOADING) return <LoadingHolder />
-    if(workspaceState.status === FIRESTORE_FETCH_ERROR) return <ErrorHolder error={workspaceState.error}/>
+    if (workspaceState.status === FIRESTORE_FETCH_LOADING) return <LoadingHolder />
+    if (workspaceState.status === FIRESTORE_FETCH_ERROR) return <ErrorHolder error={workspaceState.error} />
     return (
         <div className="w-[90%] mx-auto flex flex-col space-y-8">
             {/* <StatefulComponent 
@@ -71,7 +77,7 @@ export default function HomePage() {
             <SectionWorkspace title={"Admin Workspaces"} workspace={userFilterAuthWS(user.ws_admin, workspaceState.data)} />
             <SectionWorkspace title={"Member Workspaces"} workspace={userFilterAuthWS(user.ws_member, workspaceState.data)} />
             <SectionWorkspace title={"Public Workspaces"} workspace={publicWorkspaceState.data} />
-            <SectionBoard title={"Public Boards"} board={publicBoardState.data.filter(filterClosedBoard)}/>
+            <SectionBoard title={"Public Boards"} board={publicBoardState.data.filter(filterClosedBoard)} />
             {/* {workspaces && <PublicWorkspace workspaces={workspaces}/>} */}
         </div>
     )

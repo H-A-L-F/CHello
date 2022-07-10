@@ -2,24 +2,21 @@ import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import { useRef } from "react";
 import { db } from "../../firebase";
 import { makeid } from "../../GenerateId";
+import { createCard } from "../controllers/cardController";
+import { constructCard } from "../models/card";
 
 const CreateCardForm = ({ l }) => {
     const titleRef = useRef()
     let status = "default"
-
-    // const cardCollectionRef = collection(db, "card")
-    const path = l.path + "/card/" + makeid(20)
 
     const handleChange = (v) => {
         status = v.target.value
     }
 
     const handleCreateCard = () => {
-        setDoc(doc(db, path), {
-            name: titleRef.current.value,
-            status: status,
-            path: path
-        })
+        const name = titleRef.current.value
+        const card = constructCard(name, status, l.id)
+        createCard(card)
     }
 
     return (

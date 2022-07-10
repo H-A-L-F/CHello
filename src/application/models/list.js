@@ -3,4 +3,5 @@ export function constructList(name, bid) {
         name: name,
         board: bid
     }
+    return list
 }

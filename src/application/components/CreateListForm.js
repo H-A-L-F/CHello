@@ -1,8 +1,5 @@
-import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import { useRef } from "react";
-import { db } from "../../firebase";
 import { useParams } from 'react-router-dom';
-import { makeid } from "../../GenerateId";
 import { constructList } from "../models/list";
 import { createList } from "../controllers/listController";
 

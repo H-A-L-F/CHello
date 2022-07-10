@@ -15,8 +15,8 @@ function MainLayout() {
           <Route path="home" element={<HomePage />}/>
           <Route path="profile" element={<ProfilePage />} />
           <Route path="workspace/:id" element={<WorkspacePage />}/>
-          {/* <Route path='board/:id' element={<BoardPage />}/> */}
-          <Route path='board/:id' element={<KanbanPage />}/>
+          <Route path='board/:id' element={<BoardPage />}/>
+          {/* <Route path='board/:id' element={<KanbanPage />}/> */}
         </Routes>
       </div>
       <SideBar />

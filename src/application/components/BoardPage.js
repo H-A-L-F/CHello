@@ -4,6 +4,7 @@ import { DragDropContext } from 'react-beautiful-dnd'
 import { useParams } from 'react-router-dom'
 import { db } from '../../firebase'
 import { FIRESTORE_FETCH_ERROR, FIRESTORE_FETCH_LOADING } from '../actions/useSnapCollection'
+import { moveCard } from '../controllers/cardController'
 import { useSnapCollection } from '../hooks/useSnapCollection'
 import CreateListCard from '../views/CreateListCard'
 import ErrorHolder from '../views/ErrorHolder'
@@ -20,7 +21,8 @@ export default function BoardPage() {
 
     function onDragEnd(result) {
         if (!result.destination) return;
-
+        const { draggableId, source, destination } = result;
+        moveCard(draggableId, destination.id)
     }
 
     if (boardState.status === FIRESTORE_FETCH_LOADING) return <LoadingHolder />
@@ -30,9 +32,9 @@ export default function BoardPage() {
             <Header title={boardState.data.name} />
             <div className='my-2'></div>
             <div className="flex flex-row w-[100%] mx-auto space-x-8 overflow-hidden">
-                <DragDropContext onDragEnd={onDragEnd}>
-                    {listState.data.map((l, id) => {
-                        return <DroppableList l={l} id={id} key={id}/>
+                <DragDropContext onDragEnd={(result) => { onDragEnd(result) }}>
+                    {listState?.data.map((l, id) => {
+                        return <DroppableList l={l} id={id} key={id} />
                     })}
                 </DragDropContext>
                 <Modal body={<CreateListCard />} target="modal-cl" />

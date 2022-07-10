@@ -22,7 +22,11 @@ const SectionPeople = ({title, users, currUser, admin, promote, demote}) => {
                             demote={demote}/> : 
                         <Content 
                             c={users} 
-                            isAdmin={title === "Admins"}/>
+                            isAdmin={title === "Admins"}
+                            currUser={currUser}
+                            admin={admin} 
+                            promote={promote} 
+                            demote={demote}/>
                     : <Empty />
                 }
             </div>
@@ -30,11 +34,18 @@ const SectionPeople = ({title, users, currUser, admin, promote, demote}) => {
     )
 }
 
-const Content = ({c, isAdmin}) => {
+const Content = ({c, isAdmin, currUser, admin, promote, demote}) => {
     return (
         <div className="flex flex-wrap">
             {c.map((c) => {
-                return <PeopleCard isAdmin={isAdmin} content={c} key={c.id}/>
+                return <PeopleCard 
+                    currUser={currUser} 
+                    isAdmin={isAdmin} 
+                    content={c} 
+                    key={c.id}
+                    admin={admin} 
+                    promote={promote} 
+                    demote={demote}/>
             })}
         </div>
     )

@@ -19,6 +19,8 @@ import ModalContent from '../views/ModalContent'
 import CreateBoardForm from './CreateBoardForm'
 import DeleteForm from './DeleteForm'
 import DeleteTag from './DeleteTag'
+import LeaveForm from './LeaveForm'
+import LeaveTag from './LeaveTag'
 import ManageWorkspaceForm from './ManageWorkspaceForm'
 import WorkspaceAdmin from './WorkspaceAdmin'
 import WorkspaceInviteTag from './WorkspaceInviteTag'
@@ -41,7 +43,7 @@ export default function WorkspacePage() {
     if (workspaceState.status === FIRESTORE_FETCH_ERROR) return <ErrorHolder error={workspaceState.error} />
     return (
         <div className="w-[90%] mx-auto">
-            {user ? <Header title={workspaceState.data.name} id={id} user={user} ws={workspaceState.data} /> : <LoadingHolder />}
+            {user ? <Header title={workspaceState.data.name} id={id} user={user} ws={workspaceState.data} authorized={authorized} /> : <LoadingHolder />}
             <div className="my-2"></div>
             <div className="flex flex-wrap">
                 {boardState.status === FIRESTORE_FETCH_SUCCESS && boardState.data.map((b) => {
@@ -65,7 +67,7 @@ export default function WorkspacePage() {
     )
 }
 
-const Header = ({ title, id, user, ws }) => {
+const Header = ({ title, id, user, ws, authorized }) => {
     function isAdmin() {
         return isUserAuth(user.ws_admin, id)
     }
@@ -74,8 +76,8 @@ const Header = ({ title, id, user, ws }) => {
         <div className="flex flex-row justify-between w-[50%]">
             <h1 className="text-3xl font-bold text-primary">{title}</h1>
             <div className="flex flex-row space-x-2">
-                {<WorkspaceInviteTag wsid={id} />}
-                {isAdmin() && <AdminHeader ws={ws}/>}
+                {authorized && <AuthorizedHeader ws={ws} user={user} isAdmin={isAdmin()}/>}
+                {isAdmin() && <AdminHeader ws={ws} user={user} />}
             </div>
         </div>
     )
@@ -85,7 +87,16 @@ const AdminHeader = ({ ws }) => {
     return (
         <div className='flex flex-row space-x-2'>
             <ManageTag form={<ManageWorkspaceForm ws={ws} />} />
-            <DeleteTag form={<DeleteForm data={ws}/>}/>
+            <DeleteTag form={<DeleteForm data={ws} />} />
+        </div>
+    )
+}
+
+const AuthorizedHeader = ({ ws, user, isAdmin }) => {
+    return (
+        <div className='flex flex-row space-x-2'>
+            <WorkspaceInviteTag wsid={ws.id} />
+            <LeaveTag form={<LeaveForm data={ws} user={user} isAdmin={isAdmin}/>} />
         </div>
     )
 }

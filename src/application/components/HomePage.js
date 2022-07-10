@@ -23,11 +23,15 @@ export default function HomePage() {
     // const memberWorkspaceState = useSnapCollection(collection(db, "workspace"), isUserAuth, user.ws_member)
     // const adminWorkspaceState = useSnapCollection(collection(db, "workspace"), isUserAuth, user.ws_admin)
     const publicWorkspaceState = useSnapCollection(query(collection(db, "workspace"), where("visibility", "==", true)))
-    const publicBoardState = useSnapCollection(query(collection(db, "board"), where("visibility", "==", true)))
+    const publicBoardState = useSnapCollection(query(collection(db, "board"), where("visibility", "==", "public")))
 
     useEffect(() => {
         setUser(JSON.parse(localStorage.getItem('user')))
     }, [workspaceState])
+
+    function filterClosedBoard(b) {
+        return !(b.delete === "closed")
+    }
 
     if(workspaceState.status === FIRESTORE_FETCH_LOADING) return <LoadingHolder />
     if(workspaceState.status === FIRESTORE_FETCH_ERROR) return <ErrorHolder error={workspaceState.error}/>
@@ -67,7 +71,7 @@ export default function HomePage() {
             <SectionWorkspace title={"Admin Workspaces"} workspace={userFilterAuthWS(user.ws_admin, workspaceState.data)} />
             <SectionWorkspace title={"Member Workspaces"} workspace={userFilterAuthWS(user.ws_member, workspaceState.data)} />
             <SectionWorkspace title={"Public Workspaces"} workspace={publicWorkspaceState.data} />
-            <SectionBoard title={"Public Boards"} board={publicBoardState.data}/>
+            <SectionBoard title={"Public Boards"} board={publicBoardState.data.filter(filterClosedBoard)}/>
             {/* {workspaces && <PublicWorkspace workspaces={workspaces}/>} */}
         </div>
     )

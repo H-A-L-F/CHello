@@ -1,6 +1,7 @@
 import { collection, doc, query, where } from "firebase/firestore"
 import { db } from "../../firebase"
 import { useSnapCollection } from "../hooks/useSnapCollection"
+import { closeBoard } from "./boardController"
 import { isUserAuth, joinWSAdmin, joinWSMember, userDemoteWorkspace, userKickedWorkspace, userPromoteWorkspace } from "./userController"
 import { addWorkspaceAdmin, addWorkspaceMember, createWorkspace, deleteWorkspace, workspaceDemoteAdmin, workspacePromoteUser, workspaceRemoveMember } from "./workspaceController"
 
@@ -52,4 +53,13 @@ export function demoteUserWorkspace(uid, wsid) {
 export function removeUserWorkspace(uid, wsid) {
     userKickedWorkspace(uid, wsid)
     workspaceRemoveMember(uid, wsid)
+}
+
+export function deleteWorkspaceFromAllUser(wsid, boards) {
+    // harusnya ada sesuatu
+    boards.forEach(e => {
+        closeBoard(e.id)
+    });
+
+    deleteWorkspace(wsid)
 }

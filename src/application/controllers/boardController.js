@@ -26,3 +26,11 @@ export function addBoardMember(uid, bid) {
 export function getBoardUrl(bid) {
     return "/main/board/" + bid
 }
+
+export function closeBoard(bid) {
+    const boardRef = doc(db, "board", bid)
+    const newField = {
+        delete: "closed"
+    }
+    updateDoc(boardRef, newField)
+}

@@ -1,13 +1,13 @@
 import { doc } from "firebase/firestore"
 import { db } from "../../firebase"
-import { addBoardAdmin, createBoard } from "./boardController"
-import { joinBAdmin } from "./userController"
+import { addBoardAdmin, boardDemoteAdmin, boardPromoteUser, boardRemoveMember, createBoard } from "./boardController"
+import { joinBAdmin, userDemoteBoard, userKickedBoard, userPromoteBoard } from "./userController"
 
 export function userCreateBoard(uid, board, invites) {
     createBoard(board).then((bref) => {
         joinBAdmin(uid, bref.id)
         addBoardAdmin(uid, bref.id)
-        if(invites)handleInvite(invites, bref.id)
+        if (invites) handleInvite(invites, bref.id)
     })
 }
 
@@ -25,4 +25,23 @@ export function bInvUserEmail(bid, email) {
 export function bInvUserLink(bid, uid) {
     const userDocRef = doc(db, "user", uid)
     // link logic
+}
+
+export function userAllowedBoard(user, bid) {
+    return user.b_admin.includes(bid) || user.b_member.includes(bid)
+}
+
+export function promoteUserBoard(uid, bid) {
+    userPromoteBoard(uid, bid)
+    boardPromoteUser(uid, bid)
+}
+
+export function demoteUserBoard(uid, bid) {
+    userDemoteBoard(uid, bid)
+    boardDemoteAdmin(uid, bid)
+}
+
+export function removeUserBoard(uid, bid) {
+    userKickedBoard(uid, bid)
+    boardRemoveMember(uid, bid)
 }

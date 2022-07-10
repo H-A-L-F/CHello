@@ -1,4 +1,4 @@
-import { addDoc, arrayUnion, collection, doc, updateDoc } from "firebase/firestore";
+import { addDoc, arrayRemove, arrayUnion, collection, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { constructBoard } from "../models/board";
 
@@ -33,4 +33,30 @@ export function closeBoard(bid) {
         delete: "closed"
     }
     updateDoc(boardRef, newField)
+}
+
+export function boardPromoteUser(uid, bid) {
+    const bRef = doc(db, "board", bid)
+    const data = {
+        member: arrayRemove(uid),
+        admin: arrayUnion(uid)
+    }
+    return updateDoc(bRef, data)
+}
+
+export function boardDemoteAdmin(uid, bid) {
+    const bRef = doc(db, "board", bid)
+    const data = {
+        member: arrayUnion(uid),
+        admin: arrayRemove(uid)
+    }
+    return updateDoc(bRef, data)
+}
+
+export function boardRemoveMember(uid, bid) {
+    const bRef = doc(db, "board", bid)
+    const data = {
+        member: arrayRemove(uid)
+    }
+    return updateDoc(bRef, data)
 }

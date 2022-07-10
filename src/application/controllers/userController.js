@@ -167,3 +167,29 @@ export function userKickedWorkspace(uid, wsid) {
     }
     return updateDoc(userRef, data)
 }
+
+export function userPromoteBoard(uid, bid) {
+    const userRef = doc(db, "user", uid)
+    const data = {
+        b_member: arrayRemove(bid),
+        b_admin: arrayUnion(bid)
+    }
+    return updateDoc(userRef, data)
+}
+
+export function userDemoteBoard(uid, bid) {
+    const userRef = doc(db, "user", uid)
+    const data = {
+        b_member: arrayUnion(bid),
+        b_admin: arrayRemove(bid)
+    }
+    return updateDoc(userRef, data)
+}
+
+export function userKickedBoard(uid, bid) {
+    const userRef = doc(db, "user", uid)
+    const data = {
+        b_member: arrayRemove(bid)
+    }
+    return updateDoc(userRef, data)
+}

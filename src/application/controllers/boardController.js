@@ -1,6 +1,7 @@
 import { addDoc, arrayRemove, arrayUnion, collection, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { constructBoard } from "../models/board";
+import { isUserAuth } from "./userController";
 
 export function createBoard(data) {
     const boardRef = collection(db, "board")
@@ -32,7 +33,7 @@ export function closeBoard(bid) {
     const newField = {
         delete: "closed"
     }
-    updateDoc(boardRef, newField)
+    return updateDoc(boardRef, newField)
 }
 
 export function boardPromoteUser(uid, bid) {
@@ -68,4 +69,29 @@ export function updateBoard(name, vis, bid) {
         visibility: vis
     }
     return updateDoc(bRef, data)
+}
+
+export function authorizeUserForBoard(user, board, ws) {
+    switch (board.visibility) {
+        case "public": {
+            return true
+        }
+        case "workspace-visible": {
+            const isAdmin = isUserAuth(user.ws_admin, ws.id)
+            const isMember = isUserAuth(user.ws_member, ws.id)
+            return isAdmin || isMember
+        }
+        case "board-visible": {
+            const isAdmin = isUserAuth(user.b_admin, board.id)
+            const isMember = isUserAuth(user.b_member, board.id)
+            return isAdmin || isMember
+        }
+        default: {
+            return false
+        }
+    }
+}
+
+export function isClosedBoard(board) {
+    return board.delete === "closed"
 }

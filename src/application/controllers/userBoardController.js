@@ -54,5 +54,5 @@ export function removeUserBoard(uid, bid) {
 
 export function closeBoardFromAllUser(bid) {
     // harusnya ada sesuatu
-    closeBoard(bid)
+    return closeBoard(bid)
 }

@@ -35,6 +35,7 @@ export default function LeaveForm({ data, user, isAdmin }) {
             if (onlyAdmin()) deleteWorkspaceFromAllUser(data.id, boardState.data).then(() => {
                 navigate("/main/home")
             })
+            navigate("/main/home")
         } else {
             // berarti ini board
             selecteds.forEach(e => {
@@ -45,6 +46,7 @@ export default function LeaveForm({ data, user, isAdmin }) {
             if (onlyAdmin()) closeBoardFromAllUser(data.id).then(() => {
                 navigate("/main/home")
             })
+            navigate("/main/home")
         }
     }
 

@@ -19,7 +19,8 @@ const SectionPeople = ({title, users, currUser, admin, promote, demote}) => {
                             currUser={currUser}
                             admin={admin} 
                             promote={promote} 
-                            demote={demote}/> : 
+                            demote={demote}
+                            key={users[0].id}/> : 
                         <Content 
                             c={users} 
                             isAdmin={title === "Admins"}

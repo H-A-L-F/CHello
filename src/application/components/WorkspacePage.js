@@ -6,6 +6,7 @@ import { Link, useParams } from 'react-router-dom'
 import { useUserAuth } from '../../AuthContext'
 import { db } from '../../firebase'
 import { FIRESTORE_FETCH_ERROR, FIRESTORE_FETCH_LOADING, FIRESTORE_FETCH_SUCCESS } from '../actions/useSnapCollection'
+import { authorizeUserForBoard, isClosedBoard } from '../controllers/boardController'
 import { isUserAuth } from '../controllers/userController'
 import { userAllowedWorkspace } from '../controllers/userWorkspaceController'
 import { useSnapCollection } from '../hooks/useSnapCollection'
@@ -49,11 +50,18 @@ export default function WorkspacePage() {
                 {boardState.status === FIRESTORE_FETCH_SUCCESS && boardState.data.map((b) => {
                     const link = "/main/board/" + b.id
 
-                    return (
-                        <Link to={link} key={b.id}>
-                            <Board title={b.name} />
-                        </Link>
-                    );
+                    if (!isClosedBoard(b)) {
+                        if (authorizeUserForBoard(user, b, workspaceState.data)) {
+                            return (
+                                <Link to={link} key={b.id}>
+                                    <Board title={b.name} />
+                                </Link>
+                            )
+                        }
+                        else return <div></div>
+                    }
+                    else return <div></div>
+
                 })}
 
                 {authorized && <Modal body={<CreateBoardCard />} target="modal-cb" />}
@@ -76,7 +84,7 @@ const Header = ({ title, id, user, ws, authorized }) => {
         <div className="flex flex-row justify-between w-[50%]">
             <h1 className="text-3xl font-bold text-primary">{title}</h1>
             <div className="flex flex-row space-x-2">
-                {authorized && <AuthorizedHeader ws={ws} user={user} isAdmin={isAdmin()}/>}
+                {authorized && <AuthorizedHeader ws={ws} user={user} isAdmin={isAdmin()} />}
                 {isAdmin() && <AdminHeader ws={ws} user={user} />}
             </div>
         </div>
@@ -87,7 +95,7 @@ const AdminHeader = ({ ws }) => {
     return (
         <div className='flex flex-row space-x-2'>
             <ManageTag form={<ManageWorkspaceForm ws={ws} />} />
-            <DeleteTag form={<DeleteForm data={ws} type={"workspace"}/>} />
+            <DeleteTag form={<DeleteForm data={ws} type={"workspace"} />} />
         </div>
     )
 }
@@ -96,7 +104,7 @@ const AuthorizedHeader = ({ ws, user, isAdmin }) => {
     return (
         <div className='flex flex-row space-x-2'>
             <WorkspaceInviteTag wsid={ws.id} />
-            <LeaveTag form={<LeaveForm data={ws} user={user} isAdmin={isAdmin}/>} />
+            <LeaveTag form={<LeaveForm data={ws} user={user} isAdmin={isAdmin} />} />
         </div>
     )
 }

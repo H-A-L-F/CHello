@@ -61,5 +61,5 @@ export function deleteWorkspaceFromAllUser(wsid, boards) {
         closeBoard(e.id)
     });
 
-    deleteWorkspace(wsid)
+    return deleteWorkspace(wsid)
 }

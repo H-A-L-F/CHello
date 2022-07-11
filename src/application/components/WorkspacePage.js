@@ -87,7 +87,7 @@ const AdminHeader = ({ ws }) => {
     return (
         <div className='flex flex-row space-x-2'>
             <ManageTag form={<ManageWorkspaceForm ws={ws} />} />
-            <DeleteTag form={<DeleteForm data={ws} />} />
+            <DeleteTag form={<DeleteForm data={ws} type={"workspace"}/>} />
         </div>
     )
 }

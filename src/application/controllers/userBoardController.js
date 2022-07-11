@@ -1,6 +1,6 @@
 import { doc } from "firebase/firestore"
 import { db } from "../../firebase"
-import { addBoardAdmin, boardDemoteAdmin, boardPromoteUser, boardRemoveMember, createBoard } from "./boardController"
+import { addBoardAdmin, boardDemoteAdmin, boardPromoteUser, boardRemoveMember, closeBoard, createBoard } from "./boardController"
 import { joinBAdmin, userDemoteBoard, userKickedBoard, userPromoteBoard } from "./userController"
 
 export function userCreateBoard(uid, board, invites) {
@@ -44,4 +44,9 @@ export function demoteUserBoard(uid, bid) {
 export function removeUserBoard(uid, bid) {
     userKickedBoard(uid, bid)
     boardRemoveMember(uid, bid)
+}
+
+export function closeBoardFromAllUser(bid) {
+    // harusnya ada sesuatu
+    closeBoard(bid)
 }

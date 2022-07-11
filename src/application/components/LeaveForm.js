@@ -9,26 +9,42 @@ import Select from 'react-select';
 import { generateOptions } from '../modules/convertForSelect'
 import { deleteWorkspaceFromAllUser, demoteUserWorkspace, promoteUserWorkspace, removeUserWorkspace } from '../controllers/userWorkspaceController'
 import { useNavigate } from 'react-router-dom'
+import { closeBoardFromAllUser, demoteUserBoard, promoteUserBoard, removeUserBoard } from '../controllers/userBoardController'
 
 export default function LeaveForm({ data, user, isAdmin }) {
     const memberState = useSnapCollection(query(collection(db, "user"), where("ws_member", "array-contains", data.id)))
     const boardState = useSnapCollection(query(collection(db, "board"), where("workspace", "==", data.id)))
     const [selecteds, setSelected] = useState([])
 
+    const boardMemberState = useSnapCollection(query(collection(db, "user"), where("b_member", "array-contains", data.id)))
+
     const navigate = useNavigate()
 
+    function isWorkspace() {
+        return data.workspace === undefined
+    }
+
     function handleLeave() {
-        if (data.workspace === undefined) {
+        if (isWorkspace()) {
             // berarti ini di workspace
             selecteds.forEach(e => {
                 promoteUserWorkspace(e.uid, data.id)
             })
             if (isAdmin) demoteUserWorkspace(user.id, data.id)
             removeUserWorkspace(user.id, data.id)
-            if (onlyAdmin()) deleteWorkspaceFromAllUser(data.id, boardState.data)
-            navigate("/main/home")
+            if (onlyAdmin()) deleteWorkspaceFromAllUser(data.id, boardState.data).then(() => {
+                navigate("/main/home")
+            })
         } else {
             // berarti ini board
+            selecteds.forEach(e => {
+                promoteUserBoard(e.uid, data.id)
+            })
+            if (isAdmin) demoteUserBoard(user.id, data.id)
+            removeUserBoard(user.id, data.id)
+            if (onlyAdmin()) closeBoardFromAllUser(data.id).then(() => {
+                navigate("/main/home")
+            })
         }
     }
 
@@ -49,11 +65,19 @@ export default function LeaveForm({ data, user, isAdmin }) {
                     <p>Before leaving do you wish to promote another member?</p>
                 }
                 {isAdmin &&
+                    isWorkspace() ?
                     <Select
                         defaultMenuIsOpen={true}
                         closeMenuOnSelect={false}
                         closeMenuOnScroll={false}
                         options={generateOptions(memberState.data)}
+                        onChange={handleChange}
+                    /> :
+                    <Select
+                        defaultMenuIsOpen={true}
+                        closeMenuOnSelect={false}
+                        closeMenuOnScroll={false}
+                        options={generateOptions(boardMemberState.data)}
                         onChange={handleChange}
                     />
                 }

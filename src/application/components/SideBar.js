@@ -1,4 +1,4 @@
-import { HiCalendar, HiHome, HiOutlinePlusSm, HiOutlineUser, HiOutlineLogin, HiOutlineLogout, HiOutlineClipboardCopy, HiOutlineUsers } from "react-icons/hi";
+import { HiOutlineViewBoards, HiHome, HiOutlinePlusSm, HiOutlineUser, HiOutlineLogin, HiOutlineLogout, HiOutlineClipboardCopy, HiOutlineUsers } from "react-icons/hi";
 import { Link, useNavigate } from 'react-router-dom';
 import { useUserAuth } from "../../AuthContext";
 import Modal from "../views/Modal";
@@ -41,12 +41,15 @@ const SideBar = () => {
 
             <Modal body={<SideBarIcon icon={<HiOutlineUsers size = "32"/>} text="Join via link" />} target="modal-jl"/>
             <ModalContent target="modal-jl" content={<JoinLinkForm />}/>
+
+            <Modal body={<SideBarIcon icon={<HiOutlineViewBoards size = "32"/>} text="Boards" />} target="modal-bjl"/>
+            <ModalContent target="modal-bjl" content={<JoinLinkForm />}/>
         </div>
     );
 }
 
 const SideBarIcon = ({ icon, text }) => (
-    <div className="sidebar-icon group">
+    <div className="sidebar-icon group cursor-pointer">
         {icon}
 
         <span className="sidebar-tooltip group-hover:scale-100">

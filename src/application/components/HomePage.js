@@ -33,7 +33,7 @@ export default function HomePage() {
 
     useEffect(() => {
         refreshPage()
-    }, []) 
+    }, [])
 
     function filterClosedBoard(b) {
         return !(b.delete === "closed")
@@ -43,6 +43,16 @@ export default function HomePage() {
     if (workspaceState.status === FIRESTORE_FETCH_ERROR) return <ErrorHolder error={workspaceState.error} />
     return (
         <div className="w-[90%] mx-auto flex flex-col space-y-8">
+            <div className="form-control">
+                <input type="text" placeholder="Search" className="input input-bordered" />
+            </div>
+            <div className='flex flex-row'>
+                <kbd className="kbd bg-base-300">ctrl</kbd>
+                +
+                <kbd className="kbd bg-base-300">shift</kbd>
+                +
+                <kbd className="kbd bg-base-300">f</kbd>
+            </div>
             {/* <StatefulComponent 
                 state={workspaceState.status}
                 content={<SectionWorkspace title={"Workspaces"} workspace={workspaceState.data} />}

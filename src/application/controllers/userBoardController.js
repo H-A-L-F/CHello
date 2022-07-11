@@ -1,7 +1,7 @@
 import { doc } from "firebase/firestore"
 import { db } from "../../firebase"
-import { addBoardAdmin, boardDemoteAdmin, boardPromoteUser, boardRemoveMember, closeBoard, createBoard } from "./boardController"
-import { joinBAdmin, userDemoteBoard, userKickedBoard, userPromoteBoard } from "./userController"
+import { addBoardAdmin, addBoardMember, boardDemoteAdmin, boardPromoteUser, boardRemoveMember, closeBoard, createBoard } from "./boardController"
+import { joinBAdmin, joinBMember, userDemoteBoard, userKickedBoard, userPromoteBoard } from "./userController"
 
 export function userCreateBoard(uid, board, invites) {
     createBoard(board).then((bref) => {
@@ -30,6 +30,12 @@ export function bInvUserLink(bid, uid) {
 export function userAllowedBoard(user, bid) {
     return user.b_admin.includes(bid) || user.b_member.includes(bid)
 }
+
+export function userJoinBoard(uid, wsid) {
+    joinBMember(uid, wsid)
+    addBoardMember(uid, wsid)
+}
+
 
 export function promoteUserBoard(uid, bid) {
     userPromoteBoard(uid, bid)

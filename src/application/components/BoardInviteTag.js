@@ -9,7 +9,7 @@ import Tag from '../views/Tag'
 import BoardAddMemberForm from './BoardAddMemberForm'
 
 export default function BoardInviteTag({bid}) {
-    const defState = useSnapCollection(collection(db, "user"), where("ws_member", "not-in"))
+    const defState = useSnapCollection(collection(db, "user"), where("b_member", "not-in"))
 
     return (
         <div>

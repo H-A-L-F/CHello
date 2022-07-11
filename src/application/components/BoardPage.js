@@ -53,16 +53,24 @@ export default function BoardPage() {
             <div className="flex flex-row w-[100%] mx-auto space-x-8 overflow-hidden">
                 <DragDropContext onDragEnd={(result) => { onDragEnd(result) }}>
                     {listState?.data.map((l, id) => {
-                        return <DroppableList l={l} id={id} key={id} />
+                        return <DroppableList l={l} id={id} key={id} auth={authorized}/>
                     })}
                 </DragDropContext>
-                <Modal body={<CreateListCard />} target="modal-cl" />
-                <ModalContent target="modal-cl" content={<CreateListForm />} />
+                {authorized && <AuthBody />}
             </div>
             <div className="my-4"></div>
             {<BoardAdmin bid={id} user={user} />}
             <div className="my-2"></div>
             {<BoardMember bid={id} user={user} />}
+        </div>
+    )
+}
+
+const AuthBody = () => {
+    return (
+        <div>
+            <Modal body={<CreateListCard />} target="modal-cl" />
+            <ModalContent target="modal-cl" content={<CreateListForm />} />
         </div>
     )
 }
@@ -87,7 +95,7 @@ const AdminHeader = ({ b }) => {
     return (
         <div className='flex flex-row space-x-2'>
             <ManageTag form={<ManageBoardForm b={b} />} />
-            <DeleteTag form={<DeleteForm data={b} type={"board"}/>} />
+            <DeleteTag form={<DeleteForm data={b} type={"board"} />} />
         </div>
     )
 }
@@ -95,7 +103,7 @@ const AdminHeader = ({ b }) => {
 const AuthorizedHeader = ({ b, user, isAdmin }) => {
     return (
         <div className='flex flex-row space-x-2'>
-            <BoardInviteTag wsid={b.id} />
+            <BoardInviteTag bid={b.id} />
             <LeaveTag form={<LeaveForm data={b} user={user} isAdmin={isAdmin} />} />
         </div>
     )

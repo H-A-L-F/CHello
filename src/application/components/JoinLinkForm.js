@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useRef } from 'react'
 import { useUserAuth } from '../../AuthContext'
 import { getLink, isLink, isValidLink, validateLink } from '../controllers/inviteLinkController'
+import { userJoinBoard } from '../controllers/userBoardController'
 import { isUserAuth } from '../controllers/userController'
 import { userJoinWorkspace } from '../controllers/userWorkspaceController'
 
@@ -13,7 +14,11 @@ export default function JoinLinkForm() {
     const [document, setDocument] = useState()
 
     function handleSubmit() {   
-        userJoinWorkspace(user.id, document.target)
+        if(document.type === "workspace") {
+            userJoinWorkspace(user.id, document.target)
+        } else if (document.type === "board") {
+            userJoinBoard(user.id, document.target)
+        }
     }   
 
     function handleChange(e) {
@@ -25,12 +30,15 @@ export default function JoinLinkForm() {
         getLink(linkId).then((data) => {
             const res = { id: data.id, ...data.data() }
             setDocument(res)
+            console.log(document)
             if(document.type === "workspace") {
                 const isValid = isValidLink(document)
                 const isAdmin = isUserAuth(user.ws_admin, document.target)
                 setAllowed(isValid && !isAdmin)
-            } else if (data.type === "board") {
-                // board logic
+            } else if (document.type === "board") {
+                const isValid = isValidLink(document)
+                const isAdmin = isUserAuth(user.b_admin, document.target)
+                setAllowed(isValid && !isAdmin)
             }
         })
     }

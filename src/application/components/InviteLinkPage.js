@@ -14,6 +14,8 @@ export default function InviteLinkPage({ type }) {
 
     useEffect(() => {
         const data = constructInviteLink(type, id)
+        console.log(data)
+
         createInviteLink(data).then((ref) => {
             setLink(generateLink(ref.id))
             setPendingLink(false)

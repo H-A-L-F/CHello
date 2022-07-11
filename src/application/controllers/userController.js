@@ -193,3 +193,11 @@ export function userKickedBoard(uid, bid) {
     }
     return updateDoc(userRef, data)
 }
+
+export function joinBMember(uid, bid) {
+    const userDocRef = doc(db, "user", uid)
+    const newField = {
+        b_member: arrayUnion(bid)
+    }
+    return updateDoc(userDocRef, newField)
+}

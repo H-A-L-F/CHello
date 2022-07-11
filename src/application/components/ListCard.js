@@ -14,11 +14,9 @@ import ModalContent from "../views/ModalContent";
 import CreateCardForm from "./CreateCardForm";
 import DraggableCard from "./DraggableCard";
 
-const ListCard = ({ l, provided, snapshot }) => {
+const ListCard = ({ l, provided, snapshot, auth }) => {
     const cardState = useSnapCollection(query(collection(db, "card"), where("list", "==", l.id)))
     const titleRef = useRef()
-
-    const target = "modal-cl" + l.id
 
     const updateList = async () => {
         const name = titleRef.current.value
@@ -41,10 +39,20 @@ const ListCard = ({ l, provided, snapshot }) => {
             {cardState?.data.map((c, index) => {
                 return <DraggableCard c={c} index={index} />
             })}
+            {auth && <AuthBody />}
+        </div>
+    );
+}
+
+const AuthBody = ({l}) => {
+    const target = "modal-cl" + l.id
+
+    return (
+        <div>
             <Modal body={<CreateCardModal />} target={target} />
             <ModalContent target={target} content={<CreateCardForm l={l} />} />
         </div>
-    );
+    )
 }
 
 const CreateCardModal = () => {

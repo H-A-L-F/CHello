@@ -28,7 +28,7 @@ const CommentRenderer = ({ role, card }) => {
         e.preventDefault();
         addDoc(colRef, {
             comment: e.target.text.value,
-            userId: user.uid,
+            userId: user.id,
             cardId: card.id
         });
 

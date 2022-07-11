@@ -5,6 +5,7 @@ import Card from "../views/Card";
 import Modal from '../views/Modal';
 import ModalContent from '../views/ModalContent';
 import { useState } from 'react';
+import CardLabelChips from './CardLabelChips';
 
 export default function DraggableCard({ c, index, user, board }) {
     const target = "modal-ce-" + c.id
@@ -25,10 +26,11 @@ export default function DraggableCard({ c, index, user, board }) {
                     //     </div>
                     // )
                     return (
-                        <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} onClick={handleClick}>
+                        <div {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} onClick={handleClick} className="flex flex-col">
                             {provided.placeholder}
                             {/* <Modal body={<Card c={c} />} target={target} /> */}
                             <Card c={c} />
+                            <CardLabelChips card={c}/>
                         </div>
                     )
                 }}

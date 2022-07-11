@@ -1,6 +1,6 @@
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { collection, doc, query, where } from 'firebase/firestore'
-import React from 'react'
+import React, { useCallback, useRef } from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { useUserAuth } from '../../AuthContext'
@@ -26,6 +26,7 @@ export default function HomePage() {
     const publicBoardState = useSnapCollection(query(collection(db, "board"), where("visibility", "==", "public")))
 
     const { refreshPage } = useUserAuth()
+    const searchRef = useRef()
 
     useEffect(() => {
         setUser(JSON.parse(localStorage.getItem('user')))
@@ -34,6 +35,17 @@ export default function HomePage() {
     useEffect(() => {
         refreshPage()
     }, [])
+
+    const handleKey = useCallback((e) => {
+        if (e.ctrlKey == true && e.shiftKey == true && e.key == "F") searchRef.current.focus()
+    }, []);
+
+    useEffect(() => {
+        document.addEventListener("keydown", handleKey);
+        return () => {
+            document.removeEventListener("keydown", handleKey);
+        }
+    }, [handleKey])
 
     function filterClosedBoard(b) {
         return !(b.delete === "closed")
@@ -44,7 +56,7 @@ export default function HomePage() {
     return (
         <div className="w-[90%] mx-auto flex flex-col space-y-8">
             <div className="form-control">
-                <input type="text" placeholder="Search" className="input input-bordered" />
+                <input ref={searchRef} type="text" placeholder="Search" className="input input-bordered" />
             </div>
             <div className='flex flex-row'>
                 <kbd className="kbd bg-base-300">ctrl</kbd>

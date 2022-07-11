@@ -3,13 +3,11 @@
 @tailwind utilities;
 
 @layer components {
-
     .sidebar-icon {
         --tw-border-opacity: 0;
         background-color: hsl(var(--bc) / var(--tw-bg-opacity));
         --tw-bg-opacity: 0.2;
-        @apply relative flex items-center justify-center h-12 w-12 my-2 mx-auto 
-        shadow-lg rounded-3xl hover:rounded-xl transition-all duration-300 ease-linear;
+        @apply relative flex items-center justify-center h-12 w-12 my-2 mx-auto shadow-lg rounded-3xl hover:rounded-xl transition-all duration-300 ease-linear;
     }
 
     .sidebar-icon:hover {
@@ -25,7 +23,6 @@
         background-color: hsl(var(--n) / var(--tw-bg-opacity));
         --tw-text-opacity: 1;
         color: hsl(var(--nc) / var(--tw-text-opacity));
-        @apply absolute w-auto p-2 m-2 min-w-max left-14 rounded-md shadow-md text-xs
-        font-bold transition-all duration-100 scale-0 origin-left;
+        @apply absolute w-auto p-2 m-2 min-w-max left-14 rounded-md shadow-md text-xs font-bold transition-all duration-100 scale-0 origin-left;
     }
 }

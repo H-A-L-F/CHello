@@ -7,7 +7,7 @@ import ModalContent from '../views/ModalContent';
 
 export default function DraggableCard({c, index}) {
     return (
-        <Draggable key={c.id} draggableId={c.id}>
+        <Draggable key={c.id} draggableId={c.id} index={index} >
             {(provided) => {
                 return (
                     <CardModal provided={provided} c={c} key={c.id} />

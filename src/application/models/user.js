@@ -11,6 +11,7 @@ export function constructUser(username, email, password, path) {
         ws_member: [],
         b_admin: [],
         b_member: [],
+        fav_board: [],
         path: path
     }
     return user

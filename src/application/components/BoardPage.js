@@ -16,6 +16,7 @@ import ManageTag from '../views/ManageTag'
 import Modal from '../views/Modal'
 import ModalContent from '../views/ModalContent'
 import BoardAdmin from './BoardAdmin'
+import BoardFavoriteTag from './BoardFavoriteTag'
 import BoardInviteTag from './BoardInviteTag'
 import BoardMember from './BoardMember'
 import CreateListForm from './CreateListForm'
@@ -41,7 +42,7 @@ export default function BoardPage() {
     function onDragEnd(result) {
         if (!result.destination) return;
         const { draggableId, source, destination } = result;
-        moveCard(draggableId, destination.id)
+        moveCard(draggableId, destination.droppableId)
     }
 
     if (boardState.status === FIRESTORE_FETCH_LOADING) return <LoadingHolder />
@@ -105,6 +106,7 @@ const AuthorizedHeader = ({ b, user, isAdmin }) => {
         <div className='flex flex-row space-x-2'>
             <BoardInviteTag bid={b.id} />
             <LeaveTag form={<LeaveForm data={b} user={user} isAdmin={isAdmin} />} />
+            <BoardFavoriteTag user={user} board={b}/>
         </div>
     )
 }

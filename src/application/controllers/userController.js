@@ -1,5 +1,5 @@
 import { getAuth, onAuthStateChanged, updateProfile } from "firebase/auth";
-import { arrayRemove, arrayUnion, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { arrayRemove, arrayUnion, collection, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -200,4 +200,20 @@ export function joinBMember(uid, bid) {
         b_member: arrayUnion(bid)
     }
     return updateDoc(userDocRef, newField)
+}
+
+export function addFavoriteBoard(uid, bid) {
+    const userRef = doc(db, "user", uid)
+    const newField = {
+        fav_board: arrayUnion(bid)
+    }
+    return updateDoc(userRef, newField)
+}
+
+export function removeFavoriteBoard(uid, bid) {
+    const userRef = doc(db, "user", uid)
+    const newField = {
+        fav_board: arrayRemove(bid)
+    }
+    return updateDoc(userRef, newField)
 }

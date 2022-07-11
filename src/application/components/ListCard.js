@@ -30,21 +30,24 @@ const ListCard = ({ l, provided, snapshot, auth }) => {
         }
     }
 
-    if (cardState.status === FIRESTORE_FETCH_LOADING) return <LoadingHolder />
-    if (cardState.status === FIRESTORE_FETCH_ERROR) return <ErrorHolder error={cardState.error} />
+    // if (cardState.status === FIRESTORE_FETCH_LOADING) return <LoadingHolder />
+    // if (cardState.status === FIRESTORE_FETCH_ERROR) return <ErrorHolder error={cardState.error} />
+    if (cardState.status === FIRESTORE_FETCH_LOADING) return <div {...provided.droppableProps} ref={provided.innerRef}></div>
+    if (cardState.status === FIRESTORE_FETCH_ERROR) return <div {...provided.droppableProps} ref={provided.innerRef}></div>
     return (
         <div {...provided.droppableProps} ref={provided.innerRef} className="min-w-[18rem] w-[18rem] h-fit flex flex-col border-4 border-primary rounded-md px-4 pt-2 relative pb-16 space-y-4">
             <input type="text" ref={titleRef} onKeyDown={enterPress} className="text-primary text-2xl font-bold input input-ghost w-full max-w-xs truncate" defaultValue={l.name} />
             <div className="my-2"></div>
             {cardState?.data.map((c, index) => {
-                return <DraggableCard c={c} index={index} key={index}/>
+                return <DraggableCard c={c} index={index} key={index} />
             })}
-            {auth && <AuthBody l={l}/>}
+            {auth && <AuthBody l={l} />}
+            {provided.placeholder}
         </div>
     );
 }
 
-const AuthBody = ({l}) => {
+const AuthBody = ({ l }) => {
     const target = "modal-cl" + l.id
 
     return (

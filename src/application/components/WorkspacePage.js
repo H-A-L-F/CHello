@@ -94,6 +94,7 @@ const Header = ({ title, id, user, ws, authorized }) => {
 const AdminHeader = ({ ws }) => {
     return (
         <div className='flex flex-row space-x-2'>
+            <WorkspaceInviteTag wsid={ws.id} />
             <ManageTag form={<ManageWorkspaceForm ws={ws} />} />
             <DeleteTag form={<DeleteForm data={ws} type={"workspace"} />} />
         </div>
@@ -103,7 +104,6 @@ const AdminHeader = ({ ws }) => {
 const AuthorizedHeader = ({ ws, user, isAdmin }) => {
     return (
         <div className='flex flex-row space-x-2'>
-            <WorkspaceInviteTag wsid={ws.id} />
             <LeaveTag form={<LeaveForm data={ws} user={user} isAdmin={isAdmin} />} />
         </div>
     )

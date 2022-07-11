@@ -217,3 +217,13 @@ export function removeFavoriteBoard(uid, bid) {
     }
     return updateDoc(userRef, newField)
 }
+
+export async function isBoardFavorited(user, bid, setLoading) {
+    setLoading(true)
+    await getUserDB(user.id).then((ref) => {
+        setLoading(false)
+        const data = ref.data()
+        return data.fav_board.includes(bid)
+    })
+    return false
+}

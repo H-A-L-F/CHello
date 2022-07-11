@@ -5,14 +5,14 @@ import { db } from '../../firebase'
 import Comment from "./Comment";
 import { useUserAuth } from '../../AuthContext'
 
-const CommentRenderer = ({ role, cardId }) => {
+const CommentRenderer = ({ role, card }) => {
     const [comments, setComments] = useState([]);
     const colRef = collection(db, "comment");
 
     const { user, userData } = useUserAuth();
 
     useEffect(() => {
-        const q = query(colRef, where("cardId", "==", cardId))
+        const q = query(colRef, where("cardId", "==", card.id))
         const onSub = onSnapshot(q, (snapshot) => {
             setComments(snapshot.docs.map((doc) => doc));
         }
@@ -29,7 +29,7 @@ const CommentRenderer = ({ role, cardId }) => {
         addDoc(colRef, {
             comment: e.target.text.value,
             userId: user.uid,
-            cardId: cardId
+            cardId: card.id
         });
 
         e.target.text.value = ""

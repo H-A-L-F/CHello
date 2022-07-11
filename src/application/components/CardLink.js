@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { db } from '../../firebase'
 
-const CardLink = ({ cardId }) => {
+const CardLink = ({ card }) => {
     const [open, setOpen] = useState(false);
 
     const ref = useRef();
@@ -24,7 +24,7 @@ const CardLink = ({ cardId }) => {
     const [link, setLink] = useState(false);
 
     useEffect(() => {
-        const unsub = onSnapshot(doc(db, "cardlink", cardId), (snap) => {
+        const unsub = onSnapshot(doc(db, "cardlink", card.id), (snap) => {
             if (snap.data()) setLink(snap.id);
             else setLink(false);
         });
@@ -69,7 +69,7 @@ const CardLink = ({ cardId }) => {
                         ) : (
                             <div
                                 onClick={() =>
-                                    setDoc(doc(db, "cardlink", cardId), {
+                                    setDoc(doc(db, "cardlink", card.id), {
                                         open: "true",
                                     })
                                 }

@@ -3,13 +3,13 @@ import { Fragment, useEffect, useState } from "react";
 import { db } from '../../firebase'
 import Checklist from "./Checklist";
 
-const ChecklistRender = ({ cardId, role }) => {
+const ChecklistRender = ({ card, role }) => {
     const [checklists, setChecklists] = useState([]);
 
     useEffect(() => {
         // const colRef = doc(db, "card", cardId);
         const checkRef = collection(db, "checklist")
-        const q = query(checkRef, where("cardId", "==", cardId))
+        const q = query(checkRef, where("cardId", "==", card.id))
         const unsub = onSnapshot(q, (snapshot) => {
             setChecklists(snapshot.docs.map((doc) => doc));
         });
@@ -24,7 +24,7 @@ const ChecklistRender = ({ cardId, role }) => {
                     return (
                         <Checklist
                             key={checklist.id}
-                            cardId={cardId}
+                            card={card}
                             name={checklist.data().name}
                             checkId = {checklist.id}
                             index={index}

@@ -16,7 +16,7 @@ import {
     updateDoc,
 } from "firebase/firestore";
 
-const CardFileAttach = ({ role, cardId }) => {
+const CardFileAttach = ({ role, card }) => {
     const [fileUpload, setfileUpload] = useState(null);
     const [fileList, setFileList] = useState([]);
     const [fileNameList, setFileNameList] = useState([]);
@@ -26,14 +26,14 @@ const CardFileAttach = ({ role, cardId }) => {
         if (fileUpload == null) return;
         const imageRef = ref(
             storage,
-            `card-attachments/${cardId}/${fileUpload.name}`
+            `card-attachments/${card.id}/${fileUpload.name}`
         );
         uploadBytes(imageRef, fileUpload).then(() => {
             setRefresh(!needRefresh);
         });
     };
 
-    const fileRef = ref(storage, `card-attachments/${cardId}/`);
+    const fileRef = ref(storage, `card-attachments/${card.id}/`);
 
     useEffect(() => {
         listAll(fileRef).then((resp) => {
@@ -50,7 +50,7 @@ const CardFileAttach = ({ role, cardId }) => {
     const [links, setLinks] = useState([]);
 
     useEffect(() => {
-        const unsub = onSnapshot(doc(db, "card", cardId), (snap) => {
+        const unsub = onSnapshot(doc(db, "card", card.id), (snap) => {
             if (!snap.empty) {
                 setLinks(snap.data().attachlinks);
             } else {
@@ -79,7 +79,7 @@ const CardFileAttach = ({ role, cardId }) => {
                                     {role === "Admin" ? (
                                         <button
                                             onClick={() => {
-                                                updateDoc(doc(db, "card", cardId), {
+                                                updateDoc(doc(db, "card", card.id), {
                                                     attachlinks: arrayRemove(link),
                                                 });
                                             }}
@@ -105,7 +105,7 @@ const CardFileAttach = ({ role, cardId }) => {
                                         onClick={() => {
                                             const deleteRef = ref(
                                                 storage,
-                                                `card-attachments/${cardId}/${file}`
+                                                `card-attachments/${card.id}/${file}`
                                             );
 
                                             deleteObject(deleteRef).then(() => {
@@ -128,7 +128,7 @@ const CardFileAttach = ({ role, cardId }) => {
                     <input
                         onKeyDown={(e) => {
                             if (e.key === "Enter") {
-                                updateDoc(doc(db, "card", cardId), {
+                                updateDoc(doc(db, "card", card.id), {
                                     attachlinks: arrayUnion(e.target.value.toLowerCase()),
                                 });
                             }

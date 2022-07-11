@@ -2,11 +2,11 @@ import { arrayRemove, arrayUnion, deleteDoc, doc, updateDoc } from "firebase/fir
 import { useRef, useState } from "react";
 import { db } from '../../firebase'
 
-const LabelColor = ({ color, labels, cardId, labelName, labelId, ref }) => {
+const LabelColor = ({ color, labels, card, labelName, labelId, ref }) => {
     var stringClass = `w-52 h-6 ${color} rounded-sm hover:border-2 hover:border-gray-300 relative text-white px-2`;
     // var stringClass = `w-52 h-6 bg-[#EB1D36] rounded-sm hover:border-2 hover:border-gray-300 relative`;
 
-    const colRef = doc(db, "card", cardId);
+    const colRef = doc(db, "card", card.id);
 
     const ref2 = useRef()
     const [name, setName] = useState(labelName)
@@ -50,12 +50,20 @@ const LabelColor = ({ color, labels, cardId, labelName, labelId, ref }) => {
                         if (!(labels && labels.includes(labelId))) {
                             updateDoc(colRef, {
                                 labels: arrayUnion(labelId),
-                            });
+                            })
+                            const newData = {
+                                card: arrayUnion(card.id)
+                            }
+                            updateDoc(doc(db, "label", labelId), newData)
                         }
                         else {
                             updateDoc(colRef, {
                                 labels: arrayRemove(labelId),
-                            });
+                            })
+                            const newData = {
+                                card: arrayRemove(card.id)
+                            }
+                            updateDoc(doc(db, "label", labelId), newData)
                         }
                     }}
                     className={stringClass}

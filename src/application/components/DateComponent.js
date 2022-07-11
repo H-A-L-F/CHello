@@ -9,7 +9,7 @@ import { doc, getDoc, serverTimestamp, setDoc, updateDoc } from "firebase/firest
 import { db } from '../../firebase'
 import { useParams } from "react-router-dom";
 
-const DateComponent = ({ cardId, cardName}) => {
+const DateComponent = ({ card, cardName}) => {
 
     const p = useParams()
 
@@ -47,7 +47,7 @@ const DateComponent = ({ cardId, cardName}) => {
     const handleOnClick = (e) => {
         const selectForm = document.querySelector(".selectForm");
         e.preventDefault();
-        updateDoc(doc(db, "card", cardId), {
+        updateDoc(doc(db, "card", card.id), {
             duedate: [selectedDate.getTime(), false],
         });
         const selected = selectRef.current.getValue()
@@ -55,7 +55,7 @@ const DateComponent = ({ cardId, cardName}) => {
         if (selected.length !== 0) {
             const reminderTime = selectedDate.getTime() - selected[0].value;
 
-            setDoc(doc(db, "reminder", cardId), {
+            setDoc(doc(db, "reminder", card.id), {
                 reminder: reminderTime,
                 board: p.id,
                 name: cardName

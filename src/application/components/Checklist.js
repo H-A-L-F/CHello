@@ -15,7 +15,7 @@ import { useEffect } from "react";
 import { Fragment, useState } from "react";
 import { db } from '../../firebase'
 
-const Checklist = ({ cardId, index, name, checkId, role }) => {
+const Checklist = ({ card, index, name, checkId, role }) => {
     const [items, setItems] = useState([]);
 
     const handleDelete = async () => {
@@ -88,7 +88,7 @@ const Checklist = ({ cardId, index, name, checkId, role }) => {
                         return (
                             <List
                                 key={item.id}
-                                card={cardId}
+                                card={card}
                                 item={item.data()}
                                 itemId={item.id}
                                 role={role}

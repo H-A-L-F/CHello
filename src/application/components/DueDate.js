@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useRef } from "react";
 import DateComponent from "./DateComponent";
 
-const DueDate = ({cardId, cardName}) => {
+const DueDate = ({card, cardName}) => {
     const [isOpen, setIsOpen] = useState(false);
     const ref = useRef();
 
@@ -46,7 +46,7 @@ const DueDate = ({cardId, cardName}) => {
                 <div className="z-30 !CLICKED_LABEL bg-white border-gray-50 border rounded drop-shadow-xl h-1/3 absolute w-[21rem]">
                     <p className="w-full text-center p-3">Set a due date for card</p>
 
-                    <DateComponent cardId={cardId} cardName={cardName}/>
+                    <DateComponent card={card} cardName={cardName}/>
                 </div>
             ) : null}
         </div>

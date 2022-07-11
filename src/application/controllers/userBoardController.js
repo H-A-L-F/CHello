@@ -1,7 +1,7 @@
 import { doc } from "firebase/firestore"
 import { db } from "../../firebase"
 import { addBoardAdmin, addBoardMember, boardDemoteAdmin, boardPromoteUser, boardRemoveMember, closeBoard, createBoard } from "./boardController"
-import { joinBAdmin, joinBMember, userDemoteBoard, userKickedBoard, userPromoteBoard } from "./userController"
+import { isUserAuth, joinBAdmin, joinBMember, userDemoteBoard, userKickedBoard, userPromoteBoard } from "./userController"
 
 export function userCreateBoard(uid, board, invites) {
     createBoard(board).then((bref) => {
@@ -55,4 +55,12 @@ export function removeUserBoard(uid, bid) {
 export function closeBoardFromAllUser(bid) {
     // harusnya ada sesuatu
     return closeBoard(bid)
+}
+
+export function getUserBoardRole(user, board) {
+    const isAdmin = isUserAuth(user.b_admin, board.id)
+    const isMember = isUserAuth(user.b_member, board.id)
+    if(isAdmin) return "Admin"
+    if(isMember) return "Member"
+    return ""
 }

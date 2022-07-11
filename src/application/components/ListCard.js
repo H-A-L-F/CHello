@@ -14,7 +14,7 @@ import ModalContent from "../views/ModalContent";
 import CreateCardForm from "./CreateCardForm";
 import DraggableCard from "./DraggableCard";
 
-const ListCard = ({ l, provided, snapshot, auth }) => {
+const ListCard = ({ l, provided, snapshot, auth, board, user }) => {
     const cardState = useSnapCollection(query(collection(db, "card"), where("list", "==", l.id)))
     const titleRef = useRef()
 
@@ -39,7 +39,7 @@ const ListCard = ({ l, provided, snapshot, auth }) => {
             <input type="text" ref={titleRef} onKeyDown={enterPress} className="text-primary text-2xl font-bold input input-ghost w-full max-w-xs truncate" defaultValue={l.name} />
             <div className="my-2"></div>
             {cardState?.data.map((c, index) => {
-                return <DraggableCard c={c} index={index} key={index} />
+                return <DraggableCard c={c} index={index} key={index} board={board} user={user}/>
             })}
             {auth && <AuthBody l={l} />}
             {provided.placeholder}

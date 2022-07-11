@@ -54,7 +54,7 @@ export default function BoardPage() {
             <div className="flex flex-row w-[100%] mx-auto space-x-8 overflow-hidden">
                 <DragDropContext onDragEnd={(result) => { onDragEnd(result) }}>
                     {listState?.data.map((l, id) => {
-                        return <DroppableList l={l} id={id} key={id} auth={authorized}/>
+                        return <DroppableList l={l} id={id} key={id} auth={authorized} board={boardState.data} user={user}/>
                     })}
                 </DragDropContext>
                 {authorized && <AuthBody />}

@@ -225,5 +225,4 @@ export async function isBoardFavorited(user, bid, setLoading) {
         const data = ref.data()
         return data.fav_board.includes(bid)
     })
-    return false
 }

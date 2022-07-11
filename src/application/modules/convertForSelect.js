@@ -4,7 +4,7 @@ export function convertForSelect(val) {
 
 export function generateOptions(data) {
     let res = []
-    data.forEach(element => {
+    data?.forEach(element => {
         res.push(convertForSelect(element.email))
     });
     return res

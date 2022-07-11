@@ -2,12 +2,14 @@ import { collection } from 'firebase/firestore'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { db } from '../../firebase'
-import { FIRESTORE_FETCH_SUCCESS } from '../actions/useSnapCollection'
+import { FIRESTORE_FETCH_ERROR, FIRESTORE_FETCH_LOADING, FIRESTORE_FETCH_SUCCESS } from '../actions/useSnapCollection'
 import { isUserAuth } from '../controllers/userController'
 import { useSnapCollection } from '../hooks/useSnapCollection'
 import InviteLinkButton from '../views/InviteLinkButton'
 import Select from 'react-select';
 import { generateOptions } from '../modules/convertForSelect'
+import LoadingHolder from '../views/LoadingHolder'
+import ErrorHolder from '../views/ErrorHolder'
 
 export default function BoardAddMemberForm({ bid }) {
     const userState = useSnapCollection(collection(db, "user"))
@@ -32,6 +34,8 @@ export default function BoardAddMemberForm({ bid }) {
         setSelected(options)
     }
 
+    if (userState.status === FIRESTORE_FETCH_LOADING) return <LoadingHolder />
+    if (userState.status === FIRESTORE_FETCH_ERROR) return <ErrorHolder error={userState.error} />
     return (
         <div>
             <Link to={link}>

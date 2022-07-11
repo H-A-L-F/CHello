@@ -37,9 +37,9 @@ const ListCard = ({ l, provided, snapshot, auth }) => {
             <input type="text" ref={titleRef} onKeyDown={enterPress} className="text-primary text-2xl font-bold input input-ghost w-full max-w-xs truncate" defaultValue={l.name} />
             <div className="my-2"></div>
             {cardState?.data.map((c, index) => {
-                return <DraggableCard c={c} index={index} />
+                return <DraggableCard c={c} index={index} key={index}/>
             })}
-            {auth && <AuthBody />}
+            {auth && <AuthBody l={l}/>}
         </div>
     );
 }

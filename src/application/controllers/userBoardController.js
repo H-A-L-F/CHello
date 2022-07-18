@@ -64,3 +64,11 @@ export function getUserBoardRole(user, board) {
     if(isMember) return "Member"
     return ""
 }
+
+export function userFilterFavoriteBoard(user, boards) {
+    let res = []
+    boards.forEach(b => {
+        if(isUserAuth(user.fav_board, b.id)) res.push(b)
+    })
+    return res
+}

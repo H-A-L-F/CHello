@@ -82,8 +82,8 @@ export function authorizeUserForBoard(user, board, ws) {
             return isAdmin || isMember
         }
         case "board-visible": {
-            const isAdmin = isUserAuth(user.b_admin, board.id)
-            const isMember = isUserAuth(user.b_member, board.id)
+            const isAdmin = isUserAuth(board.admin, user.id)
+            const isMember = isUserAuth(board.member, user.id)
             return isAdmin || isMember
         }
         default: {
@@ -94,4 +94,12 @@ export function authorizeUserForBoard(user, board, ws) {
 
 export function isClosedBoard(board) {
     return board.delete === "closed"
+}
+
+export function removeBoard(bid) {
+    const bRef = doc(db, "board", bid)
+    const data = {
+        delete: "removed"
+    }
+    return updateDoc(bRef, data)
 }

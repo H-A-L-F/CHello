@@ -35,10 +35,10 @@ const PeopleCard = ({ isAdmin, content, currUser, admin, promote, demote }) => {
 const GrantRevoke = ({ promote, demote }) => {
     return (
         <div className="flex flex-row absolute bottom-2 right-2">
-            <div className="bg-base-300 mr-2 px-1 py-1 rounded-full text-success cursor-pointer" onClick={promote}> 
+            <div className="bg-success mr-2 px-1 py-1 rounded-full text-base-300 cursor-pointer" onClick={promote}> 
                 <HiChevronDoubleUp size={20}/>
             </div>
-            <div className="bg-base-300 px-1 py-1 rounded-full text-error cursor-pointer" onClick={demote}>
+            <div className="bg-error px-1 py-1 rounded-full text-base-300 cursor-pointer" onClick={demote}>
                 <HiChevronDoubleDown size={20}/>
             </div>
         </div>

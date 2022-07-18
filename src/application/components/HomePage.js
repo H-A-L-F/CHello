@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { useUserAuth } from '../../AuthContext'
 import { auth, db } from '../../firebase'
 import { FIRESTORE_FETCH_ERROR, FIRESTORE_FETCH_LOADING, FIRESTORE_FETCH_SUCCESS } from '../actions/useSnapCollection'
+import { userFilterFavoriteBoard } from '../controllers/userBoardController'
 import { getUserDB, getUserLocal, isUserAuth } from '../controllers/userController'
 import { userFilterAuthWS } from '../controllers/userWorkspaceController'
 import { useSnapCollection } from '../hooks/useSnapCollection'
@@ -24,6 +25,7 @@ export default function HomePage() {
     // const adminWorkspaceState = useSnapCollection(collection(db, "workspace"), isUserAuth, user.ws_admin)
     const publicWorkspaceState = useSnapCollection(query(collection(db, "workspace"), where("visibility", "==", true)))
     const publicBoardState = useSnapCollection(query(collection(db, "board"), where("visibility", "==", "public")))
+    const boardState = useSnapCollection(collection(db, "board"))
 
     const { refreshPage } = useUserAuth()
     const searchRef = useRef()
@@ -100,6 +102,7 @@ export default function HomePage() {
             <SectionWorkspace title={"Member Workspaces"} workspace={userFilterAuthWS(user.ws_member, workspaceState.data)} />
             <SectionWorkspace title={"Public Workspaces"} workspace={publicWorkspaceState.data} />
             <SectionBoard title={"Public Boards"} board={publicBoardState.data.filter(filterClosedBoard)} />
+            <SectionBoard title={"Favorite Boards"} board={userFilterFavoriteBoard(user, boardState.data)} />
             {/* {workspaces && <PublicWorkspace workspaces={workspaces}/>} */}
         </div>
     )

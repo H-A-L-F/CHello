@@ -47,7 +47,7 @@ export function joinWSMember(uid, wsid) {
 }
 
 export function isUserAuth(arr, id) {
-    return arr.includes(id)
+    return arr?.includes(id)
 }
 
 function localAddAdminWS(id) {

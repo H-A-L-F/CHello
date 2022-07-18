@@ -14,10 +14,10 @@ import Select from 'react-select';
 const CreateBoardForm = ({ ws }) => {
     const userState = useSnapCollection(collection(db, "user"))
     const [selecteds, setSelected] = useState()
+    const selRef = useRef()
 
     const {user} = useUserAuth()
     const titleRef = useRef()
-    let visibility = "public"
 
     function handleChangeSelect(options) {
         setSelected(options)
@@ -25,12 +25,14 @@ const CreateBoardForm = ({ ws }) => {
 
     function handleCreateBoard() {
         // handle invite
-        const board = constructBoard(titleRef.current.value, visibility, ws.id)
+        const board = constructBoard(titleRef.current.value, selRef.current.value, ws.id)
+        console.log(board)
         userCreateBoard(user.id, board, selecteds)
     }
 
     const handleChange = (v) => {
-        visibility = v.target.value
+        // setVisibility(v.target.value)
+        // console.log(visibility)
     }
 
     return (
@@ -45,7 +47,7 @@ const CreateBoardForm = ({ ws }) => {
                 <label className="label">
                     <span className="label-text">Visibility</span>
                 </label>
-                <select onChange={handleChange} className="select select-primary w-full max-w-xs">
+                <select ref={selRef} onChange={handleChange} className="select select-primary w-full max-w-xs">
                     <option defaultChecked>public</option>
                     <option>workspace-visible</option>
                     <option>board-visible</option>

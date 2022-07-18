@@ -25,7 +25,6 @@ export function wsInvUserLink(bid, uid) {
 export function userFilterAuthWS(user, workspaces) {
     let res = []
     workspaces.forEach(element => {
-        console.log()
         if(isUserAuth(user, element.id)) res.push(element)
     })
     return res

@@ -2,7 +2,7 @@ import { HiPlusSm } from "react-icons/hi";
 
 const CreateBoardCard = () => {
     return (
-        <div className="w-64 h-28 bg-base-content text-primary-content rounded-md relative p-4 group">
+        <div className="w-64 h-28 bg-base-content text-primary rounded-md relative p-4 group">
             <h2 className="text-xl font-bold truncate">
                 Create a new board
             </h2>
